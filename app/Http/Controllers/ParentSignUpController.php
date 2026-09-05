@@ -73,7 +73,11 @@ class ParentSignUpController extends Controller
         $supporter = $person->supporter;
         $children = Child::where('parent_person_id', $person->id)
             ->orWhereHas('guardians', fn ($q) => $q->where('people.id', $person->id))
-            ->with('schoolLink.currentSchool', 'schoolLink.currentSchoolClass', 'parentPerson')
+            ->with([
+                'schoolLink.currentSchool' => fn ($q) => $q->withCount('childLinks as registered_children_count'),
+                'schoolLink.currentSchoolClass' => fn ($q) => $q->withCount('childLinks as registered_children_count'),
+                'parentPerson',
+            ])
             ->latest()
             ->get();
 

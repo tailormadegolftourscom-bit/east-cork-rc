@@ -26,4 +26,9 @@ class SchoolClass extends Model
     {
         return $this->belongsTo(School::class);
     }
+
+    public function childLinks()
+    {
+        return $this->hasMany(ChildSchoolLink::class, 'current_school_class_id');
+    }
 }

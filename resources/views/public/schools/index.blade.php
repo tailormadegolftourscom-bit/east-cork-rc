@@ -50,35 +50,7 @@
             @else
                 <div class="row g-4">
                     @foreach ($primarySchools as $school)
-                        <div class="col-lg-6">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <h3 class="h5 mb-0">{{ $school->name }}</h3>
-
-                                        <span class="badge {{ $school->support_status === 'supporting' ? 'text-bg-success' : 'text-bg-warning' }}">
-                                            {{ $school->support_status === 'supporting' ? 'School Supporting' : 'School Undecided' }}
-                                        </span>
-                                    </div>
-
-                                    <p class="text-muted mb-2">
-                                        {{ $school->town ?: 'East Cork' }}
-                                    </p>
-
-                                    @if ($school->school_phone)
-                                        <p class="mb-1 small text-muted">Tel: {{ $school->school_phone }}</p>
-                                    @endif
-
-                                    @if ($school->website_url)
-                                        <p class="mb-0">
-                                            <a href="{{ $school->website_url }}" target="_blank" class="text-decoration-none">
-                                                School website
-                                            </a>
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                        @include('public.schools._school-card', ['school' => $school])
                     @endforeach
                 </div>
             @endif
@@ -96,35 +68,7 @@
             @else
                 <div class="row g-4">
                     @foreach ($secondarySchools as $school)
-                        <div class="col-lg-6">
-                            <div class="card shadow-sm h-100">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-start mb-2">
-                                        <h3 class="h5 mb-0">{{ $school->name }}</h3>
-
-                                        <span class="badge {{ $school->support_status === 'supporting' ? 'text-bg-success' : 'text-bg-warning' }}">
-                                            {{ $school->support_status === 'supporting' ? 'School Supporting' : 'School Undecided' }}
-                                        </span>
-                                    </div>
-
-                                    <p class="text-muted mb-2">
-                                        {{ $school->town ?: 'East Cork' }}
-                                    </p>
-
-                                    @if ($school->school_phone)
-                                        <p class="mb-1 small text-muted">Tel: {{ $school->school_phone }}</p>
-                                    @endif
-
-                                    @if ($school->website_url)
-                                        <p class="mb-0">
-                                            <a href="{{ $school->website_url }}" target="_blank" class="text-decoration-none">
-                                                School website
-                                            </a>
-                                        </p>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                        @include('public.schools._school-card', ['school' => $school])
                     @endforeach
                 </div>
             @endif

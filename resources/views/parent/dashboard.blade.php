@@ -97,8 +97,18 @@
                                                 <span class="text-muted small">Not set</span>
                                             @endif
                                         </td>
-                                        <td>{{ optional($child->schoolLink?->currentSchool)->name ?: 'Not set' }}</td>
-                                        <td>{{ optional($child->schoolLink?->currentSchoolClass)->display_name ?: '—' }}</td>
+                                        <td>
+                                            {{ optional($child->schoolLink?->currentSchool)->name ?: 'Not set' }}
+                                            @if($child->schoolLink?->currentSchool)
+                                                <br><span class="small text-muted">{{ $child->schoolLink->currentSchool->registered_children_count }} registered</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ optional($child->schoolLink?->currentSchoolClass)->display_name ?: '—' }}
+                                            @if($child->schoolLink?->currentSchoolClass)
+                                                <br><span class="small text-muted">{{ $child->schoolLink->currentSchoolClass->registered_children_count }} registered</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             @if($child->parent_person_id !== $person->id)
                                                 <span class="badge bg-light text-dark border">Shared by {{ $child->parentPerson->public_display_name }}</span>

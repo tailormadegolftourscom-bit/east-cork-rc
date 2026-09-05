@@ -45,6 +45,11 @@ class School extends Model
         return $this->hasMany(SchoolClass::class)->orderBy('sort_order')->orderBy('display_name');
     }
 
+    public function childLinks()
+    {
+        return $this->hasMany(ChildSchoolLink::class, 'current_school_id');
+    }
+
     public function principal()
     {
         return $this->belongsTo(Person::class, 'principal_person_id');
