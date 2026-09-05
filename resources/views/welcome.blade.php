@@ -7,7 +7,7 @@
         <div class="row align-items-center g-4">
             <div class="col-lg-7">
                 <span class="badge text-bg-warning mb-3">Parent-led · East Cork</span>
-                <h1 class="display-5 fw-bold mb-3">Parents helping parents keep social media waiting</h1>
+                <h1 class="display-5 fw-bold mb-3">Parents together, helping their kids keep social media waiting</h1>
                 <p class="lead text-muted mb-4">
                     East Cork Reclaim Childhood is families helping each other delay the addictive stuff — social
                     media, mainly — until our kids are actually ready for it, even if that's not until they're 16.
