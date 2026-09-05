@@ -19,6 +19,6 @@ class SchoolInviteMail extends Mailable
     public function build(): static
     {
         return $this->subject('School access for East Cork Reclaim Childhood')
-            ->view('mail.school-invite');
+            ->markdown('mail.school-invite');
     }
 }

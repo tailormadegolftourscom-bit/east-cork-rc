@@ -1,32 +1,24 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>School Access</title>
-</head>
-<body>
-<h1>School access has been prepared</h1>
+<x-mail::message>
+# School Access Has Been Prepared
 
-<p>Hello,</p>
+Hello,
 
-<p>
-    A school user account has been prepared for <strong>{{ $school->name }}</strong>.
-</p>
+A school user account has been prepared for **{{ $school->name }}**. You'll receive a separate email
+with a secure link to set a password and access the school area.
 
-<p>
-    You can use the password reset link sent separately to set your password and access the school area.
-</p>
+<x-mail::panel>
+**{{ $school->name }}**<br>
+{{ ucfirst($school->school_type) }} school{{ $school->town ? ' · ' . $school->town : '' }}
+</x-mail::panel>
 
-<p>
-    Once logged in, you will be able to update class sizes and school contact details.
-</p>
+Once logged in, you'll be able to:
 
-<p>
-    School: {{ $school->name }}<br>
-    Type: {{ ucfirst($school->school_type) }}<br>
-    Town: {{ $school->town ?: '—' }}
-</p>
+- Update your school's contact details
+- Add and edit class information and pupil totals
+- Choose whether your school is listed as supporting the initiative
 
-<p>Thank you.</p>
-</body>
-</html>
+This is a parent-led initiative — schools are welcome to take part, but nothing here is required.
+
+Thanks,<br>
+East Cork Reclaim Childhood
+</x-mail::message>

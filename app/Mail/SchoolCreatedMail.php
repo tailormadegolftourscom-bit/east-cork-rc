@@ -21,6 +21,6 @@ class SchoolCreatedMail extends Mailable
     public function build(): static
     {
         return $this->subject('Your school has been added')
-            ->view('mail.school-created');
+            ->markdown('mail.school-created');
     }
 }
