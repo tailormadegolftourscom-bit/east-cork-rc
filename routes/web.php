@@ -121,7 +121,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'parent'])->group(function () {
     Route::get('/parent/start', [ParentSignUpController::class, 'edit'])->name('parent.start');
     Route::post('/parent/start', [ParentSignUpController::class, 'update'])->name('parent.start.update');
     Route::get('/parent/welcome', [ParentSignUpController::class, 'welcome'])->name('parent.welcome');

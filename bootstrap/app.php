@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminOnly::class,
             'school' => \App\Http\Middleware\SchoolOnly::class,
+            'parent' => \App\Http\Middleware\ParentOnly::class,
         ]);
 
         $middleware->trustProxies(at: '*');
