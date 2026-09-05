@@ -5,6 +5,13 @@
     $selectedSecondaryId = old('likely_secondary_school_id', $link?->likely_secondary_school_id);
     $selectedTransitionStatus = old('transition_status', $link?->transition_status);
 
+    $defaultChoice = match (true) {
+        $link?->transition_status === 'not_stated' => 'not_stated',
+        (bool) $link?->likely_secondary_school_id => 'share',
+        default => 'undecided',
+    };
+    $selectedTransitionChoice = old('transition_choice', $defaultChoice);
+
     $schoolsData = $schools->mapWithKeys(fn ($school) => [
         $school->id => $school->classes->map(fn ($class) => [
             'id' => $class->id,
@@ -90,14 +97,33 @@
     <div class="alert alert-light border">
         <p class="mb-3">
             Since your child is in 5th or 6th Class, you can tell us which secondary school they're likely
-            to attend. This helps build support among the incoming group before they start 1st Year.
+            to attend. This helps build support among the incoming group before they start 1st Year &mdash;
+            but it's entirely optional.
         </p>
 
-        <div class="row">
+        <div class="mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="transition_choice" id="transition_undecided"
+                       value="undecided" @checked($selectedTransitionChoice === 'undecided')>
+                <label class="form-check-label" for="transition_undecided">Not sure yet</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="transition_choice" id="transition_share"
+                       value="share" @checked($selectedTransitionChoice === 'share')>
+                <label class="form-check-label" for="transition_share">I can share which school</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="transition_choice" id="transition_not_stated"
+                       value="not_stated" @checked($selectedTransitionChoice === 'not_stated')>
+                <label class="form-check-label" for="transition_not_stated">Prefer not to say</label>
+            </div>
+        </div>
+
+        <div id="transition-share-fields" class="row" hidden>
             <div class="col-md-6 mb-3 mb-md-0">
                 <label for="likely_secondary_school_id" class="form-label">Likely Secondary School</label>
                 <select class="form-select" id="likely_secondary_school_id" name="likely_secondary_school_id">
-                    <option value="">Not sure yet</option>
+                    <option value="">Select a school</option>
                     @foreach ($schools->where('school_type', 'secondary') as $school)
                         <option value="{{ $school->id }}" @selected((string) $selectedSecondaryId === (string) $school->id)>
                             {{ $school->name }}@if ($school->town) &mdash; {{ $school->town }} @endif
@@ -126,9 +152,21 @@
         const schoolSelect = document.getElementById('school_id');
         const classSelect = document.getElementById('school_class_id');
         const transitionFields = document.getElementById('secondary-transition-fields');
+        const transitionShareFields = document.getElementById('transition-share-fields');
+        const transitionChoiceInputs = document.querySelectorAll('input[name="transition_choice"]');
 
         const selectedSchoolId = {{ $selectedSchoolId ? (int) $selectedSchoolId : 'null' }};
         const selectedClassId = {{ $selectedClassId ? (int) $selectedClassId : 'null' }};
+
+        function toggleShareFields() {
+            const checked = document.querySelector('input[name="transition_choice"]:checked');
+            transitionShareFields.hidden = !checked || checked.value !== 'share';
+        }
+
+        transitionChoiceInputs.forEach(function (input) {
+            input.addEventListener('change', toggleShareFields);
+        });
+        toggleShareFields();
 
         function populateClasses(schoolId, preselectClassId) {
             classSelect.innerHTML = '';

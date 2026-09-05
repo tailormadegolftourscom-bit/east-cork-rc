@@ -37,7 +37,7 @@ class ChildController extends Controller
             $child = Child::create([
                 'parent_person_id' => $person->id,
                 'first_name' => $validated['first_name'],
-                'last_name' => $validated['last_name'] ?: null,
+                'last_name' => $validated['last_name'] ?? null,
             ]);
 
             $this->syncSchoolLink($child, $validated);
@@ -74,7 +74,7 @@ class ChildController extends Controller
         DB::transaction(function () use ($child, $validated) {
             $child->update([
                 'first_name' => $validated['first_name'],
-                'last_name' => $validated['last_name'] ?: null,
+                'last_name' => $validated['last_name'] ?? null,
             ]);
 
             $this->syncSchoolLink($child, $validated);
@@ -103,6 +103,7 @@ class ChildController extends Controller
                 'required_with:school_id',
                 Rule::exists('school_classes', 'id')->where('school_id', $request->input('school_id')),
             ],
+            'transition_choice' => ['nullable', 'in:undecided,share,not_stated'],
             'likely_secondary_school_id' => ['nullable', Rule::exists('schools', 'id')],
             'transition_status' => ['nullable', 'in:considering,likely,confirmed'],
         ]);
@@ -126,18 +127,29 @@ class ChildController extends Controller
 
         $classLevel = SchoolClass::find($validated['school_class_id'])?->class_level;
         $eligibleForTransition = in_array($classLevel, ['5th_class', '6th_class'], true);
+        $choice = $validated['transition_choice'] ?? 'undecided';
+
+        if (! $eligibleForTransition) {
+            $likelySecondarySchoolId = null;
+            $transitionStatus = 'not_applicable';
+        } elseif ($choice === 'not_stated') {
+            $likelySecondarySchoolId = null;
+            $transitionStatus = 'not_stated';
+        } elseif ($choice === 'share' && ! empty($validated['likely_secondary_school_id'])) {
+            $likelySecondarySchoolId = $validated['likely_secondary_school_id'];
+            $transitionStatus = $validated['transition_status'] ?? 'considering';
+        } else {
+            $likelySecondarySchoolId = null;
+            $transitionStatus = 'considering';
+        }
 
         ChildSchoolLink::updateOrCreate(
             ['child_id' => $child->id],
             [
                 'current_school_id' => $validated['school_id'],
                 'current_school_class_id' => $validated['school_class_id'],
-                'likely_secondary_school_id' => $eligibleForTransition
-                    ? ($validated['likely_secondary_school_id'] ?? null)
-                    : null,
-                'transition_status' => $eligibleForTransition && ! empty($validated['likely_secondary_school_id'])
-                    ? ($validated['transition_status'] ?? 'considering')
-                    : 'not_applicable',
+                'likely_secondary_school_id' => $likelySecondarySchoolId,
+                'transition_status' => $transitionStatus,
             ]
         );
     }
