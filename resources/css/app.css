@@ -1,0 +1,129 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+:root {
+    /* Reclaim Childhood palette: grounded green for trust/outdoors,
+       warm amber for optimism and calls to action. Deliberately not
+       Bootstrap's default blue, and not an alarmist red. */
+    --bs-primary: #2f6b4f;
+    --bs-primary-rgb: 47, 107, 79;
+    --bs-primary-text-emphasis: #204a37;
+    --bs-primary-bg-subtle: #e6efe9;
+    --bs-primary-border-subtle: #b9d3c4;
+
+    --bs-warning: #e8a33d;
+    --bs-warning-rgb: 232, 163, 61;
+
+    --bs-dark: #223027;
+    --bs-dark-rgb: 34, 48, 39;
+
+    --bs-link-color: var(--bs-primary);
+    --bs-link-color-rgb: var(--bs-primary-rgb);
+    --bs-link-hover-color: var(--bs-primary-text-emphasis);
+
+    --rc-navy: #1c2b22;
+}
+
+body {
+    background-color: #fbf9f4;
+}
+
+/*
+ * Bootstrap 5.3's compiled CSS bakes literal hex colors into most
+ * component-level custom properties (--bs-btn-bg etc.) rather than
+ * referencing the root --bs-primary token, so re-theming requires
+ * overriding the components that are actually used in this app.
+ */
+.btn-primary {
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-bg: #244f39;
+    --bs-btn-hover-border-color: #244f39;
+    --bs-btn-active-bg: var(--bs-primary-text-emphasis);
+    --bs-btn-active-border-color: var(--bs-primary-text-emphasis);
+    --bs-btn-disabled-bg: var(--bs-primary);
+    --bs-btn-disabled-border-color: var(--bs-primary);
+    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-bg: var(--bs-primary);
+    --bs-btn-hover-border-color: var(--bs-primary);
+    --bs-btn-active-bg: var(--bs-primary);
+    --bs-btn-active-border-color: var(--bs-primary);
+    --bs-btn-disabled-color: var(--bs-primary);
+    --bs-btn-disabled-border-color: var(--bs-primary);
+    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+}
+
+.btn-warning {
+    --bs-btn-bg: var(--bs-warning);
+    --bs-btn-border-color: var(--bs-warning);
+    --bs-btn-hover-bg: #d8912e;
+    --bs-btn-hover-border-color: #d8912e;
+    --bs-btn-active-bg: #c9852a;
+    --bs-btn-active-border-color: #c9852a;
+    --bs-btn-disabled-bg: var(--bs-warning);
+    --bs-btn-disabled-border-color: var(--bs-warning);
+    --bs-btn-focus-shadow-rgb: var(--bs-warning-rgb);
+}
+
+.page-link {
+    color: var(--bs-primary);
+}
+
+.page-item.active .page-link {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #8fb5a2;
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+.site-navbar {
+    background-color: var(--rc-navy);
+}
+
+.site-footer {
+    background-color: var(--rc-navy);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.btn-brand-accent {
+    background-color: var(--bs-warning);
+    border-color: var(--bs-warning);
+    color: #22190a;
+    font-weight: 600;
+}
+
+.btn-brand-accent:hover {
+    background-color: #d8912e;
+    border-color: #d8912e;
+    color: #22190a;
+}
+
+.card {
+    border: 1px solid rgba(34, 48, 39, 0.08);
+}
+
+.navbar .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.navbar .nav-link:hover {
+    color: #fff;
+}
