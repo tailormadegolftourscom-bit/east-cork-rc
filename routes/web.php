@@ -15,6 +15,7 @@ use App\Http\Controllers\SchoolClassPortalController;
 use App\Http\Controllers\PublicSchoolController;
 use App\Http\Controllers\ParentSignUpController;
 use App\Http\Controllers\ChildController;
+use App\Http\Controllers\CoParentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SubscriberController;
 
@@ -94,6 +95,7 @@ Route::post('/add-my-school', [SchoolRegistrationRequestController::class, 'stor
 
 Route::get('/schools', [PublicSchoolController::class, 'index'])->name('schools.index');
 
+Route::view('/for-kids', 'public.for-kids')->name('for-kids');
 Route::view('/parents', 'public.parents')->name('parents');
 Route::view('/the-issue', 'public.the-issue')->name('the-issue');
 Route::view('/activities', 'public.activities')->name('activities');
@@ -133,6 +135,9 @@ Route::middleware(['auth', 'parent'])->group(function () {
     Route::post('/parent/children', [ChildController::class, 'store'])->name('parent.children.store');
     Route::get('/parent/children/{child}/edit', [ChildController::class, 'edit'])->name('parent.children.edit');
     Route::put('/parent/children/{child}', [ChildController::class, 'update'])->name('parent.children.update');
+
+    Route::get('/parent/co-parent/invite', [CoParentController::class, 'create'])->name('parent.co-parent.create');
+    Route::post('/parent/co-parent/invite', [CoParentController::class, 'store'])->name('parent.co-parent.store');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

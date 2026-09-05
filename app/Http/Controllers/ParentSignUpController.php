@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child;
 use App\Models\Supporter;
 use Illuminate\Http\Request;
 
@@ -70,8 +71,9 @@ class ParentSignUpController extends Controller
     {
         $person = auth()->user()->person;
         $supporter = $person->supporter;
-        $children = $person->children()
-            ->with('schoolLink.currentSchool', 'schoolLink.currentSchoolClass')
+        $children = Child::where('parent_person_id', $person->id)
+            ->orWhereHas('guardians', fn ($q) => $q->where('people.id', $person->id))
+            ->with('schoolLink.currentSchool', 'schoolLink.currentSchoolClass', 'parentPerson')
             ->latest()
             ->get();
 

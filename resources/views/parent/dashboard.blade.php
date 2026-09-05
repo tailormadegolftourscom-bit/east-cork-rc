@@ -56,6 +56,10 @@
                         <a href="/parent/children/create" class="btn btn-primary">
                             Register a Child
                         </a>
+
+                        <a href="{{ route('parent.co-parent.create') }}" class="btn btn-outline-primary">
+                            Add a Co-Parent
+                        </a>
                     </div>
 
                     <h2 class="h5 mb-3">Registered Children</h2>
@@ -74,8 +78,10 @@
                                 <tr>
                                     <th>First Name</th>
                                     <th>Last Name</th>
+                                    <th>Code Name</th>
                                     <th>School</th>
                                     <th>Class</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -84,8 +90,20 @@
                                     <tr>
                                         <td>{{ $child->first_name }}</td>
                                         <td>{{ $child->last_name ?: '—' }}</td>
+                                        <td>
+                                            @if($child->public_label && $child->public_label !== 'anonymous')
+                                                <span class="badge bg-light text-dark border">{{ $child->public_label }}</span>
+                                            @else
+                                                <span class="text-muted small">Not set</span>
+                                            @endif
+                                        </td>
                                         <td>{{ optional($child->schoolLink?->currentSchool)->name ?: 'Not set' }}</td>
                                         <td>{{ optional($child->schoolLink?->currentSchoolClass)->display_name ?: '—' }}</td>
+                                        <td>
+                                            @if($child->parent_person_id !== $person->id)
+                                                <span class="badge bg-light text-dark border">Shared by {{ $child->parentPerson->public_display_name }}</span>
+                                            @endif
+                                        </td>
                                         <td class="text-end">
                                             <a href="{{ route('parent.children.edit', $child) }}" class="btn btn-sm btn-outline-primary">
                                                 Edit

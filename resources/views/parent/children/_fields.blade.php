@@ -54,6 +54,42 @@
 
 <hr class="my-4">
 
+<h2 class="h6 mb-1">Code Name</h2>
+<p class="text-muted small mb-3">
+    This is the fun part &mdash; let your child pick their own code name! It's how they'll appear anywhere
+    public, instead of their real name. Pick one of the suggestions below, hit shuffle for more, or type
+    your own.
+</p>
+
+<div class="mb-3">
+    <div class="d-flex flex-wrap gap-2 mb-2" id="code-name-suggestions">
+        @foreach ($codeNameSuggestions as $i => $suggestion)
+            <button type="button" class="btn btn-outline-primary btn-sm code-name-chip" data-index="{{ $i }}">
+                {{ $suggestion }}
+            </button>
+        @endforeach
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="code-name-shuffle">
+            &#128256; Shuffle
+        </button>
+    </div>
+
+    <label for="public_label" class="form-label">Or type your own</label>
+    <input
+        type="text"
+        class="form-control @error('public_label') is-invalid @enderror"
+        id="public_label"
+        name="public_label"
+        maxlength="50"
+        placeholder="{{ $codeNameSuggestions[0] ?? 'Shiny Blue Crocodile' }}"
+        value="{{ old('public_label', $child && $child->public_label !== 'anonymous' ? $child->public_label : '') }}"
+    >
+    @error('public_label')
+    <div class="invalid-feedback">{{ $message }}</div>
+    @enderror
+</div>
+
+<hr class="my-4">
+
 <h2 class="h6 mb-3">School &amp; Class <span class="text-muted fw-normal">(optional, can be added later)</span></h2>
 
 <div class="row">
@@ -211,6 +247,47 @@
 
         if (selectedSchoolId) {
             populateClasses(selectedSchoolId, selectedClassId);
+        }
+    })();
+
+    (function () {
+        const wordLists = @json($codeNameWordLists);
+        const suggestionsContainer = document.getElementById('code-name-suggestions');
+        const chips = Array.from(document.querySelectorAll('.code-name-chip'));
+        const shuffleButton = document.getElementById('code-name-shuffle');
+        const input = document.getElementById('public_label');
+
+        function pick(list) {
+            return list[Math.floor(Math.random() * list.length)];
+        }
+
+        function randomCombo() {
+            return pick(wordLists.adjectives) + ' ' + pick(wordLists.colors) + ' ' + pick(wordLists.nouns);
+        }
+
+        chips.forEach(function (chip) {
+            chip.addEventListener('click', function () {
+                input.value = chip.textContent.trim();
+            });
+        });
+
+        if (shuffleButton) {
+            shuffleButton.addEventListener('click', function () {
+                const used = [];
+
+                chips.forEach(function (chip) {
+                    let combo = randomCombo();
+                    let attempts = 0;
+
+                    while (used.includes(combo) && attempts < 10) {
+                        combo = randomCombo();
+                        attempts++;
+                    }
+
+                    used.push(combo);
+                    chip.textContent = combo;
+                });
+            });
         }
     })();
 </script>

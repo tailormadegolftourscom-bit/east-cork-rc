@@ -26,4 +26,9 @@ class Child extends Model
     {
         return $this->hasOne(ChildSchoolLink::class);
     }
+
+    public function guardians()
+    {
+        return $this->belongsToMany(Person::class, 'child_guardians')->withTimestamps();
+    }
 }

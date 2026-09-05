@@ -17,6 +17,7 @@
 
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-1">
+                <li class="nav-item"><a href="{{ route('for-kids') }}" class="nav-link">For Kids</a></li>
                 <li class="nav-item"><a href="{{ route('parents') }}" class="nav-link">Parents</a></li>
                 <li class="nav-item"><a href="{{ route('schools.index') }}" class="nav-link">Schools</a></li>
                 <li class="nav-item"><a href="{{ route('the-issue') }}" class="nav-link">The Issue</a></li>

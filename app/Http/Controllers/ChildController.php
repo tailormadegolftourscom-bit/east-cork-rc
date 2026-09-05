@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Child;
 use App\Models\ChildSchoolLink;
+use App\Models\Person;
 use App\Models\School;
 use App\Models\SchoolClass;
+use App\Support\ChildCodeNames;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -23,7 +25,10 @@ class ChildController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('parent.children.create', compact('schools'));
+        $codeNameSuggestions = ChildCodeNames::suggestions();
+        $codeNameWordLists = ChildCodeNames::wordLists();
+
+        return view('parent.children.create', compact('schools', 'codeNameSuggestions', 'codeNameWordLists'));
     }
 
     public function store(Request $request)
@@ -33,14 +38,22 @@ class ChildController extends Controller
         $person = auth()->user()->person;
         $validated = $this->validateChild($request);
 
-        $child = DB::transaction(function () use ($person, $validated) {
+        $codeName = trim($validated['public_label'] ?? '');
+
+        if ($codeName === '') {
+            $codeName = ChildCodeNames::unique();
+        }
+
+        $child = DB::transaction(function () use ($person, $validated, $codeName) {
             $child = Child::create([
                 'parent_person_id' => $person->id,
                 'first_name' => $validated['first_name'],
                 'last_name' => $validated['last_name'] ?? null,
+                'public_label' => $codeName,
             ]);
 
             $this->syncSchoolLink($child, $validated);
+            $this->copyExistingGuardians($child, $person);
 
             return $child;
         });
@@ -62,7 +75,10 @@ class ChildController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('parent.children.edit', compact('child', 'schools'));
+        $codeNameSuggestions = ChildCodeNames::suggestions();
+        $codeNameWordLists = ChildCodeNames::wordLists();
+
+        return view('parent.children.edit', compact('child', 'schools', 'codeNameSuggestions', 'codeNameWordLists'));
     }
 
     public function update(Request $request, Child $child)
@@ -70,12 +86,19 @@ class ChildController extends Controller
         Gate::authorize('update', $child);
 
         $validated = $this->validateChild($request);
+        $codeName = trim($validated['public_label'] ?? '');
 
-        DB::transaction(function () use ($child, $validated) {
-            $child->update([
+        DB::transaction(function () use ($child, $validated, $codeName) {
+            $attributes = [
                 'first_name' => $validated['first_name'],
                 'last_name' => $validated['last_name'] ?? null,
-            ]);
+            ];
+
+            if ($codeName !== '') {
+                $attributes['public_label'] = $codeName;
+            }
+
+            $child->update($attributes);
 
             $this->syncSchoolLink($child, $validated);
         });
@@ -97,6 +120,7 @@ class ChildController extends Controller
                 },
             ],
             'last_name' => ['nullable', 'string', 'max:100'],
+            'public_label' => ['nullable', 'string', 'max:50'],
             'school_id' => ['nullable', Rule::exists('schools', 'id')],
             'school_class_id' => [
                 'nullable',
@@ -115,6 +139,29 @@ class ChildController extends Controller
         }
 
         return $validated;
+    }
+
+    private function copyExistingGuardians(Child $child, Person $person): void
+    {
+        // Co-parents on the creator's other children.
+        $guardianIds = Person::whereHas('guardianOfChildren', function ($q) use ($person) {
+                $q->where('children.parent_person_id', $person->id);
+            })
+            ->pluck('people.id');
+
+        // Owners of children the creator is themselves a guardian on.
+        $ownerIds = Child::whereHas('guardians', function ($q) use ($person) {
+                $q->where('people.id', $person->id);
+            })
+            ->pluck('parent_person_id');
+
+        $sharedPersonIds = $guardianIds->merge($ownerIds)
+            ->unique()
+            ->reject(fn ($id) => $id === $person->id);
+
+        if ($sharedPersonIds->isNotEmpty()) {
+            $child->guardians()->syncWithoutDetaching($sharedPersonIds);
+        }
     }
 
     private function syncSchoolLink(Child $child, array $validated): void

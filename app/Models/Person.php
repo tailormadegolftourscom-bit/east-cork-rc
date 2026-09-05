@@ -38,4 +38,9 @@ class Person extends Model
     {
         return $this->hasOne(Supporter::class, 'person_id');
     }
+
+    public function guardianOfChildren()
+    {
+        return $this->belongsToMany(Child::class, 'child_guardians')->withTimestamps();
+    }
 }
