@@ -4,7 +4,10 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="h3 mb-1">Classes</h1>
-            <p class="text-muted mb-0">{{ $school->name }}</p>
+            <p class="text-muted mb-0">
+                {{ $school->name }}
+                &middot; <span class="fw-semibold">{{ $totalRegistered }}</span> {{ Str::plural('child', $totalRegistered) }} registered so far
+            </p>
         </div>
 
         <div class="d-flex gap-2">
@@ -30,6 +33,7 @@
                             <th>Class Level</th>
                             <th>Identifier</th>
                             <th>Total Pupils</th>
+                            <th>Registered</th>
                             <th>Status</th>
                             <th class="text-end">Actions</th>
                         </tr>
@@ -41,6 +45,7 @@
                                 <td>{{ str_replace('_', ' ', $class->class_level) }}</td>
                                 <td>{{ $class->class_stream ?: '—' }}</td>
                                 <td>{{ $class->total_pupils ?? '—' }}</td>
+                                <td>{{ $class->registered_children_count }}</td>
                                 <td>
                                     <span class="badge {{ $class->is_active ? 'text-bg-success' : 'text-bg-secondary' }}">
                                         {{ $class->is_active ? 'Active' : 'Inactive' }}

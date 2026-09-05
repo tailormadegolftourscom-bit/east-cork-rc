@@ -29,9 +29,10 @@ class SchoolClassPortalController extends Controller
     public function index()
     {
         $school = auth()->user()->school;
-        $classes = $school->classes()->get();
+        $classes = $school->classes()->withCount('childLinks as registered_children_count')->get();
+        $totalRegistered = $classes->sum('registered_children_count');
 
-        return view('school.classes.index', compact('school', 'classes'));
+        return view('school.classes.index', compact('school', 'classes', 'totalRegistered'));
     }
 
     public function create()
