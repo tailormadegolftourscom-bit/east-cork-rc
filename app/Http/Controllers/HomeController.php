@@ -12,6 +12,8 @@ class HomeController extends Controller
     {
         $stats = [
             'schools_listed' => School::where('status', 'active')->count(),
+            'schools_primary' => School::where('status', 'active')->where('school_type', 'primary')->count(),
+            'schools_secondary' => School::where('status', 'active')->where('school_type', 'secondary')->count(),
             'schools_supporting' => School::where('status', 'active')->where('support_status', 'supporting')->count(),
             'parents_registered' => Supporter::where('is_active', true)->count(),
             'children_registered' => Child::count(),

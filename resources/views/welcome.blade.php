@@ -244,7 +244,10 @@
 
     <section class="py-5">
         <div class="text-center mb-5">
-            <h2 class="h2">Building support across East Cork</h2>
+            <h2 class="h2">
+                {{ $stats['children_registered'] }} {{ Str::plural('Child', $stats['children_registered']) }} in East Cork
+                across {{ $stats['schools_primary'] }} Primary and {{ $stats['schools_secondary'] }} Secondary Schools
+            </h2>
             <p class="text-muted mb-0">
                 Some schools will begin with parent-led support only. Others may later choose to support the
                 initiative directly. Real numbers, updated as they grow.
