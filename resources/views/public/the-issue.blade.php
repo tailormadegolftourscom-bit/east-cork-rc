@@ -7,9 +7,10 @@
         <h1 class="display-6 fw-bold mb-3">The Issue</h1>
         <p class="lead text-muted mb-5" style="max-width: 46rem;">
             We're not against technology. We're for childhood — outdoor play, real friendships, boredom that turns
-            into imagination, and the everyday independence kids need to grow up. Smartphones and social media, given
-            to children too early, tend to crowd all of that out. Here's the problem as we see it, what we think
-            actually helps, and what the evidence says so far.
+            into imagination, and the everyday independence kids need to grow up. Social media, given to children
+            before they're ready, tends to crowd all of that out. A phone for calls and texts isn't the problem —
+            it's the apps built to be addictive that we're holding off on. Here's the problem as we see it, what we
+            think actually helps, and what the evidence says so far.
         </p>
 
         <div class="d-flex gap-3 mb-5 flex-wrap">
@@ -82,8 +83,8 @@
                             <div class="display-6 fw-bold text-primary mb-2">1</div>
                             <h3 class="h6">Delay together</h3>
                             <p class="small text-muted mb-0">
-                                Our minimum shared goal: delay access to addictive social media for as long as
-                                reasonably possible, ideally well into secondary school — as a group, not alone.
+                                Our shared goal: hold off on addictive social media for as long as reasonably
+                                possible — for many of us, that's a stretch goal of 16 — as a group, not alone.
                             </p>
                         </div>
                     </div>
@@ -94,8 +95,9 @@
                             <div class="display-6 fw-bold text-primary mb-2">2</div>
                             <h3 class="h6">Build real alternatives</h3>
                             <p class="small text-muted mb-0">
-                                Delaying only works if there's something to say yes to instead — outdoor time, sport,
-                                hobbies, and simple ways for kids to spend time together in person.
+                                Delaying only works if there's something to say yes to instead — casual meetups to
+                                play, a class reading group, a proper celebration for the families who stick with it.
+                                See <a href="{{ route('activities') }}">Reclaim Free Time</a>.
                             </p>
                         </div>
                     </div>
@@ -115,9 +117,11 @@
                 </div>
             </div>
             <p class="text-muted mt-4 mb-0">
-                For families who do want a phone for contact and safety before their child is ready for a full
-                smartphone, simpler "balance" devices without app stores or social media are a practical middle step
-                — see <a href="{{ route('resources') }}">Resources</a>.
+                For families who want their child contactable before they're ready for social media, simpler
+                "balance" phones without app stores or social media are a practical middle step — see
+                <a href="{{ route('resources') }}">Resources</a>. And East Cork isn't alone in this:
+                <a href="https://smartphonefree.ie/" target="_blank" rel="noopener">Smartphone Free Childhood
+                Ireland</a> runs a national pledge with the same aim.
             </p>
         </div>
 

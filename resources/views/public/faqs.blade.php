@@ -18,8 +18,23 @@
                 </h2>
                 <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        No. This is about delaying smartphones and social media specifically, and giving kids more of a
-                        real childhood in the meantime — not rejecting technology altogether.
+                        No. A phone for calls and texts is fine by us at any age. It's social media specifically —
+                        the apps built to be addictive — that we're holding off on, and giving kids more of a real
+                        childhood in the meantime.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1b">
+                        Why 16? That sounds like a long time.
+                    </button>
+                </h2>
+                <div id="faq1b" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        16 is a stretch goal, not a rule. The honest aim is as late as reasonably possible, and every
+                        year gained matters — some families will land earlier than that, and that's still a win.
                     </div>
                 </div>
             </div>
@@ -33,7 +48,8 @@
                 <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
                         Families are all at different stages, and there's no judgment here. You can still join, still
-                        support the initiative, and still help build momentum for younger classes and other families.
+                        hold off on social media specifically, and still help build momentum for younger classes and
+                        other families.
                     </div>
                 </div>
             </div>
@@ -46,9 +62,9 @@
                 </h2>
                 <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        A simpler device for calls and texts, with no app store and no social media — a practical
-                        middle step for families who want their child contactable without handing over a full
-                        smartphone. See <a href="{{ route('resources') }}">Resources</a> for more.
+                        A simpler phone for calls, texts and maybe maps, with no app store and no social media. For a
+                        lot of families this isn't a stopgap — it's the actual plan right up to 16. See
+                        <a href="{{ route('resources') }}">Resources</a> for more.
                     </div>
                 </div>
             </div>
@@ -121,6 +137,23 @@
                     <div class="accordion-body">
                         East Cork is our pilot area. If it works well here, we'd like to see the same approach used
                         in other areas across Ireland — see <a href="{{ route('about') }}">About</a>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq9">
+                        Is there a national group too?
+                    </button>
+                </h2>
+                <div id="faq9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Yes —
+                        <a href="https://smartphonefree.ie/" target="_blank" rel="noopener">Smartphone Free Childhood
+                        Ireland</a> runs a national pledge and WhatsApp groups right across the country. We focus on
+                        what they're lighter on: real local schools, classes, and physical get-togethers here in East
+                        Cork. Worth signing both.
                     </div>
                 </div>
             </div>

@@ -85,8 +85,8 @@
             <div class="col-md-4">
                 <h2 class="h6 text-uppercase text-white-50">East Cork Reclaim Childhood</h2>
                 <p class="small text-white-50 mb-0">
-                    A parent-led pilot helping East Cork families delay smartphones and social media together, and
-                    reclaim real childhood in the meantime.
+                    A parent-led pilot helping East Cork families hold off on social media together, and reclaim
+                    real childhood in the meantime.
                 </p>
             </div>
             <div class="col-md-4">

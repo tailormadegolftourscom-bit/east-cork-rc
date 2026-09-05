@@ -8,9 +8,10 @@
             <div class="col-lg-8">
                 <h1 class="display-6 fw-bold mb-3">You're not the only parent thinking this</h1>
                 <p class="lead text-muted">
-                    Almost every parent worries about the same thing at some point: when to give in, when to hold off,
-                    and how to do it without your child feeling like the odd one out. The honest answer is that this is
-                    much easier together than alone.
+                    Almost every parent worries about the same thing at some point: when's the right time for social
+                    media, how to hold off a bit longer, and how to do it without your child feeling like the odd one
+                    out. The honest answer is that this is much easier together than alone — and a simple phone for
+                    calls and texts in the meantime is no problem at all.
                 </p>
             </div>
             <div class="col-lg-4 text-lg-end">
@@ -28,11 +29,11 @@
                     <div class="card-body p-4">
                         <h2 class="h5 mb-3">Why doing this together works</h2>
                         <p class="text-muted mb-0">
-                            A lot of the pressure to get a child a smartphone or social media early comes from feeling
-                            like everyone else already has one. When a group of parents in the same class or school
-                            agree to hold the line together, that pressure drops for everyone — and for the kids too.
-                            Nobody wants to be the only one left out of the group chat, but nobody minds much if half
-                            the class is in the same boat.
+                            A lot of the pressure to get a child onto social media early comes from feeling like
+                            everyone else already is. When a group of parents in the same class or school agree to
+                            hold off together — for as long as reasonably possible, some of us aiming as late as 16 —
+                            that pressure drops for everyone, kids included. Nobody wants to be the only one left out
+                            of the group chat, but nobody minds much if half the class is in the same boat.
                         </p>
                     </div>
                 </div>
@@ -98,12 +99,40 @@
                     <div class="card-body p-4">
                         <h2 class="h5 mb-3">Beyond just saying no</h2>
                         <p class="text-muted mb-0">
-                            Delaying a smartphone works best alongside a real answer to "what do I do instead?" That
-                            means real friendships, outdoor time, sport, and things to actually look forward to. See
-                            <a href="{{ route('activities') }}">Reclaim Free Time</a> for where we're headed on that,
-                            and <a href="{{ route('resources') }}">Resources</a> for practical alternatives like
-                            simpler "balance" phones for contact and safety.
+                            Holding off on social media works best alongside a real answer to "what do I do instead?"
+                            A "balance" phone covers calls, texts and safety without the social media. See
+                            <a href="{{ route('resources') }}">Resources</a> for that, and
+                            <a href="{{ route('activities') }}">Reclaim Free Time</a> for the friendships, play and
+                            get-togethers side of it.
                         </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 bg-light mb-5">
+            <div class="card-body p-4 p-lg-5">
+                <h2 class="h4 mb-3">Some of what parents are already doing together</h2>
+                <div class="row g-4">
+                    <div class="col-md-3 col-6">
+                        <div class="fw-semibold mb-1">Reading together</div>
+                        <p class="small text-muted mb-0">Jonathan Haidt's <em>The Anxious Generation</em> as a class
+                            or school reading group, then a chat about it.</p>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="fw-semibold mb-1">An end-of-year celebration</div>
+                        <p class="small text-muted mb-0">A BBQ, disco or party for every 6th class family who stuck
+                            with it — a real thank-you.</p>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="fw-semibold mb-1">A pre-1st-year meetup</div>
+                        <p class="small text-muted mb-0">So kids carrying it into secondary school already know
+                            they're not the only ones.</p>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="fw-semibold mb-1">Just meeting up to play</div>
+                        <p class="small text-muted mb-0">Badminton, a kickaround, a bike spin — no coach, no
+                            training session, just kids together.</p>
                     </div>
                 </div>
             </div>

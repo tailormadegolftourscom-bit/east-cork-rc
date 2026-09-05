@@ -6,12 +6,13 @@
     <section class="py-5 py-lg-6">
         <div class="row align-items-center g-4">
             <div class="col-lg-7">
-                <span class="badge text-bg-warning mb-3">Parent-led initiative</span>
-                <h1 class="display-5 fw-bold mb-3">A parent-led movement to delay smartphones in East Cork</h1>
+                <span class="badge text-bg-warning mb-3">Parent-led · East Cork</span>
+                <h1 class="display-5 fw-bold mb-3">Parents helping parents keep social media waiting</h1>
                 <p class="lead text-muted mb-4">
-                    East Cork Reclaim Childhood brings parents together to delay smartphones through primary school
-                    and support a stronger transition into secondary school. Schools are welcome to support this,
-                    but no school is under any obligation to take part.
+                    East Cork Reclaim Childhood is families helping each other delay the addictive stuff — social
+                    media, mainly — until our kids are actually ready for it, even if that's not until they're 16.
+                    A phone for calling and texting is no problem. It's the apps that are built to hook them we're
+                    holding off on, together.
                 </p>
 
                 <div class="d-flex flex-wrap gap-2 mb-3">
@@ -28,15 +29,15 @@
             <div class="col-lg-5">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body p-4 p-lg-5">
-                        <h2 class="h4 mb-3">Why this matters</h2>
-                        <p class="text-muted mb-3">
-                            Families often find it easier to delay smartphones when they know other parents are doing the same.
-                        </p>
+                        <h2 class="h4 mb-3">What we're actually doing</h2>
                         <ul class="mb-0 text-muted">
-                            <li>Build support school by school</li>
-                            <li>Start early from 4th class onward</li>
-                            <li>Carry support into 1st year</li>
-                            <li>Reduce pressure on individual families</li>
+                            <li class="mb-2">Holding off on social media as long as we reasonably can — for many
+                                of us, that means to 16</li>
+                            <li class="mb-2">Happy with a simple call-and-text phone in the meantime — no social
+                                media, no pressure</li>
+                            <li class="mb-2">Filling the gap with real stuff: reading together, playing together,
+                                celebrating together</li>
+                            <li>Never doing it alone — that's the whole point</li>
                         </ul>
                     </div>
                 </div>
@@ -51,9 +52,9 @@
                     <div class="card-body p-4">
                         <h2 class="h4 mb-3">For Parents</h2>
                         <p class="text-muted">
-                            Join other parents at your child’s school. Add your child’s class details securely, see
-                            where support is building, and help create a stronger local norm around delaying
-                            smartphones through primary school.
+                            Find the other parents at your child's school who feel the same way you do. Add your
+                            child's class securely, see who else is holding the line, and take some of the pressure
+                            off each other — and off your kids.
                         </p>
                         <a href="{{ route('parents') }}" class="btn btn-primary">Parents: Get Started</a>
                     </div>
@@ -65,14 +66,78 @@
                     <div class="card-body p-4">
                         <h2 class="h4 mb-3">For Schools</h2>
                         <p class="text-muted">
-                            Schools are not being asked to endorse a campaign or take on extra obligations. Where a
-                            school chooses to support the initiative, it can nominate a school user to update class
-                            sizes and school contact details.
+                            This isn't a campaign asking schools for anything. Where a school wants to help — by
+                            keeping class information current, or just by being visible on the site — a school user
+                            can manage that themselves in a couple of minutes.
                         </p>
                         <a href="{{ route('schools.index') }}" class="btn btn-outline-primary">Schools: Learn More</a>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="text-center mb-5">
+            <span class="badge text-bg-success mb-2">The other half of this</span>
+            <h2 class="h2">It's not just about saying no</h2>
+            <p class="text-muted mb-0 mx-auto" style="max-width: 42rem;">
+                Delaying social media only works if there's something better to say yes to. Some of what we're
+                already talking about doing together:
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">Read it together</h3>
+                        <p class="small text-muted mb-0">
+                            Jonathan Haidt's <em>The Anxious Generation</em> is doing the rounds — a school or class
+                            group reading it together, then getting together to talk it over, does more than any
+                            leaflet could.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">Celebrate finishing primary</h3>
+                        <p class="small text-muted mb-0">
+                            A proper end-of-year BBQ, disco or party for every family in a school who stuck with it
+                            through 6th class — a real thank-you, not just a pledge on a page.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">Meet before 1st year</h3>
+                        <p class="small text-muted mb-0">
+                            A get-together for the families carrying it into secondary school, so the kids walk in on
+                            day one already knowing they're not the only ones without Snapchat.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">Just play, no coach required</h3>
+                        <p class="small text-muted mb-0">
+                            Badminton, a kickaround, a bike spin — the point isn't training sessions, it's kids
+                            meeting up, chatting, and messing about together. Longer term, we'd love to see proper
+                            local youth clubs come out of this too.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ route('activities') }}" class="btn btn-outline-success">See Reclaim Free Time</a>
         </div>
     </section>
 
@@ -110,7 +175,7 @@
                         <div class="display-6 fw-bold text-primary mb-3">1</div>
                         <h3 class="h5">Parents join at school level</h3>
                         <p class="text-muted mb-0">
-                            Parents register under their child’s school and class so support can be built in a practical,
+                            Parents register under their child's school and class so support can be built in a practical,
                             local way.
                         </p>
                     </div>
@@ -124,7 +189,7 @@
                         <h3 class="h5">Support builds from 4th class onward</h3>
                         <p class="text-muted mb-0">
                             The aim is to help parents start early, strengthen support through 4th, 5th and 6th class,
-                            and carry that support into 1st year at secondary school.
+                            and carry that same group into 1st year at secondary school.
                         </p>
                     </div>
                 </div>
@@ -226,6 +291,30 @@
     </section>
 
     <section class="py-5">
+        <div class="card border-0 bg-light">
+            <div class="card-body p-4 p-lg-5">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-8">
+                        <h2 class="h4 mb-2">This is a local pilot. There's a national movement too.</h2>
+                        <p class="text-muted mb-0">
+                            <a href="https://smartphonefree.ie/" target="_blank" rel="noopener">Smartphone Free
+                            Childhood Ireland</a> runs the national pledge and connects parents by WhatsApp group
+                            right across the country — including secondary schools not far from us. We focus on
+                            what they don't: real local schools, real classes, and real get-togethers here in East
+                            Cork. Worth signing both.
+                        </p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a href="https://smartphonefree.ie/" target="_blank" rel="noopener" class="btn btn-outline-secondary btn-lg">
+                            See What's Happening Nationally
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
         <div class="text-center mb-5">
             <h2 class="h2">Common questions</h2>
             <p class="text-muted mb-0">Clear answers to the main issues parents and schools raise.</p>
@@ -240,7 +329,8 @@
                 </h3>
                 <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        No. It is about delaying smartphones, not rejecting technology altogether.
+                        No. A phone for calls and texts is fine by us at any age. It's social media specifically —
+                        the apps designed to be addictive — that we're holding off on, not technology in general.
                     </div>
                 </div>
             </div>
@@ -248,12 +338,13 @@
             <div class="accordion-item">
                 <h3 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                        What if my child already has a smartphone?
+                        Why 16? That sounds like a long time.
                     </button>
                 </h3>
                 <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        Families are at different stages. Parents can still join and take part.
+                        16 is our stretch goal, not a rule — the honest aim is as late as reasonably possible, and
+                        every year gained matters. Some families will land earlier than that, and that's still a win.
                     </div>
                 </div>
             </div>
@@ -261,12 +352,13 @@
             <div class="accordion-item">
                 <h3 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                        What is a balance phone?
+                        What if my child already has a smartphone?
                     </button>
                 </h3>
                 <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        A balance phone is a simpler alternative for contact and safety where a full smartphone feels too much, too soon.
+                        Families are at different stages, and there's no judgment here. You can still join, still
+                        hold off on social media specifically, and still help other families starting a step behind you.
                     </div>
                 </div>
             </div>
@@ -274,12 +366,13 @@
             <div class="accordion-item">
                 <h3 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
-                        What if my school does not want to take part?
+                        What is a "balance" phone?
                     </button>
                 </h3>
                 <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        Parents can still organise at school level. School support is welcome, but not required.
+                        A simpler phone for calls, texts and maybe maps — built without an app store or social media.
+                        It means your child is reachable and can reach you, without opening the door to everything else.
                     </div>
                 </div>
             </div>
@@ -287,12 +380,12 @@
             <div class="accordion-item">
                 <h3 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
-                        Can a school update its own details?
+                        What if my school does not want to take part?
                     </button>
                 </h3>
                 <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        Yes. If a school chooses to support the initiative, it can be given secure access to manage class sizes and contact details.
+                        Parents can still organise at school level. School support is welcome, but not required.
                     </div>
                 </div>
             </div>

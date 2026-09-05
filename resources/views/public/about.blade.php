@@ -6,8 +6,8 @@
     <section class="py-5">
         <h1 class="display-6 fw-bold mb-3">About East Cork Reclaim Childhood</h1>
         <p class="lead text-muted mb-5" style="max-width: 46rem;">
-            A parent-led initiative helping families in East Cork delay smartphones and social media together — and
-            give kids more of a real, outdoors, screen-free childhood in the meantime.
+            A parent-led initiative helping families in East Cork hold off on social media together, as late as
+            16 where we can manage it — and give kids more of a real, outdoors, screen-free childhood in the meantime.
         </p>
 
         <div class="row g-4 mb-5">
