@@ -206,9 +206,9 @@
                     <div class="card-body p-4">
                         <h3 class="h6">Just play, no coach required</h3>
                         <p class="small text-muted mb-0">
-                            Badminton, a kickaround, a bike spin — the point isn't training sessions, it's kids
-                            meeting up, chatting, and messing about together. Longer term, we'd love to see proper
-                            local youth clubs come out of this too.
+                            Badminton, a kickaround, a bike spin — leave kids together in an open space and
+                            they'll happily amuse themselves for hours, no plan required. Longer term, we'd love
+                            to see proper local youth clubs come out of this too.
                         </p>
                     </div>
                 </div>

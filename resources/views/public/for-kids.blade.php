@@ -66,15 +66,17 @@
             <h2 class="h4 mb-3">The fun stuff that's part of this too</h2>
             <p class="text-muted mb-4">
                 Waiting on social media is only half of it — the other half is doing things that are actually
-                more fun instead.
+                more fun instead. Here's the secret grown-ups already know: give a group of kids an open space
+                and each other, and you won't hear from them for hours. No app required.
             </p>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body p-4">
-                            <h3 class="h6">Meeting up to play</h3>
+                            <h3 class="h6">Just being together</h3>
                             <p class="small text-muted mb-0">Kickarounds, bike spins, badminton, playground
-                                meetups — just turning up and messing about with friends.</p>
+                                meetups — no plan needed. Put a few of you in a field together and you'll
+                                figure out something to do faster than any app ever could.</p>
                         </div>
                     </div>
                 </div>

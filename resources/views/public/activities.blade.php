@@ -8,8 +8,9 @@
         <p class="lead text-muted mb-5" style="max-width: 46rem;">
             Holding off on social media is only half the story. The other half — arguably the more important half —
             is giving kids something better to fill that time with: outdoor play, real friendships, and things to
-            actually look forward to. None of this needs to be a formal club with a coach running drills — the point
-            is kids meeting up, chatting, and messing about together.
+            actually look forward to. None of this needs to be a formal club with a coach running drills. Put a
+            group of kids together in an open space and they'll happily amuse themselves for hours — the point is
+            simply making sure they're together, not organising them.
         </p>
 
         <div class="row g-4 mb-5">
