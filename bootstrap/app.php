@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\AdminOnly::class,
             'school' => \App\Http\Middleware\SchoolOnly::class,
             'parent' => \App\Http\Middleware\ParentOnly::class,
+            'parent.onboarded' => \App\Http\Middleware\ParentOnboarded::class,
         ]);
 
         $middleware->trustProxies(at: '*');

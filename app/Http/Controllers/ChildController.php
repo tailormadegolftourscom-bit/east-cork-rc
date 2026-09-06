@@ -19,7 +19,8 @@ class ChildController extends Controller
     {
         Gate::authorize('create', Child::class);
 
-        $schools = School::with('classes')
+        $schools = School::where('status', 'active')
+            ->with('classes')
             ->orderBy('school_type')
             ->orderBy('town')
             ->orderBy('name')
@@ -68,8 +69,11 @@ class ChildController extends Controller
         Gate::authorize('update', $child);
 
         $child->load('schoolLink');
+        $currentSchoolId = $child->schoolLink?->current_school_id;
 
-        $schools = School::with('classes')
+        $schools = School::where('status', 'active')
+            ->when($currentSchoolId, fn ($q) => $q->orWhere('id', $currentSchoolId))
+            ->with('classes')
             ->orderBy('school_type')
             ->orderBy('town')
             ->orderBy('name')
