@@ -7,22 +7,21 @@
         <div class="row align-items-center g-4">
             <div class="col-lg-7">
                 <span class="badge text-bg-warning mb-3">Parent-led · East Cork</span>
-                <h1 class="display-5 fw-bold mb-3">Parents together, helping their kids keep social media waiting</h1>
+                <h1 class="display-5 fw-bold mb-3">How many families at your school are choosing to wait?</h1>
                 <p class="lead text-muted mb-4">
-                    East Cork Reclaim Childhood is families helping each other delay the addictive stuff — social
-                    media, mainly — until our kids are actually ready for it, even if that's not until they're 16.
-                    A phone for calling and texting is no problem. It's the apps that are built to hook them we're
-                    holding off on, together.
+                    Join families across East Cork choosing to delay social media together, for as long as it
+                    takes — some of us aiming as late as 16. A phone for calls and texts is no problem; it's the
+                    addictive apps we're holding off on, together.
                 </p>
 
                 <div class="d-flex flex-wrap gap-2 mb-3">
-                    <a href="{{ route('parents') }}" class="btn btn-primary btn-lg">For Parents</a>
-                    <a href="{{ route('schools.index') }}" class="btn btn-outline-primary btn-lg">For Schools</a>
+                    <a href="{{ route('schools.index') }}" class="btn btn-primary btn-lg">Find My School &rarr;</a>
                 </div>
 
                 <div class="d-flex flex-wrap gap-3 small">
+                    <a href="{{ route('parents') }}" class="text-decoration-none">For Parents</a>
+                    <a href="{{ route('for-kids') }}" class="text-decoration-none">For Kids</a>
                     <a href="{{ route('school-registration.create') }}" class="text-decoration-none">Add My School</a>
-                    <a href="{{ route('schools.index') }}" class="text-decoration-none">See Schools in East Cork</a>
                 </div>
             </div>
 
