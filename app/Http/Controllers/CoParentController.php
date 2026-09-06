@@ -60,6 +60,9 @@ class CoParentController extends Controller
                     'public_name_mode' => 'real_name',
                 ]);
 
+                // Verified immediately: the invite + password-reset link the
+                // recipient must click to ever access the account already
+                // proves ownership of the inbox, same as a school invite.
                 User::create([
                     'person_id' => $targetPerson->id,
                     'name' => trim($validated['first_name'].' '.$validated['last_name']),
@@ -68,6 +71,7 @@ class CoParentController extends Controller
                     'is_admin' => 0,
                     'user_type' => 'parent',
                     'school_id' => null,
+                    'email_verified_at' => now(),
                 ]);
             }
 
