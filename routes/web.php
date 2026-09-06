@@ -96,7 +96,7 @@ Route::post('/add-my-school', [SchoolRegistrationRequestController::class, 'stor
 Route::get('/schools', [PublicSchoolController::class, 'index'])->name('schools.index');
 
 Route::view('/for-kids', 'public.for-kids')->name('for-kids');
-Route::view('/parents', 'public.parents')->name('parents');
+Route::get('/parents', [PublicSchoolController::class, 'forParents'])->name('parents');
 Route::view('/the-issue', 'public.the-issue')->name('the-issue');
 Route::view('/activities', 'public.activities')->name('activities');
 Route::view('/resources', 'public.resources')->name('resources');

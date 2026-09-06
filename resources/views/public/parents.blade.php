@@ -23,6 +23,62 @@
             </div>
         </div>
 
+        <div class="mb-5">
+            <h2 class="h4 mb-3">Find your school</h2>
+            <p class="text-muted mb-3">
+                See how many families at your child's school are already part of this, broken down by class.
+                @guest
+                    <a href="{{ route('login') }}">Log in</a> once you've joined to see each class by code name
+                    instead of just a number.
+                @endguest
+            </p>
+
+            <input
+                type="search"
+                id="school-search"
+                class="form-control mb-4"
+                placeholder="Search by school name or town&hellip;"
+                aria-label="Search for your school"
+            >
+
+            @foreach (['primary' => 'Primary Schools', 'secondary' => 'Secondary Schools'] as $type => $label)
+                @php($typeSchools = $schools->get($type, collect()))
+                @if ($typeSchools->isNotEmpty())
+                    <h3 class="h6 text-muted mb-3">{{ $label }}</h3>
+                    <div class="row g-4 mb-4" id="school-search-results-{{ $type }}">
+                        @foreach ($typeSchools as $school)
+                            @include('public.schools._school-card', ['school' => $school])
+                        @endforeach
+                    </div>
+                @endif
+            @endforeach
+
+            <p id="school-search-empty" class="text-muted" hidden>No schools match your search yet.</p>
+
+            <script>
+                (function () {
+                    const input = document.getElementById('school-search');
+                    const cards = Array.from(document.querySelectorAll('[data-school-search]'));
+                    const emptyMessage = document.getElementById('school-search-empty');
+
+                    input.addEventListener('input', function () {
+                        const term = this.value.trim().toLowerCase();
+                        let visibleCount = 0;
+
+                        cards.forEach(function (card) {
+                            const matches = card.dataset.schoolSearch.includes(term);
+                            card.hidden = !matches;
+                            if (matches) {
+                                visibleCount++;
+                            }
+                        });
+
+                        emptyMessage.hidden = visibleCount !== 0;
+                    });
+                })();
+            </script>
+        </div>
+
         <div class="row g-4 mb-5">
             <div class="col-md-6">
                 <div class="card h-100 shadow-sm">

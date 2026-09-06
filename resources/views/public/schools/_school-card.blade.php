@@ -1,6 +1,6 @@
 @php($collapseId = 'classes-' . $school->id)
 
-<div class="col-lg-6">
+<div class="col-lg-6" data-school-search="{{ Str::lower($school->name . ' ' . $school->town) }}">
     <div class="card shadow-sm h-100">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-start mb-2">
@@ -50,6 +50,9 @@
                         <tr>
                             <th>Class</th>
                             <th class="text-end">Registered</th>
+                            @auth
+                                <th>Children</th>
+                            @endauth
                         </tr>
                         </thead>
                         <tbody>
@@ -57,10 +60,24 @@
                             <tr>
                                 <td>{{ $class->display_name }}</td>
                                 <td class="text-end">{{ $class->registered_children_count }}</td>
+                                @auth
+                                    <td class="small text-muted">
+                                        @php($names = $class->childLinks->pluck('child.public_label')->filter())
+                                        {{ $names->isNotEmpty() ? $names->join(', ') : '—' }}
+                                    </td>
+                                @endauth
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
+
+                    @auth
+                        <p class="small text-muted mt-2 mb-0">Signed in as a registered parent — showing each child's code name.</p>
+                    @else
+                        <p class="small text-muted mt-2 mb-0">
+                            <a href="{{ route('login') }}">Log in</a> to see the children in each class by code name.
+                        </p>
+                    @endauth
                 </div>
             @endif
         </div>
