@@ -43,15 +43,16 @@
         </div>
 
         <div class="mb-5">
-            <h2 class="h4 mb-3">Marking the milestones</h2>
+            <h2 class="h4 mb-3">Rewards &amp; milestones — how we make it worth it</h2>
             <p class="text-muted mb-4">
-                Two moments worth making a real occasion of:
+                Holding off works best when there's something real to look forward to, not just willpower. Here's
+                how we're building that in:
             </p>
             <div class="row g-4">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body p-4">
-                            <h3 class="h6">An end-of-year celebration</h3>
+                            <h3 class="h6">An end-of-year disco or party</h3>
                             <p class="small text-muted mb-0">
                                 A proper BBQ, disco or party for every 6th class family who held off through primary
                                 school — a real thank-you for a whole school or class, not just a pledge on a page.
@@ -59,13 +60,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body p-4">
                             <h3 class="h6">A pre-1st-year meetup</h3>
                             <p class="small text-muted mb-0">
                                 A get-together before September for the families carrying it into secondary school —
                                 so the kids arrive already knowing they've got company.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body p-4">
+                            <h3 class="h6">A badge that grows over time</h3>
+                            <p class="small text-muted mb-0">
+                                Every registered child earns a badge next to their own code name — "3 Months In",
+                                "6 Months In", and onward — a fun, private way to see progress build, no real names
+                                needed.
                             </p>
                         </div>
                     </div>

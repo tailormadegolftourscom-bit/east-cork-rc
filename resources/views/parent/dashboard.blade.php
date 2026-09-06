@@ -93,6 +93,8 @@
                                         <td>
                                             @if($child->public_label && $child->public_label !== 'anonymous')
                                                 <span class="badge bg-light text-dark border">{{ $child->public_label }}</span>
+                                                <br>
+                                                <span class="badge text-bg-warning mt-1">&#127881; {{ $child->milestone_badge }}</span>
                                             @else
                                                 <span class="text-muted small">Not set</span>
                                             @endif

@@ -51,8 +51,13 @@
                     <strong>Sweet Red Carnation</strong>. Pick something fun, or ask a grown-up to shuffle through
                     ideas with you until you find one you like.
                 </p>
-                <p class="text-muted mb-0">
+                <p class="text-muted mb-3">
                     It's the one part of all this that's completely, 100% up to you.
+                </p>
+                <p class="text-muted mb-0">
+                    Your code name also earns its own badge the longer you're part of this — starting at
+                    "Just Joined" and working up through "3 Months In", "6 Months In" and beyond. Nobody else sees
+                    it but you and your family, but it's a fun way to watch how far you've come.
                 </p>
             </div>
         </div>

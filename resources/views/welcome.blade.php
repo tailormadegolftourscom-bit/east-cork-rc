@@ -7,7 +7,7 @@
         <div class="row align-items-center g-4">
             <div class="col-lg-7">
                 <span class="badge text-bg-warning mb-3">Parent-led · East Cork</span>
-                <h1 class="display-5 fw-bold mb-3">How many families at your school are choosing to wait?</h1>
+                <h1 class="display-5 fw-bold mb-3">Want to delay your child's social media? You're in the right place.</h1>
                 <p class="lead text-muted mb-4">
                     Join families across East Cork choosing to delay social media together, for as long as it
                     takes — some of us aiming as late as 16. A phone for calls and texts is no problem; it's the
@@ -28,12 +28,12 @@
             <div class="col-lg-5">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body p-4 p-lg-5">
-                        <h2 class="h4 mb-3">What we're actually doing</h2>
+                        <h2 class="h4 mb-3">How we make it actually work</h2>
                         <ul class="mb-0 text-muted">
-                            <li class="mb-2">Holding off on social media as long as we reasonably can — for many
-                                of us, that means to 16</li>
-                            <li class="mb-2">Happy with a simple call-and-text phone in the meantime — no social
-                                media, no pressure</li>
+                            <li class="mb-2">Real discos and parties for classes that stick with it together — not
+                                just willpower, an actual celebration to look forward to</li>
+                            <li class="mb-2">A badge that grows the longer your child's part of it, shown next to
+                                their own code name — a fun way to track progress, no real names needed</li>
                             <li class="mb-2">Filling the gap with real stuff: reading together, playing together,
                                 celebrating together</li>
                             <li>Never doing it alone — that's the whole point</li>

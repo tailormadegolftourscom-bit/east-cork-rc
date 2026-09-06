@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Person;
+use App\Support\ChildMilestones;
 
 class Child extends Model
 {
@@ -16,6 +17,11 @@ class Child extends Model
         'public_label',
         'audit_status',
     ];
+
+    public function getMilestoneBadgeAttribute(): string
+    {
+        return ChildMilestones::badgeFor($this->created_at);
+    }
 
     public function parentPerson()
     {
