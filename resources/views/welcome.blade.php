@@ -28,16 +28,42 @@
             <div class="col-lg-5">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body p-4 p-lg-5">
-                        <h2 class="h4 mb-3">How we make it actually work</h2>
-                        <ul class="mb-0 text-muted">
-                            <li class="mb-2">Real discos and parties for classes that stick with it together — not
-                                just willpower, an actual celebration to look forward to</li>
-                            <li class="mb-2">A badge that grows the longer your child's part of it, shown next to
-                                their own code name — a fun way to track progress, no real names needed</li>
-                            <li class="mb-2">Filling the gap with real stuff: reading together, playing together,
-                                celebrating together</li>
-                            <li>Never doing it alone — that's the whole point</li>
-                        </ul>
+                        <h2 class="h5 mb-2">
+                            {{ $stats['children_registered'] }} {{ Str::plural('Child', $stats['children_registered']) }}
+                            in East Cork across {{ $stats['schools_primary'] }} Primary and
+                            {{ $stats['schools_secondary'] }} Secondary Schools
+                        </h2>
+                        <p class="text-muted small mb-4">
+                            Some schools will begin with parent-led support only. Others may later choose to
+                            support the initiative directly. Real numbers, updated as they grow.
+                        </p>
+
+                        <div class="row g-3 text-center">
+                            <div class="col-6">
+                                <div class="border rounded p-3">
+                                    <div class="h3 fw-bold text-primary mb-0">{{ $stats['schools_listed'] }}</div>
+                                    <div class="small text-muted">Schools listed</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="border rounded p-3">
+                                    <div class="h3 fw-bold text-primary mb-0">{{ $stats['schools_supporting'] }}</div>
+                                    <div class="small text-muted">Schools Supporting</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="border rounded p-3">
+                                    <div class="h3 fw-bold text-primary mb-0">{{ $stats['parents_registered'] }}</div>
+                                    <div class="small text-muted">Parents registered</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="border rounded p-3">
+                                    <div class="h3 fw-bold text-primary mb-0">{{ $stats['children_registered'] }}</div>
+                                    <div class="small text-muted">Children registered</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,6 +96,60 @@
                             can manage that themselves in a couple of minutes.
                         </p>
                         <a href="{{ route('schools.index') }}" class="btn btn-outline-primary">Schools: Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="text-center mb-5">
+            <h2 class="h2">How we make it actually work</h2>
+            <p class="text-muted mb-0 mx-auto" style="max-width: 42rem;">
+                Holding off works best when there's something real to look forward to, not just willpower.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">Real discos and parties</h3>
+                        <p class="small text-muted mb-0">
+                            For classes that stick with it together — not just willpower, an actual celebration to
+                            look forward to.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">A badge that grows</h3>
+                        <p class="small text-muted mb-0">
+                            Shown next to their own code name as your child's part of it grows — a fun way to
+                            track progress, no real names needed.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">Filling the gap</h3>
+                        <p class="small text-muted mb-0">
+                            With real stuff: reading together, playing together, celebrating together.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">Never doing it alone</h3>
+                        <p class="small text-muted mb-0">
+                            That's the whole point.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -235,57 +315,6 @@
                             and reduces admin duplication. If a school prefers not to participate directly, the school
                             can still appear on the site and be managed by admin so parents can organise at local level.
                         </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5">
-        <div class="text-center mb-5">
-            <h2 class="h2">
-                {{ $stats['children_registered'] }} {{ Str::plural('Child', $stats['children_registered']) }} in East Cork
-                across {{ $stats['schools_primary'] }} Primary and {{ $stats['schools_secondary'] }} Secondary Schools
-            </h2>
-            <p class="text-muted mb-0">
-                Some schools will begin with parent-led support only. Others may later choose to support the
-                initiative directly. Real numbers, updated as they grow.
-            </p>
-        </div>
-
-        <div class="row g-4 text-center">
-            <div class="col-6 col-lg-3">
-                <div class="card shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="display-6 fw-bold text-primary">{{ $stats['schools_listed'] }}</div>
-                        <div class="text-muted">Schools listed</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-lg-3">
-                <div class="card shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="display-6 fw-bold text-primary">{{ $stats['schools_supporting'] }}</div>
-                        <div class="text-muted">Schools Supporting</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-lg-3">
-                <div class="card shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="display-6 fw-bold text-primary">{{ $stats['parents_registered'] }}</div>
-                        <div class="text-muted">Parents registered</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-lg-3">
-                <div class="card shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="display-6 fw-bold text-primary">{{ $stats['children_registered'] }}</div>
-                        <div class="text-muted">Children registered</div>
                     </div>
                 </div>
             </div>
