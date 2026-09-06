@@ -3,7 +3,7 @@
 @php($pageTitle = 'East Cork Reclaim Childhood')
 
 @section('content')
-    <section class="py-5 py-lg-6">
+    <section class="py-5 py-lg-6 px-3 px-lg-5 mb-2 hero-bg">
         <div class="row align-items-center g-4">
             <div class="col-lg-7">
                 <span class="badge text-bg-warning mb-3">Parent-led · East Cork</span>
