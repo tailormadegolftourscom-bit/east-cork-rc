@@ -101,7 +101,7 @@
                                 <td>{{ $grade['label'] }}</td>
                                 <td class="text-end">{{ $grade['registered_children_count'] }}</td>
                                 @auth
-                                    <td class="small text-muted">
+                                    <td>
                                         @if ($grade['entries']->isNotEmpty())
                                             <button
                                                 type="button"
@@ -110,13 +110,25 @@
                                             >
                                                 Expand
                                             </button>
-                                            <span id="{{ $entryId }}" hidden>{{ $grade['entries']->join(', ') }}</span>
                                         @else
-                                            —
+                                            <span class="text-muted">—</span>
                                         @endif
                                     </td>
                                 @endauth
                             </tr>
+                            @auth
+                                @if ($grade['entries']->isNotEmpty())
+                                    <tr id="{{ $entryId }}" hidden>
+                                        <td colspan="3" class="bg-light">
+                                            <ul class="list-unstyled small text-muted mb-0">
+                                                @foreach ($grade['entries'] as $entry)
+                                                    <li class="py-1 {{ !$loop->last ? 'border-bottom' : '' }}">{{ $entry }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endauth
                         @endforeach
                         </tbody>
                     </table>
