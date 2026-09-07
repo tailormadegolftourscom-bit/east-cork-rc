@@ -23,6 +23,10 @@ class SupporterController extends Controller
             });
         }
 
+        if ($request->boolean('no_children')) {
+            $query->whereDoesntHave('children');
+        }
+
         $people = $query->orderBy('last_name')->orderBy('first_name')->paginate(25)->withQueryString();
 
         return view('admin.supporters.index', compact('people'));

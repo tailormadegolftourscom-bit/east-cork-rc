@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewSupporterMail;
 use App\Models\Child;
 use App\Models\Supporter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ParentSignUpController extends Controller
 {
@@ -46,13 +48,17 @@ class ParentSignUpController extends Controller
                 : $person->phone_verified_at,
         ]);
 
-        Supporter::updateOrCreate(
+        $supporter = Supporter::updateOrCreate(
             ['person_id' => $person->id],
             [
                 'support_status' => 'supporting',
                 'is_active' => 1,
             ]
         );
+
+        if ($supporter->wasRecentlyCreated) {
+            Mail::to(config('mail.oversight_bcc'))->send(new NewSupporterMail($person));
+        }
 
         return redirect()
             ->route('parent.welcome')

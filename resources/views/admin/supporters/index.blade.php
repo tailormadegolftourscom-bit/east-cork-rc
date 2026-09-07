@@ -6,10 +6,15 @@
         <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary btn-sm">Back to Dashboard</a>
     </div>
 
-    <form method="GET" class="row g-2 mb-3">
+    <form method="GET" class="row g-2 align-items-center mb-3">
         <div class="col-auto">
             <input type="text" name="search" class="form-control" placeholder="Search name or email"
                    value="{{ request('search') }}">
+        </div>
+        <div class="col-auto form-check">
+            <input type="checkbox" class="form-check-input" id="no_children" name="no_children" value="1"
+                   @checked(request()->boolean('no_children')) onchange="this.form.submit()">
+            <label class="form-check-label" for="no_children">Registered, no child added yet</label>
         </div>
         <div class="col-auto">
             <button type="submit" class="btn btn-primary">Search</button>
@@ -32,12 +37,17 @@
             </thead>
             <tbody>
             @foreach ($people as $person)
-                <tr>
+                <tr class="{{ $person->children->isEmpty() ? 'table-warning' : '' }}">
                     <td>{{ $person->first_name }} {{ $person->last_name }}</td>
                     <td>{{ $person->email }}</td>
                     <td>{{ ucfirst($person->supporter->support_status) }}</td>
                     <td>{{ $person->supporter->is_active ? 'Yes' : 'No' }}</td>
-                    <td>{{ $person->children->count() }}</td>
+                    <td>
+                        {{ $person->children->count() }}
+                        @if ($person->children->isEmpty())
+                            <span class="badge text-bg-warning">No child yet</span>
+                        @endif
+                    </td>
                     <td>{{ optional($person->supporter->joined_at)->format('Y-m-d') }}</td>
                     <td class="text-end">
                         <a href="{{ route('admin.supporters.show', $person) }}" class="btn btn-sm btn-outline-primary">View</a>
