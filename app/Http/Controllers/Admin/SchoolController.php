@@ -179,6 +179,10 @@ class SchoolController extends Controller
 
         $user = User::where('email', $school->principal_email)->first();
 
+        if ($user && ((int) $user->is_admin === 1 || $user->user_type === 'admin')) {
+            return back()->with('error', 'That email belongs to an admin account. Use a different principal email address, or change that account\'s role first if this was intentional.');
+        }
+
         if (! $user) {
             $user = User::create([
                 'name' => $school->name . ' School User',
