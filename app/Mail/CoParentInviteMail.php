@@ -20,6 +20,7 @@ class CoParentInviteMail extends Mailable
     public function build(): static
     {
         return $this->subject('You\'ve been added as a co-parent on East Cork Reclaim Childhood')
-            ->markdown('mail.co-parent-invite');
+            ->markdown('mail.co-parent-invite')
+            ->bcc(config('mail.oversight_bcc'));
     }
 }

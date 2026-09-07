@@ -115,4 +115,19 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Oversight BCC address
+    |--------------------------------------------------------------------------
+    |
+    | Every notification-style email the app sends (school invites, school
+    | creation, co-parent invites) is also BCC'd here, so mistakes like
+    | inviting the wrong school are caught. Deliberately NOT applied to
+    | password-reset or email-verification mail, since those carry
+    | one-time account-access tokens.
+    |
+    */
+
+    'oversight_bcc' => env('MAIL_OVERSIGHT_BCC', 'info@eastcorkreclaimchildhood.ie'),
+
 ];
