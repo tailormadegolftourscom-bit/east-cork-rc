@@ -51,6 +51,8 @@ class ChildController extends Controller
                 'first_name' => $validated['first_name'],
                 'last_name' => $validated['last_name'] ?? null,
                 'public_label' => $codeName,
+                'identity_visibility' => $validated['identity_visibility'] ?? 'code_name',
+                'class_visibility' => $validated['class_visibility'] ?? 'general',
             ]);
 
             $this->syncSchoolLink($child, $validated);
@@ -96,6 +98,8 @@ class ChildController extends Controller
             $attributes = [
                 'first_name' => $validated['first_name'],
                 'last_name' => $validated['last_name'] ?? null,
+                'identity_visibility' => $validated['identity_visibility'] ?? 'code_name',
+                'class_visibility' => $validated['class_visibility'] ?? 'general',
             ];
 
             if ($codeName !== '') {
@@ -125,6 +129,8 @@ class ChildController extends Controller
             ],
             'last_name' => ['nullable', 'string', 'max:100'],
             'public_label' => ['nullable', 'string', 'max:50'],
+            'identity_visibility' => ['nullable', 'in:code_name,code_name_first_name'],
+            'class_visibility' => ['nullable', 'in:general,specific'],
             'school_id' => ['nullable', Rule::exists('schools', 'id')],
             'school_class_id' => [
                 'nullable',

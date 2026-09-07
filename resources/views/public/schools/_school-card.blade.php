@@ -1,4 +1,43 @@
-@php($collapseId = 'classes-' . $school->id)
+@php
+    $collapseId = 'classes-' . $school->id;
+
+    $gradeGroups = $school->classes->groupBy('class_level')->map(function ($classesInGrade, $classLevel) {
+        $label = \App\Models\SchoolClass::levelLabel($classLevel);
+        $hasNamedStream = $classesInGrade->contains(fn ($c) => $c->display_name !== $label);
+
+        $entries = collect();
+
+        foreach ($classesInGrade as $class) {
+            foreach ($class->childLinks ?? [] as $link) {
+                $child = $link->child ?? null;
+
+                if (! $child) {
+                    continue;
+                }
+
+                $entry = $child->visible_identity;
+
+                if ($hasNamedStream && $child->class_visibility === 'specific' && $class->display_name !== $label) {
+                    $entry .= ' — ' . $class->display_name;
+                }
+
+                $parentName = optional($child->parentPerson)->public_display_name;
+
+                if ($parentName) {
+                    $entry .= ' (parent: ' . $parentName . ')';
+                }
+
+                $entries->push($entry);
+            }
+        }
+
+        return [
+            'label' => $label,
+            'registered_children_count' => $classesInGrade->sum('registered_children_count'),
+            'entries' => $entries,
+        ];
+    })->sortBy(fn ($group, $classLevel) => array_search($classLevel, array_keys(\App\Models\SchoolClass::levelLabels())));
+@endphp
 
 <div class="col-lg-6" data-school-search="{{ Str::lower($school->name . ' ' . $school->town) }}">
     <div class="card shadow-sm h-100">
@@ -34,7 +73,7 @@
                 </p>
             @endif
 
-            @if ($school->classes->isNotEmpty())
+            @if ($gradeGroups->isNotEmpty())
                 <button
                     class="btn btn-sm btn-outline-secondary"
                     type="button"
@@ -56,14 +95,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($school->classes as $class)
+                        @foreach ($gradeGroups as $grade)
                             <tr>
-                                <td>{{ $class->display_name }}</td>
-                                <td class="text-end">{{ $class->registered_children_count }}</td>
+                                <td>{{ $grade['label'] }}</td>
+                                <td class="text-end">{{ $grade['registered_children_count'] }}</td>
                                 @auth
                                     <td class="small text-muted">
-                                        @php($names = $class->childLinks->pluck('child.public_label')->filter())
-                                        {{ $names->isNotEmpty() ? $names->join(', ') : '—' }}
+                                        {{ $grade['entries']->isNotEmpty() ? $grade['entries']->join(', ') : '—' }}
                                     </td>
                                 @endauth
                             </tr>
@@ -72,10 +110,10 @@
                     </table>
 
                     @auth
-                        <p class="small text-muted mt-2 mb-0">Signed in as a registered parent — showing each child's code name.</p>
+                        <p class="small text-muted mt-2 mb-0">Signed in as a registered parent — showing each child and parent as they've chosen to appear.</p>
                     @else
                         <p class="small text-muted mt-2 mb-0">
-                            <a href="{{ route('login') }}">Log in</a> to see the children in each class by code name.
+                            <a href="{{ route('login') }}">Log in</a> to see who else is taking part in each class.
                         </p>
                     @endauth
                 </div>

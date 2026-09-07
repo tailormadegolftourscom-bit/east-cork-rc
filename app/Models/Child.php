@@ -16,11 +16,22 @@ class Child extends Model
         'last_name',
         'public_label',
         'audit_status',
+        'identity_visibility',
+        'class_visibility',
     ];
 
     public function getMilestoneBadgeAttribute(): string
     {
         return ChildMilestones::badgeFor($this->created_at);
+    }
+
+    public function getVisibleIdentityAttribute(): string
+    {
+        if ($this->identity_visibility === 'code_name_first_name') {
+            return $this->public_label.' ('.$this->first_name.')';
+        }
+
+        return $this->public_label;
     }
 
     public function parentPerson()

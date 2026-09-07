@@ -30,7 +30,10 @@ class PublicSchoolController extends Controller
                 $query->where('is_active', true)->withCount('childLinks as registered_children_count');
 
                 if ($showChildNames) {
-                    $query->with('childLinks.child:id,public_label');
+                    $query->with([
+                        'childLinks.child:id,first_name,public_label,identity_visibility,class_visibility,parent_person_id',
+                        'childLinks.child.parentPerson:id,first_name,last_name,public_name_mode',
+                    ]);
                 }
             }])
             ->orderByRaw("CASE WHEN school_type = 'primary' THEN 1 ELSE 2 END")

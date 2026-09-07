@@ -9,23 +9,6 @@ use Illuminate\Validation\Rule;
 
 class SchoolClassPortalController extends Controller
 {
-    private array $classLevelLabels = [
-        'junior_infants' => 'Junior Infants',
-        'senior_infants' => 'Senior Infants',
-        '1st_class' => '1st Class',
-        '2nd_class' => '2nd Class',
-        '3rd_class' => '3rd Class',
-        '4th_class' => '4th Class',
-        '5th_class' => '5th Class',
-        '6th_class' => '6th Class',
-        '1st_year' => '1st Year',
-        '2nd_year' => '2nd Year',
-        '3rd_year' => '3rd Year',
-        '4th_year' => '4th Year',
-        '5th_year' => '5th Year',
-        '6th_year' => '6th Year',
-    ];
-
     public function index()
     {
         $school = auth()->user()->school;
@@ -76,7 +59,7 @@ class SchoolClassPortalController extends Controller
             'school_id' => $school->id,
             'class_level' => $validated['class_level'],
             'class_stream' => $validated['class_stream'],
-            'display_name' => $validated['class_stream'] ?: $this->classLevelLabels[$validated['class_level']],
+            'display_name' => $validated['class_stream'] ?: SchoolClass::levelLabels()[$validated['class_level']],
             'sort_order' => $this->makeSortOrder($validated['class_level']),
             'total_pupils' => $validated['total_pupils'] ?? null,
             'is_active' => $request->boolean('is_active'),
@@ -131,7 +114,7 @@ class SchoolClassPortalController extends Controller
         $schoolClass->update([
             'class_level' => $validated['class_level'],
             'class_stream' => $validated['class_stream'],
-            'display_name' => $validated['class_stream'] ?: $this->classLevelLabels[$validated['class_level']],
+            'display_name' => $validated['class_stream'] ?: SchoolClass::levelLabels()[$validated['class_level']],
             'sort_order' => $this->makeSortOrder($validated['class_level']),
             'total_pupils' => $validated['total_pupils'] ?? null,
             'is_active' => $request->boolean('is_active'),

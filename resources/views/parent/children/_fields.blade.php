@@ -90,6 +90,49 @@
 
 <hr class="my-4">
 
+<h2 class="h6 mb-1">Visibility to Other Parents</h2>
+<p class="text-muted small mb-3">
+    Other logged-in parents can see a class-by-class breakdown of who's taking part, to help build momentum.
+    You choose how much of that is your child. Both default to the more private option.
+</p>
+
+@php
+    $selectedIdentityVisibility = old('identity_visibility', $child?->identity_visibility ?? 'code_name');
+    $selectedClassVisibility = old('class_visibility', $child?->class_visibility ?? 'general');
+@endphp
+
+<div class="row mb-3">
+    <div class="col-md-6 mb-3 mb-md-0">
+        <label class="form-label d-block">Shown as</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="identity_visibility" id="identity_code_name"
+                   value="code_name" @checked($selectedIdentityVisibility === 'code_name')>
+            <label class="form-check-label" for="identity_code_name">Code name only</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="identity_visibility" id="identity_code_name_first_name"
+                   value="code_name_first_name" @checked($selectedIdentityVisibility === 'code_name_first_name')>
+            <label class="form-check-label" for="identity_code_name_first_name">Code name + first name</label>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label d-block">Class shown as</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="class_visibility" id="class_general"
+                   value="general" @checked($selectedClassVisibility === 'general')>
+            <label class="form-check-label" for="class_general">General grade only (e.g. "4th Class")</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="class_visibility" id="class_specific"
+                   value="specific" @checked($selectedClassVisibility === 'specific')>
+            <label class="form-check-label" for="class_specific">Specific class, if named (e.g. "Rang Lucy")</label>
+        </div>
+    </div>
+</div>
+
+<hr class="my-4">
+
 <h2 class="h6 mb-3">School &amp; Class <span class="text-muted fw-normal">(optional, can be added later)</span></h2>
 
 <div class="row">
