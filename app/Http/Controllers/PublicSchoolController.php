@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child;
+use App\Models\ChildSchoolLink;
 use App\Models\School;
 
 class PublicSchoolController extends Controller
@@ -9,15 +11,39 @@ class PublicSchoolController extends Controller
     public function index()
     {
         $schools = $this->schoolsWithCounts();
+        $ownSchoolIds = $this->ownSchoolIds();
 
-        return view('public.schools.index', compact('schools'));
+        return view('public.schools.index', compact('schools', 'ownSchoolIds'));
     }
 
     public function forParents()
     {
         $schools = $this->schoolsWithCounts();
+        $ownSchoolIds = $this->ownSchoolIds();
 
-        return view('public.parents', compact('schools'));
+        return view('public.parents', compact('schools', 'ownSchoolIds'));
+    }
+
+    /**
+     * Schools where the logged-in parent has a child of their own (owned
+     * or guarded) — they see the real, specific classes there instead of
+     * the general grade-level rollup used for every other school.
+     */
+    private function ownSchoolIds()
+    {
+        $person = auth()->user()?->person;
+
+        if (! $person) {
+            return collect();
+        }
+
+        $childIds = Child::where('parent_person_id', $person->id)
+            ->orWhereHas('guardians', fn ($q) => $q->where('people.id', $person->id))
+            ->pluck('id');
+
+        return ChildSchoolLink::whereIn('child_id', $childIds)
+            ->pluck('current_school_id')
+            ->unique();
     }
 
     private function schoolsWithCounts()

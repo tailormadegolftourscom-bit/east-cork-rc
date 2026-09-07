@@ -1,42 +1,69 @@
 @php
     $collapseId = 'classes-' . $school->id;
+    $isOwnSchool = (($ownSchoolIds ?? collect())->contains($school->id));
 
-    $gradeGroups = $school->classes->groupBy('class_level')->map(function ($classesInGrade, $classLevel) {
-        $label = \App\Models\SchoolClass::levelLabel($classLevel);
-        $hasNamedStream = $classesInGrade->contains(fn ($c) => $c->display_name !== $label);
+    $buildEntry = function ($child, $class, $label, $hasNamedStream) {
+        $entry = $child->visible_identity;
 
-        $entries = collect();
+        if ($hasNamedStream && $child->class_visibility === 'specific' && $class->display_name !== $label) {
+            $entry .= ' — ' . $class->display_name;
+        }
 
-        foreach ($classesInGrade as $class) {
+        $parentName = optional($child->parentPerson)->public_display_name;
+
+        if ($parentName) {
+            $entry .= ' (parent: ' . $parentName . ')';
+        }
+
+        return $entry;
+    };
+
+    if ($isOwnSchool) {
+        // At your own child's school, show the real classes (e.g. "Rang
+        // Lucy") rather than rolling everything up to grade level — you're
+        // already part of this community, so the specific class is useful,
+        // not exposing. Still respects each family's identity choice.
+        $gradeGroups = $school->classes->map(function ($class) use ($buildEntry) {
+            $entries = collect();
+
             foreach ($class->childLinks ?? [] as $link) {
                 $child = $link->child ?? null;
 
-                if (! $child) {
-                    continue;
+                if ($child) {
+                    $entries->push($buildEntry($child, $class, $class->display_name, false));
                 }
-
-                $entry = $child->visible_identity;
-
-                if ($hasNamedStream && $child->class_visibility === 'specific' && $class->display_name !== $label) {
-                    $entry .= ' — ' . $class->display_name;
-                }
-
-                $parentName = optional($child->parentPerson)->public_display_name;
-
-                if ($parentName) {
-                    $entry .= ' (parent: ' . $parentName . ')';
-                }
-
-                $entries->push($entry);
             }
-        }
 
-        return [
-            'label' => $label,
-            'registered_children_count' => $classesInGrade->sum('registered_children_count'),
-            'entries' => $entries,
-        ];
-    })->sortBy(fn ($group, $classLevel) => array_search($classLevel, array_keys(\App\Models\SchoolClass::levelLabels())));
+            return [
+                'label' => $class->display_name,
+                'registered_children_count' => $class->registered_children_count,
+                'entries' => $entries,
+            ];
+        });
+    } else {
+        $gradeGroups = $school->classes->groupBy('class_level')->map(function ($classesInGrade, $classLevel) use ($buildEntry) {
+            $label = \App\Models\SchoolClass::levelLabel($classLevel);
+            $hasNamedStream = $classesInGrade->contains(fn ($c) => $c->display_name !== $label);
+
+            $entries = collect();
+
+            foreach ($classesInGrade as $class) {
+                foreach ($class->childLinks ?? [] as $link) {
+                    $child = $link->child ?? null;
+
+                    if ($child) {
+                        $entries->push($buildEntry($child, $class, $label, $hasNamedStream));
+                    }
+                }
+            }
+
+            return [
+                'label' => $label,
+                'registered_children_count' => $classesInGrade->sum('registered_children_count'),
+                'entries' => $entries,
+            ];
+        })->sortBy(fn ($group, $classLevel) => array_search($classLevel, array_keys(\App\Models\SchoolClass::levelLabels())));
+    }
 @endphp
 
 <div class="col-lg-6" data-school-search="{{ Str::lower($school->name . ' ' . $school->town) }}">
@@ -134,7 +161,11 @@
                     </table>
 
                     @auth
-                        <p class="small text-muted mt-2 mb-0">Signed in as a registered parent — hit "Expand" on a class to see who's taking part, shown as each family has chosen to appear.</p>
+                        @if ($isOwnSchool)
+                            <p class="small text-muted mt-2 mb-0">Your child's school — showing actual classes. Hit "Expand" to see who's taking part, shown as each family has chosen to appear.</p>
+                        @else
+                            <p class="small text-muted mt-2 mb-0">Signed in as a registered parent — hit "Expand" on a class to see who's taking part, shown as each family has chosen to appear.</p>
+                        @endif
                     @else
                         <p class="small text-muted mt-2 mb-0">
                             <a href="{{ route('login') }}">Log in</a> to see who else is taking part in each class.
