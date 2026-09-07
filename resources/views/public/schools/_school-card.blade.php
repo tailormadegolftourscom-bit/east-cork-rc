@@ -96,12 +96,24 @@
                         </thead>
                         <tbody>
                         @foreach ($gradeGroups as $grade)
+                            @php($entryId = 'grade-entries-' . $school->id . '-' . $loop->index)
                             <tr>
                                 <td>{{ $grade['label'] }}</td>
                                 <td class="text-end">{{ $grade['registered_children_count'] }}</td>
                                 @auth
                                     <td class="small text-muted">
-                                        {{ $grade['entries']->isNotEmpty() ? $grade['entries']->join(', ') : '—' }}
+                                        @if ($grade['entries']->isNotEmpty())
+                                            <button
+                                                type="button"
+                                                class="btn btn-link btn-sm p-0 grade-expand-toggle"
+                                                data-target="{{ $entryId }}"
+                                            >
+                                                Expand
+                                            </button>
+                                            <span id="{{ $entryId }}" hidden>{{ $grade['entries']->join(', ') }}</span>
+                                        @else
+                                            —
+                                        @endif
                                     </td>
                                 @endauth
                             </tr>
@@ -110,7 +122,7 @@
                     </table>
 
                     @auth
-                        <p class="small text-muted mt-2 mb-0">Signed in as a registered parent — showing each child and parent as they've chosen to appear.</p>
+                        <p class="small text-muted mt-2 mb-0">Signed in as a registered parent — hit "Expand" on a class to see who's taking part, shown as each family has chosen to appear.</p>
                     @else
                         <p class="small text-muted mt-2 mb-0">
                             <a href="{{ route('login') }}">Log in</a> to see who else is taking part in each class.
@@ -121,3 +133,24 @@
         </div>
     </div>
 </div>
+
+@once
+    <script>
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.grade-expand-toggle');
+
+            if (! btn) {
+                return;
+            }
+
+            const target = document.getElementById(btn.dataset.target);
+
+            if (! target) {
+                return;
+            }
+
+            target.hidden = !target.hidden;
+            btn.textContent = target.hidden ? 'Expand' : 'Hide';
+        });
+    </script>
+@endonce
