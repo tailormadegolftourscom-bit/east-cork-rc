@@ -116,6 +116,26 @@ class ChildController extends Controller
             ->with('success', $child->first_name . '\'s details have been updated.');
     }
 
+    public function destroy(Request $request, Child $child)
+    {
+        Gate::authorize('delete', $child);
+
+        $validated = $request->validate([
+            'confirm_name' => ['required', 'string'],
+        ]);
+
+        if (trim($validated['confirm_name']) !== $child->first_name) {
+            return back()->with('error', 'Name did not match — ' . $child->first_name . ' was not removed.');
+        }
+
+        $name = $child->first_name;
+        $child->delete();
+
+        return redirect()
+            ->route('parent.dashboard')
+            ->with('success', $name . ' has been removed.');
+    }
+
     private function validateChild(Request $request): array
     {
         $validated = $request->validate([

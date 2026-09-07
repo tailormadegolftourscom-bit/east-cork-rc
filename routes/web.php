@@ -83,6 +83,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/supporters/{person}', [AdminSupporterController::class, 'show'])->name('admin.supporters.show');
     Route::patch('/children/{child}/audit-status', [AdminSupporterController::class, 'updateChildAuditStatus'])
         ->name('admin.children.update-audit-status');
+    Route::delete('/children/{child}', [AdminSupporterController::class, 'destroyChild'])
+        ->name('admin.children.destroy');
 
     Route::get('/committees', [AdminCommitteeController::class, 'index'])->name('admin.committees.index');
 });
@@ -138,6 +140,7 @@ Route::middleware(['auth', 'verified', 'parent', 'parent.onboarded'])->group(fun
     Route::post('/parent/children', [ChildController::class, 'store'])->name('parent.children.store');
     Route::get('/parent/children/{child}/edit', [ChildController::class, 'edit'])->name('parent.children.edit');
     Route::put('/parent/children/{child}', [ChildController::class, 'update'])->name('parent.children.update');
+    Route::delete('/parent/children/{child}', [ChildController::class, 'destroy'])->name('parent.children.destroy');
 
     Route::get('/parent/co-parent/invite', [CoParentController::class, 'create'])->name('parent.co-parent.create');
     Route::post('/parent/co-parent/invite', [CoParentController::class, 'store'])->name('parent.co-parent.store');

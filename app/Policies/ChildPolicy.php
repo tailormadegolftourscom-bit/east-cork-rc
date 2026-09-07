@@ -22,6 +22,14 @@ class ChildPolicy
         return $this->hasAccess($user, $child);
     }
 
+    public function delete(User $user, Child $child): bool
+    {
+        // Deleting is more permanent than editing — restricted to the
+        // primary registering parent, not co-parent guardians, so one
+        // parent can't unilaterally remove a child the other added.
+        return $user->person_id !== null && $user->person_id === $child->parent_person_id;
+    }
+
     private function hasAccess(User $user, Child $child): bool
     {
         if ($user->person_id === null) {

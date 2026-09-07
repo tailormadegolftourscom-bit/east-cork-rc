@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminAuditLog;
 use App\Models\Child;
 use App\Models\Person;
 use Illuminate\Http\Request;
@@ -47,5 +48,24 @@ class SupporterController extends Controller
         $child->update($validated);
 
         return back()->with('success', $child->first_name . '\'s audit status updated.');
+    }
+
+    public function destroyChild(Request $request, Child $child)
+    {
+        $validated = $request->validate([
+            'reason' => ['required', 'string', 'max:500'],
+        ]);
+
+        $name = $child->first_name;
+        $personId = $child->parent_person_id;
+
+        AdminAuditLog::record('child.delete', $child, $validated['reason'], [
+            'first_name' => $child->first_name,
+            'parent_person_id' => $personId,
+        ]);
+
+        $child->delete();
+
+        return back()->with('success', $name . ' has been removed.');
     }
 }

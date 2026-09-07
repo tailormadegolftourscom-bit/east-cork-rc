@@ -72,7 +72,33 @@
                                         </select>
                                     </form>
                                 </td>
-                                <td></td>
+                                <td class="text-end">
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm btn-outline-danger"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#delete-child-{{ $child->id }}"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="collapse" id="delete-child-{{ $child->id }}">
+                                <td colspan="6" class="bg-light">
+                                    <form method="POST" action="{{ route('admin.children.destroy', $child) }}" class="row g-2 align-items-end">
+                                        @csrf
+                                        @method('DELETE')
+                                        <div class="col">
+                                            <label class="form-label small">
+                                                Reason for deleting {{ $child->first_name }}
+                                            </label>
+                                            <input type="text" name="reason" class="form-control form-control-sm" required>
+                                        </div>
+                                        <div class="col-auto">
+                                            <button type="submit" class="btn btn-sm btn-danger">Confirm Delete</button>
+                                        </div>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>

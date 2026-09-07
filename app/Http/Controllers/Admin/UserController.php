@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdminAuditLog;
+use App\Models\Supporter;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -87,7 +88,20 @@ class UserController extends Controller
             'user_type' => $user->user_type,
         ]);
 
+        $personId = $user->person_id;
+
         $user->delete();
+
+        // Deleting a user must never leave an active Supporter record behind
+        // with no account able to log in and manage it — that's exactly the
+        // kind of orphan that silently inflates the public "parents
+        // registered" count. Only deactivate if no other user still owns
+        // this person record.
+        if ($personId && ! User::where('person_id', $personId)->exists()) {
+            Supporter::where('person_id', $personId)
+                ->where('is_active', true)
+                ->update(['is_active' => false]);
+        }
 
         return redirect()
             ->route('admin.users.index')
