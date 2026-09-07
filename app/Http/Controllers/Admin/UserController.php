@@ -23,6 +23,14 @@ class UserController extends Controller
 
         if ($type = $request->string('user_type')->toString()) {
             $query->where('user_type', $type);
+
+            // Filtering to "Parent" specifically means genuine, registered
+            // parents (completed /parent/start) — not accounts still
+            // mid-registration. The unfiltered "All roles" view still shows
+            // everyone, since that's meant to be a complete account list.
+            if ($type === 'parent') {
+                $query->whereHas('person.supporter');
+            }
         }
 
         $users = $query->orderBy('name')->paginate(25)->withQueryString();
