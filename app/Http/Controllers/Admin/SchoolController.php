@@ -134,8 +134,11 @@ class SchoolController extends Controller
             'secretary_email' => ['nullable', 'email', 'max:150'],
             'support_status' => ['required', 'in:undecided,supporting'],
             'status' => ['required', 'in:inactive,active'],
+            'classes_confirmed' => ['nullable', 'boolean'],
             'notes' => ['nullable', 'string'],
         ]);
+
+        $validated['classes_confirmed'] = $request->boolean('classes_confirmed');
 
         DB::transaction(function () use ($school, $validated) {
             $school->update($validated);

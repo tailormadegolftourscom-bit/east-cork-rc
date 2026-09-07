@@ -20,6 +20,23 @@
         </div>
     </div>
 
+    @if ($school->classes_confirmed)
+        <div class="alert alert-success d-flex justify-content-between align-items-center">
+            <span>&check; You've confirmed this class list is accurate.</span>
+        </div>
+    @else
+        <div class="alert alert-light border d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <span>
+                This class list started from a standard Junior Infants&ndash;6th Class template. If it matches
+                your school (including any separate streams, e.g. multiple classes per year), confirm it below.
+            </span>
+            <form method="POST" action="{{ route('school.classes.confirm') }}">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-primary text-nowrap">Confirm This Is Accurate</button>
+            </form>
+        </div>
+    @endif
+
     <div class="card shadow-sm">
         <div class="card-body">
             @if ($classes->isEmpty())

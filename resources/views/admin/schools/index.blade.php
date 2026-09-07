@@ -137,6 +137,14 @@
                                             @endif
                                         </div>
                                     @endif
+
+                                    <div class="mt-1">
+                                        @if ($school->classes_confirmed)
+                                            <span class="badge text-bg-success">Classes confirmed</span>
+                                        @else
+                                            <span class="badge text-bg-warning">Classes unconfirmed</span>
+                                        @endif
+                                    </div>
                                 </td>
 
                                 <td class="text-end">

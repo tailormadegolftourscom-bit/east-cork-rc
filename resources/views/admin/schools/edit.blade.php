@@ -206,6 +206,16 @@
                             </div>
                         </div>
 
+                        <div class="mb-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="classes_confirmed" name="classes_confirmed"
+                                   value="1" @checked(old('classes_confirmed', $school->classes_confirmed))>
+                            <label class="form-check-label" for="classes_confirmed">
+                                Class list confirmed accurate (exact number of classes/streams verified —
+                                either the school confirmed it themselves, or you've checked it against a list
+                                they sent)
+                            </label>
+                        </div>
+
                         <div class="mb-4">
                             <label for="notes" class="form-label">Notes</label>
                             <textarea class="form-control" id="notes" name="notes" rows="4">{{ old('notes', $school->notes) }}</textarea>

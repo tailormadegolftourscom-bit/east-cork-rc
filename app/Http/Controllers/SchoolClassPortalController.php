@@ -26,6 +26,15 @@ class SchoolClassPortalController extends Controller
         return view('school.classes.create', compact('school', 'classLevelLabels'));
     }
 
+    public function confirm()
+    {
+        $school = auth()->user()->school;
+        $school->update(['classes_confirmed' => true]);
+
+        return redirect()->route('school.classes.index')
+            ->with('success', 'Thanks — your class list is now marked as confirmed.');
+    }
+
     public function store(Request $request)
     {
         $school = auth()->user()->school;
@@ -64,6 +73,8 @@ class SchoolClassPortalController extends Controller
             'total_pupils' => $validated['total_pupils'] ?? null,
             'is_active' => $request->boolean('is_active'),
         ]);
+
+        $school->update(['classes_confirmed' => false]);
 
         return redirect()->route('school.classes.index')
             ->with('success', 'Class added.');

@@ -30,6 +30,7 @@ Route::middleware(['auth', 'school'])->prefix('school')->group(function () {
     Route::post('/classes', [SchoolClassPortalController::class, 'store'])->name('school.classes.store');
     Route::get('/classes/{schoolClass}/edit', [SchoolClassPortalController::class, 'edit'])->name('school.classes.edit');
     Route::put('/classes/{schoolClass}', [SchoolClassPortalController::class, 'update'])->name('school.classes.update');
+    Route::post('/classes/confirm', [SchoolClassPortalController::class, 'confirm'])->name('school.classes.confirm');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {

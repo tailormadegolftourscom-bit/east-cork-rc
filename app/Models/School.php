@@ -29,10 +29,15 @@ class School extends Model
         'school_phone',
         'support_status',
         'status',
+        'classes_confirmed',
         'principal_person_id',
         'vice_principal_person_id',
         'secretary_person_id',
         'notes',
+    ];
+
+    protected $casts = [
+        'classes_confirmed' => 'boolean',
     ];
 
     public function area()
