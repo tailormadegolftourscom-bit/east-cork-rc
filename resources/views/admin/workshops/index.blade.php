@@ -9,7 +9,7 @@
     @if (session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
 
     <p class="text-muted">
-        {{ config('notice.venue') }}. Evening discussions for parents — numbers are adults coming.
+        {{ config('notice.venue') }}. Numbers are how many people each person is bringing.
     </p>
 
     @forelse ($workshops as $workshop)

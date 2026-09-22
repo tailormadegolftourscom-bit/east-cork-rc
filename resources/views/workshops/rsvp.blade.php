@@ -16,7 +16,6 @@
 
                 <p class="text-muted small">
                     No account needed. We only ask for numbers so we know how many chairs to put out.
-                    These are evening discussions for parents, so no need to bring the children.
                 </p>
 
                 <div class="card shadow-sm mt-4">
