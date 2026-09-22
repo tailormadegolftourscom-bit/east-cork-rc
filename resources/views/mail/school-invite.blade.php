@@ -46,7 +46,7 @@ be very happy to hear any comments, concerns or suggestions you may have.
 
 Kind regards,
 
-Angela<br>
+Peter O'Sullivan<br>
 East Cork Reclaim Childhood<br>
-Temporary in Charge (TiC)
+Interim Convenor
 </x-mail::message>
