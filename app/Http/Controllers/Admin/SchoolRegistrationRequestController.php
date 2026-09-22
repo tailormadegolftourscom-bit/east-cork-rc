@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminAuditLog;
 use App\Models\SchoolRegistrationRequest;
 use Illuminate\Http\Request;
 use App\Models\Area;
@@ -53,6 +54,37 @@ class SchoolRegistrationRequestController extends Controller
         return redirect()
             ->route('admin.school-requests.show', $registrationRequest)
             ->with('success', 'Request status updated.');
+    }
+
+    public function destroy(Request $request, SchoolRegistrationRequest $registrationRequest)
+    {
+        // A request that produced a school is the record of where that school
+        // came from. Deleting it would leave the school with no origin, so
+        // reject it rather than quietly breaking the trail.
+        if ($registrationRequest->created_school_id) {
+            return back()->with('error',
+                'This request created a school, so it is the record of where that school came from. '
+                .'Delete the school itself first if you really want it gone.'
+            );
+        }
+
+        $validated = $request->validate([
+            'reason' => ['required', 'string', 'max:500'],
+        ]);
+
+        $name = $registrationRequest->school_name;
+
+        AdminAuditLog::record('school_request.delete', $registrationRequest, $validated['reason'], [
+            'school_name' => $registrationRequest->school_name,
+            'request_status' => $registrationRequest->request_status,
+            'contact_email' => $registrationRequest->contact_email,
+        ]);
+
+        $registrationRequest->delete();
+
+        return redirect()
+            ->route('admin.school-requests.index')
+            ->with('success', 'Request for '.$name.' deleted.');
     }
 
     public function createSchool(Request $request, SchoolRegistrationRequest $registrationRequest)

@@ -145,6 +145,38 @@
                             Open School Record
                         </a>
                     @endif
+
+                    @unless ($registrationRequest->created_school_id)
+                        <hr>
+
+                        <h2 class="h5 mb-3 text-danger">Delete Request</h2>
+                        <p class="small text-muted">
+                            For clearing out test entries and duplicates. This removes the request only &mdash; it
+                            cannot be undone.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline-danger w-100"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#delete-request"
+                        >
+                            Delete Request
+                        </button>
+
+                        <div class="collapse mt-3" id="delete-request">
+                            <form method="POST" action="{{ route('admin.school-requests.destroy', $registrationRequest) }}">
+                                @csrf
+                                @method('DELETE')
+                                <label for="delete-reason" class="form-label small">
+                                    Reason for deleting this request
+                                </label>
+                                <input type="text" id="delete-reason" name="reason"
+                                       class="form-control form-control-sm mb-2" required>
+                                <button type="submit" class="btn btn-danger btn-sm w-100">Confirm Delete</button>
+                            </form>
+                        </div>
+                    @endunless
                 </div>
             </div>
         </div>

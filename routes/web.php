@@ -69,6 +69,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::patch('/school-requests/{registrationRequest}/status', [AdminSchoolRegistrationRequestController::class, 'updateStatus'])
         ->name('admin.school-requests.update-status');
 
+    Route::delete('/school-requests/{registrationRequest}', [AdminSchoolRegistrationRequestController::class, 'destroy'])
+        ->name('admin.school-requests.destroy');
+
     Route::post('/school-requests/{registrationRequest}/create-school', [AdminSchoolRegistrationRequestController::class, 'createSchool'])
         ->name('admin.school-requests.create-school');
 
