@@ -18,7 +18,7 @@ class SchoolInviteMail extends Mailable
 
     public function build(): static
     {
-        return $this->subject('School access for East Cork Reclaim Childhood')
+        return $this->subject('East Cork Reclaim Childhood: school account for '.$this->school->name)
             ->markdown('mail.school-invite')
             ->bcc(config('mail.oversight_bcc'));
     }
