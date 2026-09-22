@@ -18,6 +18,8 @@ use App\Http\Controllers\ParentSignUpController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CoParentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CommitteeController;
+use App\Http\Controllers\CommitteeMembershipController;
 use App\Http\Controllers\SupporterSignUpController;
 
 
@@ -107,6 +109,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/accounts', [AdminAccountController::class, 'index'])->name('admin.accounts.index');
 
     Route::get('/committees', [AdminCommitteeController::class, 'index'])->name('admin.committees.index');
+    Route::get('/committees/create', [AdminCommitteeController::class, 'create'])->name('admin.committees.create');
+    Route::post('/committees', [AdminCommitteeController::class, 'store'])->name('admin.committees.store');
+    Route::delete('/committees/{committee}', [AdminCommitteeController::class, 'destroy'])->name('admin.committees.destroy');
 });
 
 Route::get('/add-my-school', [SchoolRegistrationRequestController::class, 'create'])
@@ -114,6 +119,28 @@ Route::get('/add-my-school', [SchoolRegistrationRequestController::class, 'creat
 
 Route::post('/add-my-school', [SchoolRegistrationRequestController::class, 'store'])
     ->name('school-registration.store');
+
+Route::get('/committees', [CommitteeController::class, 'index'])->name('committees.index');
+Route::get('/committees/{committee}', [CommitteeController::class, 'show'])->name('committees.show');
+
+// Acting on a committee is for parents: the supporters register has no
+// logins, so supporters are added by a convenor instead.
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::post('/committees/{committee}/become-convenor', [CommitteeMembershipController::class, 'becomeConvenor'])
+        ->name('committees.become-convenor');
+    Route::post('/committees/{committee}/join', [CommitteeMembershipController::class, 'join'])
+        ->name('committees.join');
+    Route::post('/committees/{committee}/leave', [CommitteeMembershipController::class, 'leave'])
+        ->name('committees.leave');
+    Route::post('/committees/{committee}/members', [CommitteeMembershipController::class, 'addMember'])
+        ->name('committees.members.add');
+    Route::delete('/committees/{committee}/members/{member}', [CommitteeMembershipController::class, 'removeMember'])
+        ->name('committees.members.remove');
+    Route::post('/committees/{committee}/members/{member}/hand-over', [CommitteeMembershipController::class, 'handOver'])
+        ->name('committees.hand-over');
+    Route::put('/committees/{committee}/objectives', [CommitteeMembershipController::class, 'updateObjectives'])
+        ->name('committees.objectives');
+});
 
 Route::get('/schools', [PublicSchoolController::class, 'index'])->name('schools.index');
 

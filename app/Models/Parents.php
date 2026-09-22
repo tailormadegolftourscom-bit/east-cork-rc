@@ -130,6 +130,12 @@ class Parents extends Authenticatable implements MustVerifyEmail
      * on. Every parent supports the initiative by definition; these are the
      * extras on top, drawn from the same list the supporters register uses.
      */
+    /** Committees this person sits on, in either register. */
+    public function committeeMemberships()
+    {
+        return $this->morphMany(CommitteeMember::class, 'member');
+    }
+
     public function categories()
     {
         return $this->morphToMany(

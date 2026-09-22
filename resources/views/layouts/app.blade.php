@@ -20,6 +20,7 @@
                 <li class="nav-item"><a href="{{ route('for-kids') }}" class="nav-link">For Kids</a></li>
                 <li class="nav-item"><a href="{{ route('parents') }}" class="nav-link">Parents</a></li>
                 <li class="nav-item"><a href="{{ route('schools.index') }}" class="nav-link">Schools</a></li>
+                <li class="nav-item"><a href="{{ route('committees.index') }}" class="nav-link">Committees</a></li>
                 <li class="nav-item"><a href="{{ route('the-issue') }}" class="nav-link">The Issue</a></li>
                 <li class="nav-item"><a href="{{ route('activities') }}" class="nav-link">Reclaim Free Time</a></li>
                 <li class="nav-item"><a href="{{ route('resources') }}" class="nav-link">Resources</a></li>
@@ -95,6 +96,7 @@
                 <ul class="list-unstyled small">
                     <li><a href="{{ route('parents') }}" class="footer-link">For Parents</a></li>
                     <li><a href="{{ route('schools.index') }}" class="footer-link">Schools</a></li>
+                    <li><a href="{{ route('committees.index') }}" class="footer-link">Committees</a></li>
                     <li><a href="{{ route('the-issue') }}" class="footer-link">The Issue</a></li>
                     <li><a href="{{ route('school-registration.create') }}" class="footer-link">Add My School</a></li>
                 </ul>

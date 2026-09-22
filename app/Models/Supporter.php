@@ -42,6 +42,12 @@ class Supporter extends Model
         return trim($this->first_name.' '.$this->last_name);
     }
 
+    /** Committees this person sits on, in either register. */
+    public function committeeMemberships()
+    {
+        return $this->morphMany(CommitteeMember::class, 'member');
+    }
+
     public function categories()
     {
         return $this->morphToMany(
