@@ -108,7 +108,11 @@ class SchoolRegistrationRequestController extends Controller
                 'town' => $registrationRequest->town,
                 'website_url' => $registrationRequest->website_url,
                 'support_status' => 'undecided',
-                'status' => 'inactive',
+                // Listed straight away. A school that asked to join should not
+                // then be invisible to parents until someone notices and flips
+                // a flag; `support_status` is what records whether the school
+                // actually backs the initiative.
+                'status' => 'active',
                 'notes' => $registrationRequest->notes,
             ]);
 
