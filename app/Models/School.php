@@ -30,6 +30,9 @@ class School extends Model
         'support_status',
         'status',
         'classes_confirmed',
+        'invite_sent_at',
+        'invite_response_at',
+        'invite_response_note',
         'principal_id',
         'vice_principal_id',
         'secretary_id',
@@ -38,6 +41,8 @@ class School extends Model
 
     protected $casts = [
         'classes_confirmed' => 'boolean',
+        'invite_sent_at' => 'datetime',
+        'invite_response_at' => 'datetime',
     ];
 
     public function area()
@@ -53,6 +58,35 @@ class School extends Model
     public function childLinks()
     {
         return $this->hasMany(ChildSchoolLink::class, 'current_school_id');
+    }
+
+    /** The login created for this school, if an invite has been taken up. */
+    public function account()
+    {
+        return $this->hasOne(Parents::class, 'school_id')->where('user_type', 'school');
+    }
+
+    public function inviteSent(): bool
+    {
+        return $this->invite_sent_at !== null;
+    }
+
+    /**
+     * Has the school actually come back to us? Either an admin marked a reply,
+     * or the account was taken up by setting a password — the latter needs no
+     * button, it is simply true.
+     */
+    public function inviteAnswered(): bool
+    {
+        return $this->invite_response_at !== null
+            || (bool) $this->account?->registration_completed_at;
+    }
+
+    public function daysSinceInvite(): ?int
+    {
+        return $this->invite_sent_at
+            ? (int) $this->invite_sent_at->startOfDay()->diffInDays(now()->startOfDay())
+            : null;
     }
 
     public function principal()

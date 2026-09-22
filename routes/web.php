@@ -79,6 +79,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::post('/schools/{school}/send-invite', [SchoolController::class, 'sendInvite'])
         ->name('admin.schools.send-invite');
+    Route::post('/schools/{school}/invite-response', [SchoolController::class, 'markInviteResponse'])
+        ->name('admin.schools.invite-response');
 
     Route::get('/parents', [AdminParentController::class, 'index'])->name('admin.parents.index');
     Route::get('/parents/{parent}', [AdminParentController::class, 'show'])->name('admin.parents.show');

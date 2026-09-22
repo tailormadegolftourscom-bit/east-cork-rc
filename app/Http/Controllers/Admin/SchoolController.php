@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminAuditLog;
 use App\Models\Area;
 use App\Models\Committee;
 use App\Models\School;
@@ -174,10 +175,44 @@ class SchoolController extends Controller
             ->with('success', 'School deleted.');
     }
 
-    public function sendInvite(School $school)
+    /**
+     * Record that the school came back to us — by email, phone or in person.
+     * A school that sets its own password is detected from its account and
+     * needs no button.
+     */
+    public function markInviteResponse(Request $request, School $school)
+    {
+        if (! $school->inviteSent()) {
+            return back()->with('error', 'No invite has been sent to this school yet.');
+        }
+
+        $validated = $request->validate([
+            'invite_response_note' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $school->forceFill([
+            'invite_response_at' => now(),
+            'invite_response_note' => $validated['invite_response_note'] ?? null,
+        ])->save();
+
+        AdminAuditLog::record('school.invite_response', $school, $validated['invite_response_note'] ?? 'Response received.');
+
+        return back()->with('success', 'Marked as answered. Thanks for keeping the record straight.');
+    }
+
+    public function sendInvite(Request $request, School $school)
     {
         if (! $school->principal_email) {
             return back()->with('error', 'Enter a principal email address before sending the school invite.');
+        }
+
+        // Writing to a principal cold is a one-way step. Once it has gone the
+        // button is hidden, and a deliberate resend has to say why.
+        if ($school->inviteSent() && ! $request->filled('resend_reason')) {
+            return back()->with('error',
+                'An invite was already sent to this school on '
+                .$school->invite_sent_at->format('j F Y').'. Use Resend if it needs to go again.'
+            );
         }
 
         $user = Parents::where('email', $school->principal_email)->first();
@@ -218,6 +253,19 @@ class SchoolController extends Controller
             return back()->with('error', __($status));
         }
 
-        return back()->with('success', 'School invite sent to the principal email address.');
+        $resend = $request->filled('resend_reason');
+
+        $school->forceFill(['invite_sent_at' => now()])->save();
+
+        AdminAuditLog::record(
+            $resend ? 'school.invite_resent' : 'school.invite_sent',
+            $school,
+            $resend ? $request->string('resend_reason')->toString() : 'First invite sent.',
+            ['principal_email' => $school->principal_email, 'cc' => $school->secretary_email]
+        );
+
+        return back()->with('success',
+            ($resend ? 'Invite resent to ' : 'School invite sent to ').$school->principal_email.'.'
+        );
     }
 }

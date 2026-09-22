@@ -232,21 +232,99 @@
             <div class="card border-0 bg-light mt-4" id="school-user-access">
                 <div class="card-body">
                     <h2 class="h5 mb-2">School User Access</h2>
-                    <p class="text-muted mb-3">
-                        Send a school invite after the contact details have been entered.
-                        The invite will go to the principal email address and can be copied to the secretary.
-                    </p>
 
-                    @if ($school->principal_email)
-                        <form method="POST" action="{{ route('admin.schools.send-invite', $school) }}">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-primary">
-                                Send School Invite
-                            </button>
-                        </form>
-                    @else
+                    @if (! $school->principal_email)
                         <div class="alert alert-warning mb-0">
                             Enter a principal email address before sending the school invite.
+                        </div>
+
+                    @elseif (! $school->inviteSent())
+                        <p class="text-muted mb-3">
+                            This writes to <strong>{{ $school->principal_email }}</strong>
+                            @if ($school->secretary_email)
+                                , copied to {{ $school->secretary_email }}
+                            @endif
+                            introducing the initiative, and sends a separate link to set a password.
+                            It hasn't been sent yet.
+                        </p>
+                        <form method="POST" action="{{ route('admin.schools.send-invite', $school) }}">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-primary">Send School Invite</button>
+                        </form>
+
+                    @else
+                        @php($days = $school->daysSinceInvite())
+                        @php($answered = $school->inviteAnswered())
+                        @php($registered = (bool) $school->account?->registration_completed_at)
+
+                        <div class="d-flex align-items-center gap-3 flex-wrap mb-3">
+                            <span class="badge {{ $answered ? 'text-bg-success' : ($days > 14 ? 'text-bg-warning' : 'text-bg-secondary') }}">
+                                Invite sent {{ $school->invite_sent_at->format('j M Y') }}
+                            </span>
+                            <span class="text-muted small">
+                                {{ $days === 0 ? 'today' : $days.' '.Str::plural('day', $days).' ago' }}
+                                @unless ($answered)
+                                    &middot; no reply yet
+                                @endunless
+                            </span>
+                        </div>
+
+                        @if ($registered)
+                            <div class="alert alert-success">
+                                <strong>The school set up its account.</strong>
+                                {{ $school->account->email }} signed in and chose a password
+                                {{ $school->account->registration_completed_at->diffForHumans() }}.
+                            </div>
+                        @elseif ($school->invite_response_at)
+                            <div class="alert alert-success">
+                                <strong>Response received</strong>
+                                {{ $school->invite_response_at->format('j M Y') }}.
+                                @if ($school->invite_response_note)
+                                    <span class="d-block">{{ $school->invite_response_note }}</span>
+                                @endif
+                                <span class="d-block small text-muted">
+                                    They haven't set a password yet, so the school area is still unused.
+                                </span>
+                            </div>
+                        @else
+                            <form method="POST" action="{{ route('admin.schools.invite-response', $school) }}"
+                                  class="row g-2 align-items-end mb-3">
+                                @csrf
+                                <div class="col-md">
+                                    <label for="invite_response_note" class="form-label small">
+                                        Heard back from them? Note how, if you like.
+                                    </label>
+                                    <input type="text" name="invite_response_note" id="invite_response_note"
+                                           class="form-control form-control-sm"
+                                           placeholder="e.g. principal rang, happy to be listed">
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-success btn-sm">Mark Response Received</button>
+                                </div>
+                            </form>
+                        @endif
+
+                        <button type="button" class="btn btn-link btn-sm text-muted p-0"
+                                data-bs-toggle="collapse" data-bs-target="#resend-invite">
+                            Need to send it again?
+                        </button>
+
+                        <div class="collapse mt-2" id="resend-invite">
+                            <form method="POST" action="{{ route('admin.schools.send-invite', $school) }}"
+                                  class="row g-2 align-items-end">
+                                @csrf
+                                <div class="col-md">
+                                    <label for="resend_reason" class="form-label small">
+                                        Why is it going again? This writes to the principal a second time.
+                                    </label>
+                                    <input type="text" name="resend_reason" id="resend_reason"
+                                           class="form-control form-control-sm"
+                                           placeholder="e.g. wrong address first time" required>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">Resend Invite</button>
+                                </div>
+                            </form>
                         </div>
                     @endif
                 </div>
