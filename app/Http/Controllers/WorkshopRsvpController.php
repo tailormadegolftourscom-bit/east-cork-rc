@@ -23,7 +23,9 @@ class WorkshopRsvpController extends Controller
 
         return view('workshops.rsvp', [
             'workshops' => $workshops,
-            'selected' => array_key_exists((string) $workshop, $workshops) ? $workshop : null,
+            'selected' => (array_key_exists((string) $workshop, $workshops) || $workshop === WorkshopRsvp::ALTERNATIVE)
+                ? $workshop
+                : null,
             'venue' => config('notice.venue'),
         ]);
     }
@@ -33,14 +35,23 @@ class WorkshopRsvpController extends Controller
         $workshops = config('notice.workshops', []);
 
         $validated = $request->validate([
-            'workshop' => ['required', Rule::in(array_keys($workshops))],
+            'workshop' => ['required', Rule::in([...array_keys($workshops), WorkshopRsvp::ALTERNATIVE])],
             'name' => ['required', 'string', 'max:150'],
             'email' => ['required', 'email', 'max:150'],
             'phone' => ['nullable', 'string', 'max:40'],
-            'adults' => ['required', 'integer', 'min:1', 'max:20'],
-            'children' => ['required', 'integer', 'min:0', 'max:20'],
+            'attendees' => ['required', 'integer', 'min:1', 'max:20'],
             'note' => ['nullable', 'string', 'max:2000'],
+        ], [
+            'workshop.required' => 'Please choose an evening, or tell us neither suits.',
         ]);
+
+        // Asking for another evening without saying when is a dead end for
+        // whoever has to arrange it.
+        if ($validated['workshop'] === WorkshopRsvp::ALTERNATIVE && empty($validated['note'] ?? null)) {
+            return back()
+                ->withInput()
+                ->withErrors(['note' => 'Let us know roughly which evenings would suit you.']);
+        }
 
         // Submitting again updates rather than duplicating — people change
         // their numbers, and a second RSVP should not inflate the count.
@@ -49,8 +60,7 @@ class WorkshopRsvpController extends Controller
             [
                 'name' => trim($validated['name']),
                 'phone' => $validated['phone'] ?? null,
-                'adults' => $validated['adults'],
-                'children' => $validated['children'],
+                'attendees' => $validated['attendees'],
                 'note' => $validated['note'] ?? null,
             ]
         );
@@ -59,6 +69,8 @@ class WorkshopRsvpController extends Controller
 
         return redirect()
             ->route('workshops.rsvp', ['workshop' => $rsvp->workshop])
-            ->with('success', 'Thanks — you are down for '.$rsvp->label().'. We have sent you a confirmation.');
+            ->with('success', $rsvp->isAlternative()
+                ? 'Thanks — we have noted that neither evening suits, and what would. If enough people say the same we will arrange another.'
+                : 'Thanks — you are down for '.$rsvp->label().'. We have sent you a confirmation.');
     }
 }

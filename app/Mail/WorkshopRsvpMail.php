@@ -18,7 +18,9 @@ class WorkshopRsvpMail extends Mailable
 
     public function build(): static
     {
-        return $this->subject('You are down for the '.$this->rsvp->label().' workshop')
+        return $this->subject($this->rsvp->isAlternative()
+                ? 'Thanks - we have noted that neither evening suits'
+                : 'You are down for the '.$this->rsvp->label().' workshop')
             ->markdown('mail.workshop-rsvp')
             ->bcc(config('mail.oversight_bcc'));
     }

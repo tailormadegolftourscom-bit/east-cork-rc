@@ -16,6 +16,7 @@
 
                 <p class="text-muted small">
                     No account needed. We only ask for numbers so we know how many chairs to put out.
+                    These are evening discussions for parents, so no need to bring the children.
                 </p>
 
                 <div class="card shadow-sm mt-4">
@@ -36,6 +37,20 @@
                                         </label>
                                     </div>
                                 @endforeach
+
+                                <div class="form-check mt-2 pt-2 border-top">
+                                    <input class="form-check-input @error('workshop') is-invalid @enderror"
+                                           type="radio" name="workshop" value="alternative" id="workshop-alternative"
+                                           @checked(old('workshop', $selected) === 'alternative') required>
+                                    <label class="form-check-label" for="workshop-alternative">
+                                        <strong>Neither suits — could you do another evening?</strong>
+                                        <span class="d-block text-muted small">
+                                            Tell us below roughly when would work. If enough people say the same,
+                                            we'll arrange one.
+                                        </span>
+                                    </label>
+                                </div>
+
                                 @error('workshop')<div class="text-danger small mt-1">{{ $message }}</div>@enderror
                             </fieldset>
 
@@ -65,19 +80,11 @@
                                 </div>
 
                                 <div class="col-6 col-md-3">
-                                    <label for="adults" class="form-label">Adults</label>
-                                    <input type="number" name="adults" id="adults" min="1" max="20"
-                                           class="form-control @error('adults') is-invalid @enderror"
-                                           value="{{ old('adults', 1) }}" required>
-                                    @error('adults')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                                </div>
-
-                                <div class="col-6 col-md-3">
-                                    <label for="children" class="form-label">Children</label>
-                                    <input type="number" name="children" id="children" min="0" max="20"
-                                           class="form-control @error('children') is-invalid @enderror"
-                                           value="{{ old('children', 0) }}" required>
-                                    @error('children')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                    <label for="attendees" class="form-label">How many coming?</label>
+                                    <input type="number" name="attendees" id="attendees" min="1" max="20"
+                                           class="form-control @error('attendees') is-invalid @enderror"
+                                           value="{{ old('attendees', 1) }}" required>
+                                    @error('attendees')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 </div>
                             </div>
 
@@ -86,9 +93,12 @@
                                     Anything you'd like to raise on the night?
                                     <span class="text-muted small">(optional)</span>
                                 </label>
-                                <textarea name="note" id="note" rows="3" class="form-control">{{ old('note') }}</textarea>
+                                <textarea name="note" id="note" rows="3"
+                                          class="form-control @error('note') is-invalid @enderror">{{ old('note') }}</textarea>
+                                @error('note')<div class="invalid-feedback">{{ $message }}</div>@enderror
                                 <div class="form-text">
-                                    Ideas for activities are especially welcome — that's most of what the evening is for.
+                                    Ideas for activities are especially welcome — that's most of what the evening is
+                                    for. If you picked "another evening" above, say roughly which nights suit you.
                                 </div>
                             </div>
 
@@ -98,8 +108,8 @@
                 </div>
 
                 <p class="text-muted small mt-3">
-                    Can't make either evening? You can still
-                    <a href="{{ route('supporters.create') }}">share an idea</a> or
+                    Can't make either evening? Pick <strong>"Neither suits"</strong> above to ask for another one,
+                    or you can still <a href="{{ route('supporters.create') }}">share an idea</a> or
                     <a href="{{ route('register') }}">register your children</a>.
                 </p>
             </div>

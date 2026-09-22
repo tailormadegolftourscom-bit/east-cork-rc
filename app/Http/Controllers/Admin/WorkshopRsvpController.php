@@ -20,12 +20,15 @@ class WorkshopRsvpController extends Controller
                 return $workshop + [
                     'key' => $key,
                     'rsvps' => $forThis,
-                    'adults' => $forThis->sum('adults'),
-                    'children' => $forThis->sum('children'),
+                    'attendees' => $forThis->sum('attendees'),
                 ];
             });
 
-        return view('admin.workshops.index', compact('workshops', 'rsvps'));
+        // People who could not make either evening, kept separate: they are a
+        // reason to schedule a third night, not attendees of the first two.
+        $alternatives = $rsvps->where('workshop', WorkshopRsvp::ALTERNATIVE);
+
+        return view('admin.workshops.index', compact('workshops', 'rsvps', 'alternatives'));
     }
 
     public function destroy(Request $request, WorkshopRsvp $rsvp)
