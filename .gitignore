@@ -2,8 +2,8 @@
 .DS_Store
 .claude/settings.local.json
 .env
-.env.backup
-.env.production
+.env.*
+!.env.example
 .phpactor.json
 .phpunit.result.cache
 /.fleet
