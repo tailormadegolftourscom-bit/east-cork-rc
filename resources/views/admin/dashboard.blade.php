@@ -14,6 +14,7 @@
                 <a href="{{ route('admin.committees.index') }}" class="btn btn-outline-primary">Committees</a>
                 <a href="{{ route('admin.parents.index') }}" class="btn btn-outline-primary">Parents</a>
                 <a href="{{ route('admin.supporters.index') }}" class="btn btn-outline-primary">Supporters</a>
+                <a href="{{ route('admin.workshops.index') }}" class="btn btn-outline-primary">Workshop RSVPs</a>
                 <a href="{{ route('admin.accounts.index') }}" class="btn btn-outline-secondary">Accounts</a>
             </div>
         </div>

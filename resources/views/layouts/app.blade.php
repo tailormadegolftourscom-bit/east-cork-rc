@@ -119,5 +119,6 @@
         <p class="small text-white-50 mb-0">&copy; {{ now()->year }} East Cork Reclaim Childhood.</p>
     </div>
 </footer>
+    @include('partials.first-visit-notice')
 </body>
 </html>

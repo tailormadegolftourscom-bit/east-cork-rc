@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\SchoolController;
 use App\Http\Controllers\Admin\SchoolClassController;
 use App\Http\Controllers\Admin\ParentController as AdminParentController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
+use App\Http\Controllers\Admin\WorkshopRsvpController as AdminWorkshopRsvpController;
 use App\Http\Controllers\Admin\SupporterController as AdminSupporterController;
 use App\Http\Controllers\Admin\CommitteeController as AdminCommitteeController;
 use App\Http\Controllers\SchoolRegistrationRequestController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CoParentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CommitteeController;
+use App\Http\Controllers\WorkshopRsvpController;
 use App\Http\Controllers\CommitteeMembershipController;
 use App\Http\Controllers\SupporterSignUpController;
 
@@ -110,6 +112,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::get('/accounts', [AdminAccountController::class, 'index'])->name('admin.accounts.index');
 
+    Route::get('/workshops', [AdminWorkshopRsvpController::class, 'index'])->name('admin.workshops.index');
+    Route::delete('/workshops/{rsvp}', [AdminWorkshopRsvpController::class, 'destroy'])->name('admin.workshops.destroy');
+
     Route::get('/committees', [AdminCommitteeController::class, 'index'])->name('admin.committees.index');
     Route::get('/committees/create', [AdminCommitteeController::class, 'create'])->name('admin.committees.create');
     Route::post('/committees', [AdminCommitteeController::class, 'store'])->name('admin.committees.store');
@@ -123,6 +128,9 @@ Route::get('/add-my-school', [SchoolRegistrationRequestController::class, 'creat
 
 Route::post('/add-my-school', [SchoolRegistrationRequestController::class, 'store'])
     ->name('school-registration.store');
+
+Route::get('/workshops/rsvp/{workshop?}', [WorkshopRsvpController::class, 'create'])->name('workshops.rsvp');
+Route::post('/workshops/rsvp', [WorkshopRsvpController::class, 'store'])->name('workshops.rsvp.store');
 
 Route::get('/committees', [CommitteeController::class, 'index'])->name('committees.index');
 Route::get('/committees/{committee}', [CommitteeController::class, 'show'])->name('committees.show');
