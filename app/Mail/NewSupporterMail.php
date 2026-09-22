@@ -18,6 +18,8 @@ class NewSupporterMail extends Mailable
 
     public function build(): static
     {
+        $this->parent->loadMissing('guardianOfChildren.owner');
+
         return $this->subject('New parent registered: '.$this->parent->first_name.' '.$this->parent->last_name)
             ->markdown('mail.new-supporter');
     }

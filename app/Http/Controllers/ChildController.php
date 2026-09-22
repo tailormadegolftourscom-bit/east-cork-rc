@@ -29,7 +29,37 @@ class ChildController extends Controller
         $codeNameSuggestions = ChildCodeNames::suggestions();
         $codeNameWordLists = ChildCodeNames::wordLists();
 
-        return view('parent.children.create', compact('schools', 'codeNameSuggestions', 'codeNameWordLists'));
+        // A co-parent already has the other parent's children on their
+        // dashboard. Say so before they add a second copy of the same child.
+        $alreadyCoParented = auth()->user()->guardianOfChildren()->with('owner')->get();
+
+        return view('parent.children.create', compact(
+            'schools', 'codeNameSuggestions', 'codeNameWordLists', 'alreadyCoParented'
+        ));
+    }
+
+    /**
+     * A child already on this parent's dashboard, through co-parenting, whose
+     * name matches the one being added. Matches on first name alone when no
+     * surname is given, because that is all many of these records carry.
+     */
+    private function possibleDuplicate(Parents $parent, string $firstName, ?string $lastName): ?Child
+    {
+        $first = mb_strtolower(trim($firstName));
+        $last = mb_strtolower(trim((string) $lastName));
+
+        return $parent->guardianOfChildren()->with('owner')->get()
+            ->first(function (Child $child) use ($first, $last) {
+                if (mb_strtolower(trim($child->first_name)) !== $first) {
+                    return false;
+                }
+
+                $existingLast = mb_strtolower(trim((string) $child->last_name));
+
+                // Either surname missing means the first name is all we have
+                // to go on, and a match is worth raising.
+                return $existingLast === '' || $last === '' || $existingLast === $last;
+            });
     }
 
     public function store(Request $request)
@@ -38,6 +68,22 @@ class ChildController extends Controller
 
         $parent = auth()->user();
         $validated = $this->validateChild($request);
+
+        // Flag a child who looks like one they already co-parent, rather than
+        // letting the same person be registered twice under two parents. They
+        // can say it really is a different child and carry on.
+        if (! $request->boolean('confirm_not_duplicate')) {
+            $clash = $this->possibleDuplicate($parent, $validated['first_name'], $validated['last_name'] ?? null);
+
+            if ($clash) {
+                return back()
+                    ->withInput()
+                    ->with('duplicate_child', [
+                        'name' => trim($clash->first_name.' '.$clash->last_name),
+                        'owner' => optional($clash->owner)->full_name,
+                    ]);
+            }
+        }
 
         $codeName = trim($validated['public_label'] ?? '');
 

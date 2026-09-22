@@ -25,6 +25,10 @@ class NotifyChildlessSupporters extends Command
             ->whereNull('no_children_reminder_sent_at')
             ->where('onboarded_at', '<=', now()->subDays($days))
             ->whereDoesntHave('children')
+            // A co-parent owns no children but is connected to somebody
+            // else's. Chasing them invites exactly the duplicate records this
+            // is meant to avoid.
+            ->whereDoesntHave('guardianOfChildren')
             ->get();
 
         foreach ($parents as $parent) {

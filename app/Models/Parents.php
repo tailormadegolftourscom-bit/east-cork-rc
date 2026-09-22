@@ -136,6 +136,18 @@ class Parents extends Authenticatable implements MustVerifyEmail
     }
 
     /** Children this parent was added to as a co-parent. */
+    /**
+     * Children this parent is connected to at all, owned or co-parented.
+     *
+     * A co-parent owns nothing — the children sit under whoever registered
+     * them — so asking only `children()` reports an invited co-parent as
+     * childless and chases them to add children they already have.
+     */
+    public function hasAnyChildren(): bool
+    {
+        return $this->children()->exists() || $this->guardianOfChildren()->exists();
+    }
+
     public function guardianOfChildren()
     {
         return $this->belongsToMany(Child::class, 'child_guardians', 'parent_id', 'child_id')
