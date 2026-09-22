@@ -127,7 +127,7 @@
     <script>
         (function () {
             var el = document.getElementById('ecrcNotice');
-            if (!el || typeof bootstrap === 'undefined') return;
+            if (!el) return;
 
             var version = el.dataset.noticeVersion;
             var key = 'ecrc_notice_seen';
@@ -140,22 +140,42 @@
 
             if (seen === version) return;
 
-            var modal = new bootstrap.Modal(el);
-            modal.show();
-
-            // Written on dismissal, not on show, so someone who closes the tab
-            // mid-read is offered it again.
-            el.addEventListener('hidden.bs.modal', function () {
+            function remember() {
                 try { window.localStorage.setItem(key, version); } catch (e) { /* ignore */ }
-            });
+            }
 
-            // Following a link is also a dismissal — otherwise the modal
-            // reappears the moment they come back from the RSVP page.
-            el.querySelectorAll('a[href]').forEach(function (link) {
-                link.addEventListener('click', function () {
-                    try { window.localStorage.setItem(key, version); } catch (e) { /* ignore */ }
+            function open() {
+                var modal = new window.bootstrap.Modal(el);
+                modal.show();
+
+                // Written on dismissal, not on show, so someone who closes the
+                // tab mid-read is offered it again.
+                el.addEventListener('hidden.bs.modal', remember);
+
+                // Following a link is also a dismissal — otherwise the modal
+                // reappears the moment they come back from the RSVP page.
+                el.querySelectorAll('a[href]').forEach(function (link) {
+                    link.addEventListener('click', remember);
                 });
-            });
+            }
+
+            // Bootstrap arrives in a `type="module"` bundle, which is deferred
+            // and therefore runs after this inline script. Waiting for it is
+            // the whole reason this is not a plain call: checking for
+            // `bootstrap` here would always find it missing.
+            var attempts = 0;
+
+            (function waitForBootstrap() {
+                if (window.bootstrap && window.bootstrap.Modal) {
+                    open();
+
+                    return;
+                }
+
+                if (attempts++ > 100) return; // ~5s; the bundle is not coming
+
+                window.setTimeout(waitForBootstrap, 50);
+            })();
         })();
     </script>
 @endif
