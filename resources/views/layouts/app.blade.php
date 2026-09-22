@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $pageTitle ?? 'East Cork Reclaim Childhood' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    @production
+        {{-- Privacy-friendly analytics by Plausible: no cookies and no personal
+             data, so it needs no consent banner. Production only, so local
+             testing does not land in the numbers. --}}
+        <script defer src="https://plausible.io/js/pa-5dEdyJ56m7OcEUiJlFroz.js"></script>
+        <script>
+            window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) };
+            plausible.init = plausible.init || function (i) { plausible.o = i || {} };
+            plausible.init()
+        </script>
+    @endproduction
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark site-navbar">
