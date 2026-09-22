@@ -96,7 +96,11 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
-            'expire' => 60,
+            // 24 hours, not Laravel's default 60 minutes. These links are
+            // mostly invites sent cold to school principals, who may not open
+            // the email until the next morning — an hour meant they almost
+            // always arrived at a dead end.
+            'expire' => env('AUTH_PASSWORD_RESET_EXPIRE', 1440),
             'throttle' => 60,
         ],
     ],

@@ -12,7 +12,8 @@ class SchoolInviteMail extends Mailable
     use Queueable, SerializesModels;
 
     public function __construct(
-        public School $school
+        public School $school,
+        public ?string $setPasswordUrl = null
     ) {
     }
 

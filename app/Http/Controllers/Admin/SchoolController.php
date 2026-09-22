@@ -243,15 +243,18 @@ class SchoolController extends Controller
             $mail->cc($school->secretary_email);
         }
 
-        $mail->send(new SchoolInviteMail($school));
+        // One email, not two. Splitting the introduction from the link meant a
+        // principal got a warm letter followed by a bare "reset your password"
+        // notification for an account they had never heard of. The token is
+        // made here and carried in the letter itself.
+        $token = Password::broker()->createToken($user);
 
-        $status = Password::sendResetLink([
+        $setPasswordUrl = url(route('password.reset', [
+            'token' => $token,
             'email' => $school->principal_email,
-        ]);
+        ], false));
 
-        if ($status !== Password::RESET_LINK_SENT) {
-            return back()->with('error', __($status));
-        }
+        $mail->send(new SchoolInviteMail($school, $setPasswordUrl));
 
         $resend = $request->filled('resend_reason');
 

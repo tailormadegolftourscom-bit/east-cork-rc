@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\SetPasswordNotification;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -84,6 +85,22 @@ class Parents extends Authenticatable implements MustVerifyEmail
     public function hasOnboarded(): bool
     {
         return $this->onboarded_at !== null;
+    }
+
+    /**
+     * Someone who has never chosen a password is setting one, not resetting
+     * it. Telling an invited principal to "reset" a password they never had
+     * reads like a security alert for an account they do not recognise.
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        if ($this->registration_completed_at === null) {
+            $this->notify(new SetPasswordNotification($token));
+
+            return;
+        }
+
+        parent::sendPasswordResetNotification($token);
     }
 
     public function isAdmin(): bool

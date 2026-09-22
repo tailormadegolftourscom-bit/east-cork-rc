@@ -12,8 +12,17 @@ You can read more about the initiative at:
 
 [eastcorkreclaimchildhood.ie]({{ url('/') }})
 
-A school account has now been prepared for **{{ $school->name }}**. You will receive a separate email
-containing a secure link which will allow you to set a password and access the school area.
+A school account has now been prepared for **{{ $school->name }}**. The button below will let you choose a
+password and open the school area.
+
+@isset($setPasswordUrl)
+<x-mail::button :url="$setPasswordUrl">
+Set My Password
+</x-mail::button>
+
+The link lasts 24 hours. If it has expired by the time you get to it, there is a button on that page to send
+a fresh one, so nothing is lost either way.
+@endisset
 
 There is no requirement for the school to take any action, and the initiative remains parent-led. Naturally,
 parents involved in the project would be very pleased to see schools supporting the initiative where they are
