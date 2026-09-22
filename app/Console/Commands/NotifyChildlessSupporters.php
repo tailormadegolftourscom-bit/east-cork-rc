@@ -21,19 +21,19 @@ class NotifyChildlessSupporters extends Command
             ->where('is_active', true)
             ->whereNull('no_children_reminder_sent_at')
             ->where('created_at', '<=', now()->subDays($days))
-            ->whereDoesntHave('person.children')
-            ->with('person')
+            ->whereDoesntHave('parent.children')
+            ->with('parent')
             ->get();
 
         foreach ($supporters as $supporter) {
-            if (! $supporter->person) {
+            if (! $supporter->parent) {
                 continue;
             }
 
             $daysSinceJoined = (int) $supporter->created_at->diffInDays(now());
 
             Mail::to(config('mail.oversight_bcc'))
-                ->send(new ChildlessSupporterReminderMail($supporter->person, $daysSinceJoined));
+                ->send(new ChildlessSupporterReminderMail($supporter->parent, $daysSinceJoined));
 
             $supporter->update(['no_children_reminder_sent_at' => now()]);
         }

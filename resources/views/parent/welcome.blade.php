@@ -24,12 +24,12 @@
 
                         <dt class="col-sm-4">Preferred Contact</dt>
                         <dd class="col-sm-8">
-                            {{ ucfirst($person->preferred_contact_method ?? 'email') }}
+                            {{ ucfirst($parent->preferred_contact_method ?? 'email') }}
                         </dd>
 
                         <dt class="col-sm-4">Public Name</dt>
                         <dd class="col-sm-8">
-                            {{ $person->public_display_name }}
+                            {{ $parent->public_display_name }}
                         </dd>
                     </dl>
 

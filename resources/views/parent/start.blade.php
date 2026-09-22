@@ -17,9 +17,9 @@
                         <div class="mb-3">
                             <label for="preferred_contact_method" class="form-label">Preferred Contact Method</label>
                             <select class="form-select" id="preferred_contact_method" name="preferred_contact_method" required>
-                                <option value="email" @selected(old('preferred_contact_method', $person->preferred_contact_method) === 'email')>Email</option>
-                                <option value="sms" @selected(old('preferred_contact_method', $person->preferred_contact_method) === 'sms')>SMS</option>
-                                <option value="whatsapp" @selected(old('preferred_contact_method', $person->preferred_contact_method) === 'whatsapp')>WhatsApp</option>
+                                <option value="email" @selected(old('preferred_contact_method', $parent->preferred_contact_method) === 'email')>Email</option>
+                                <option value="sms" @selected(old('preferred_contact_method', $parent->preferred_contact_method) === 'sms')>SMS</option>
+                                <option value="whatsapp" @selected(old('preferred_contact_method', $parent->preferred_contact_method) === 'whatsapp')>WhatsApp</option>
                             </select>
                             <div class="form-text">
                                 If you choose SMS or WhatsApp, a phone number is required.
@@ -36,7 +36,7 @@
                                 class="form-control"
                                 id="phone"
                                 name="phone"
-                                value="{{ old('phone', $person->phone) }}"
+                                value="{{ old('phone', $parent->phone) }}"
                             >
                             @error('phone')
                             <div class="text-danger small mt-1">{{ $message }}</div>
@@ -46,8 +46,8 @@
                         <div class="mb-4">
                             <label for="public_name_mode" class="form-label">Public Name Preference</label>
                             <select class="form-select" id="public_name_mode" name="public_name_mode" required>
-                                <option value="real_name" @selected(old('public_name_mode', $person->public_name_mode) === 'real_name')>Show my real name on public pages</option>
-                                <option value="anon_code" @selected(old('public_name_mode', $person->public_name_mode) === 'anon_code')>Show an anonymous supporter code instead</option>
+                                <option value="real_name" @selected(old('public_name_mode', $parent->public_name_mode) === 'real_name')>Show my real name on public pages</option>
+                                <option value="anon_code" @selected(old('public_name_mode', $parent->public_name_mode) === 'anon_code')>Show an anonymous supporter code instead</option>
                             </select>
                             @error('public_name_mode')
                             <div class="text-danger small mt-1">{{ $message }}</div>

@@ -1,7 +1,7 @@
 <x-mail::message>
 # New Parent Registered
 
-**{{ $person->first_name }} {{ $person->last_name }}** ({{ $person->email }}) has just completed registration and
+**{{ $parent->first_name }} {{ $parent->last_name }}** ({{ $parent->email }}) has just completed registration and
 is now a supporter.
 
 <x-mail::panel>

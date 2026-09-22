@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Child;
 use App\Models\ChildSchoolLink;
-use App\Models\Person;
+use App\Models\Parents;
 use App\Models\School;
 use App\Models\SchoolClass;
 use App\Support\ChildCodeNames;
@@ -36,7 +36,7 @@ class ChildController extends Controller
     {
         Gate::authorize('create', Child::class);
 
-        $person = auth()->user()->person;
+        $parent = auth()->user();
         $validated = $this->validateChild($request);
 
         $codeName = trim($validated['public_label'] ?? '');
@@ -45,9 +45,9 @@ class ChildController extends Controller
             $codeName = ChildCodeNames::unique();
         }
 
-        $child = DB::transaction(function () use ($person, $validated, $codeName) {
+        $child = DB::transaction(function () use ($parent, $validated, $codeName) {
             $child = Child::create([
-                'parent_person_id' => $person->id,
+                'parent_id' => $parent->id,
                 'first_name' => $validated['first_name'],
                 'last_name' => $validated['last_name'] ?? null,
                 'public_label' => $codeName,
@@ -56,7 +56,7 @@ class ChildController extends Controller
             ]);
 
             $this->syncSchoolLink($child, $validated);
-            $this->copyExistingGuardians($child, $person);
+            $this->copyExistingGuardians($child, $parent);
 
             return $child;
         });
@@ -171,26 +171,26 @@ class ChildController extends Controller
         return $validated;
     }
 
-    private function copyExistingGuardians(Child $child, Person $person): void
+    private function copyExistingGuardians(Child $child, Parents $parent): void
     {
         // Co-parents on the creator's other children.
-        $guardianIds = Person::whereHas('guardianOfChildren', function ($q) use ($person) {
-                $q->where('children.parent_person_id', $person->id);
+        $guardianIds = Parents::whereHas('guardianOfChildren', function ($q) use ($parent) {
+                $q->where('children.parent_id', $parent->id);
             })
-            ->pluck('people.id');
+            ->pluck('parents.id');
 
         // Owners of children the creator is themselves a guardian on.
-        $ownerIds = Child::whereHas('guardians', function ($q) use ($person) {
-                $q->where('people.id', $person->id);
+        $ownerIds = Child::whereHas('guardians', function ($q) use ($parent) {
+                $q->where('parents.id', $parent->id);
             })
-            ->pluck('parent_person_id');
+            ->pluck('parent_id');
 
-        $sharedPersonIds = $guardianIds->merge($ownerIds)
+        $sharedParentIds = $guardianIds->merge($ownerIds)
             ->unique()
-            ->reject(fn ($id) => $id === $person->id);
+            ->reject(fn ($id) => $id === $parent->id);
 
-        if ($sharedPersonIds->isNotEmpty()) {
-            $child->guardians()->syncWithoutDetaching($sharedPersonIds);
+        if ($sharedParentIds->isNotEmpty()) {
+            $child->guardians()->syncWithoutDetaching($sharedParentIds);
         }
     }
 

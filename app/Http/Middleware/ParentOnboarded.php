@@ -10,9 +10,9 @@ class ParentOnboarded
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $person = $request->user()->person;
+        $parent = $request->user();
 
-        if (! $person || ! $person->supporter) {
+        if (! $parent || ! $parent->supporter) {
             return redirect()
                 ->route('parent.start')
                 ->with('error', 'Please finish setting up your account first.');

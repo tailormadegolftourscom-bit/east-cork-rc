@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\Parents;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
- * @extends Factory<User>
+ * @extends Factory<Parents>
  */
-class UserFactory extends Factory
+class ParentsFactory extends Factory
 {
     /**
      * The current password being used by the factory.
@@ -25,8 +25,12 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
+            'user_type' => 'parent',
+            'registration_completed_at' => now(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),

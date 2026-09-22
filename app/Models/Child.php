@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Person;
+use App\Models\Parents;
 use App\Support\ChildMilestones;
 
 class Child extends Model
@@ -11,7 +11,7 @@ class Child extends Model
     protected $table = 'children';
 
     protected $fillable = [
-        'parent_person_id',
+        'parent_id',
         'first_name',
         'last_name',
         'public_label',
@@ -34,9 +34,9 @@ class Child extends Model
         return $this->public_label;
     }
 
-    public function parentPerson()
+    public function owner()
     {
-        return $this->belongsTo(Person::class, 'parent_person_id');
+        return $this->belongsTo(Parents::class, 'parent_id');
     }
 
     public function schoolLink()
@@ -46,6 +46,6 @@ class Child extends Model
 
     public function guardians()
     {
-        return $this->belongsToMany(Person::class, 'child_guardians')->withTimestamps();
+        return $this->belongsToMany(Parents::class, 'child_guardians', 'child_id', 'parent_id')->withTimestamps();
     }
 }

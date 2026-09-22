@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Mail\SchoolCreatedMail;
 use Illuminate\Support\Facades\Mail;
-use App\Models\User;
+use App\Models\Parents;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
@@ -80,17 +80,16 @@ class SchoolRegistrationRequestController extends Controller
                 'notes' => $registrationRequest->notes,
             ]);
 
-            $user = User::where('email', $registrationRequest->contact_email)->first();
+            $user = Parents::where('email', $registrationRequest->contact_email)->first();
 
             if (! $user) {
-                $user = User::create([
+                $user = Parents::create([
                     'name' => $registrationRequest->contact_name,
                     'email' => $registrationRequest->contact_email,
                     'password' => Hash::make(Str::random(32)),
                     'is_admin' => 0,
                     'user_type' => 'school',
                     'school_id' => $school->id,
-                    'person_id' => null,
                 ]);
             } else {
                 $user->update([
@@ -142,7 +141,7 @@ class SchoolRegistrationRequestController extends Controller
                 'parent_committee_id' => $parentCommittee?->id,
                 'school_id' => $school->id,
                 'town' => $school->town,
-                'primary_contact_person_id' => null,
+                'primary_contact_id' => null,
                 'status' => 'active',
             ]);
 

@@ -11,7 +11,7 @@ class AdminAuditLog extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'actor_user_id',
+        'actor_id',
         'action',
         'target_type',
         'target_id',
@@ -33,13 +33,13 @@ class AdminAuditLog extends Model
 
     public function actor()
     {
-        return $this->belongsTo(User::class, 'actor_user_id');
+        return $this->belongsTo(Parents::class, 'actor_id');
     }
 
     public static function record(string $action, ?Model $target = null, ?string $reason = null, array $context = []): self
     {
         return static::create([
-            'actor_user_id' => auth()->id(),
+            'actor_id' => auth()->id(),
             'action' => $action,
             'target_type' => $target ? $target::class : null,
             'target_id' => $target?->getKey(),

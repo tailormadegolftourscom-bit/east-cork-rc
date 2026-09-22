@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h3 mb-0">{{ $person->first_name }} {{ $person->last_name }}</h1>
+        <h1 class="h3 mb-0">{{ $parent->first_name }} {{ $parent->last_name }}</h1>
         <a href="{{ route('admin.supporters.index') }}" class="btn btn-outline-secondary btn-sm">Back to Supporters</a>
     </div>
 
@@ -11,25 +11,25 @@
             <h2 class="h6">Contact &amp; Preferences</h2>
             <dl class="row mb-0">
                 <dt class="col-sm-3">Email</dt>
-                <dd class="col-sm-9">{{ $person->email }}</dd>
+                <dd class="col-sm-9">{{ $parent->email }}</dd>
 
                 <dt class="col-sm-3">Phone</dt>
-                <dd class="col-sm-9">{{ $person->phone ?: '—' }}</dd>
+                <dd class="col-sm-9">{{ $parent->phone ?: '—' }}</dd>
 
                 <dt class="col-sm-3">Preferred Contact</dt>
-                <dd class="col-sm-9">{{ ucfirst($person->preferred_contact_method) }}</dd>
+                <dd class="col-sm-9">{{ ucfirst($parent->preferred_contact_method) }}</dd>
 
                 <dt class="col-sm-3">Public Name Mode</dt>
                 <dd class="col-sm-9">
-                    {{ $person->public_name_mode === 'anon_code' ? 'Anonymous (shown publicly as ' . $person->public_display_name . ')' : 'Real name shown publicly' }}
+                    {{ $parent->public_name_mode === 'anon_code' ? 'Anonymous (shown publicly as ' . $parent->public_display_name . ')' : 'Real name shown publicly' }}
                 </dd>
 
-                @if ($person->supporter)
+                @if ($parent->supporter)
                     <dt class="col-sm-3">Support Status</dt>
-                    <dd class="col-sm-9">{{ ucfirst($person->supporter->support_status) }}</dd>
+                    <dd class="col-sm-9">{{ ucfirst($parent->supporter->support_status) }}</dd>
 
                     <dt class="col-sm-3">Joined</dt>
-                    <dd class="col-sm-9">{{ optional($person->supporter->joined_at)->format('Y-m-d') }}</dd>
+                    <dd class="col-sm-9">{{ optional($parent->supporter->joined_at)->format('Y-m-d') }}</dd>
                 @endif
             </dl>
         </div>
@@ -39,7 +39,7 @@
         <div class="card-body">
             <h2 class="h6 mb-3">Children</h2>
 
-            @if ($person->children->isEmpty())
+            @if ($parent->children->isEmpty())
                 <p class="text-muted mb-0">No children registered.</p>
             @else
                 <div class="table-responsive">
@@ -55,7 +55,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($person->children as $child)
+                        @foreach ($parent->children as $child)
                             <tr>
                                 <td>{{ $child->first_name }}</td>
                                 <td>{{ $child->last_name ?: '—' }}</td>

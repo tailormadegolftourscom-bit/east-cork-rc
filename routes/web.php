@@ -81,7 +81,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
 
     Route::get('/supporters', [AdminSupporterController::class, 'index'])->name('admin.supporters.index');
-    Route::get('/supporters/{person}', [AdminSupporterController::class, 'show'])->name('admin.supporters.show');
+    Route::get('/supporters/{parent}', [AdminSupporterController::class, 'show'])->name('admin.supporters.show');
     Route::patch('/children/{child}/audit-status', [AdminSupporterController::class, 'updateChildAuditStatus'])
         ->name('admin.children.update-audit-status');
     Route::delete('/children/{child}', [AdminSupporterController::class, 'destroyChild'])

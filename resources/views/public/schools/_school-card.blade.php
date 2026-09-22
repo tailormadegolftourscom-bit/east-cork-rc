@@ -9,7 +9,7 @@
             $entry .= ' — ' . $class->display_name;
         }
 
-        $parentName = optional($child->parentPerson)->public_display_name;
+        $parentName = optional($child->owner)->public_display_name;
 
         if ($parentName) {
             $entry .= ' (parent: ' . $parentName . ')';

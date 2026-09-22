@@ -31,14 +31,14 @@ class PublicSchoolController extends Controller
      */
     private function ownSchoolIds()
     {
-        $person = auth()->user()?->person;
+        $parent = auth()->user();
 
-        if (! $person) {
+        if (! $parent) {
             return collect();
         }
 
-        $childIds = Child::where('parent_person_id', $person->id)
-            ->orWhereHas('guardians', fn ($q) => $q->where('people.id', $person->id))
+        $childIds = Child::where('parent_id', $parent->id)
+            ->orWhereHas('guardians', fn ($q) => $q->where('parents.id', $parent->id))
             ->pluck('id');
 
         return ChildSchoolLink::whereIn('child_id', $childIds)
@@ -57,8 +57,8 @@ class PublicSchoolController extends Controller
 
                 if ($showChildNames) {
                     $query->with([
-                        'childLinks.child:id,first_name,public_label,identity_visibility,class_visibility,parent_person_id',
-                        'childLinks.child.parentPerson:id,first_name,last_name,public_name_mode',
+                        'childLinks.child:id,first_name,public_label,identity_visibility,class_visibility,parent_id',
+                        'childLinks.child.owner:id,first_name,last_name,public_name_mode',
                     ]);
                 }
             }])

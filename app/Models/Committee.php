@@ -16,7 +16,7 @@ class Committee extends Model
         'parent_committee_id',
         'school_id',
         'town',
-        'primary_contact_person_id',
+        'primary_contact_id',
         'status',
     ];
 

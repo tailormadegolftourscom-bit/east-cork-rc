@@ -1,7 +1,7 @@
 <x-mail::message>
 # Still No Child Added
 
-**{{ $person->first_name }} {{ $person->last_name }}** ({{ $person->email }}) registered as a supporter
+**{{ $parent->first_name }} {{ $parent->last_name }}** ({{ $parent->email }}) registered as a supporter
 {{ $daysSinceJoined }} days ago and still hasn't added a child.
 
 Might be worth a quick check-in, or they simply haven't gotten to it yet — this is a one-off note, you won't

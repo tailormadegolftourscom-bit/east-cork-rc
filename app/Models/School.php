@@ -30,9 +30,9 @@ class School extends Model
         'support_status',
         'status',
         'classes_confirmed',
-        'principal_person_id',
-        'vice_principal_person_id',
-        'secretary_person_id',
+        'principal_id',
+        'vice_principal_id',
+        'secretary_id',
         'notes',
     ];
 
@@ -57,17 +57,17 @@ class School extends Model
 
     public function principal()
     {
-        return $this->belongsTo(Person::class, 'principal_person_id');
+        return $this->belongsTo(Parents::class, 'principal_id');
     }
 
     public function vicePrincipal()
     {
-        return $this->belongsTo(Person::class, 'vice_principal_person_id');
+        return $this->belongsTo(Parents::class, 'vice_principal_id');
     }
 
     public function secretary()
     {
-        return $this->belongsTo(Person::class, 'secretary_person_id');
+        return $this->belongsTo(Parents::class, 'secretary_id');
     }
 
     public function committee()

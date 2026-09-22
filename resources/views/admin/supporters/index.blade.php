@@ -36,21 +36,21 @@
             </tr>
             </thead>
             <tbody>
-            @foreach ($people as $person)
-                <tr class="{{ $person->children->isEmpty() ? 'table-warning' : '' }}">
-                    <td>{{ $person->first_name }} {{ $person->last_name }}</td>
-                    <td>{{ $person->email }}</td>
-                    <td>{{ ucfirst($person->supporter->support_status) }}</td>
-                    <td>{{ $person->supporter->is_active ? 'Yes' : 'No' }}</td>
+            @foreach ($parents as $parent)
+                <tr class="{{ $parent->children->isEmpty() ? 'table-warning' : '' }}">
+                    <td>{{ $parent->first_name }} {{ $parent->last_name }}</td>
+                    <td>{{ $parent->email }}</td>
+                    <td>{{ ucfirst($parent->supporter->support_status) }}</td>
+                    <td>{{ $parent->supporter->is_active ? 'Yes' : 'No' }}</td>
                     <td>
-                        {{ $person->children->count() }}
-                        @if ($person->children->isEmpty())
+                        {{ $parent->children->count() }}
+                        @if ($parent->children->isEmpty())
                             <span class="badge text-bg-warning">No child yet</span>
                         @endif
                     </td>
-                    <td>{{ optional($person->supporter->joined_at)->format('Y-m-d') }}</td>
+                    <td>{{ optional($parent->supporter->joined_at)->format('Y-m-d') }}</td>
                     <td class="text-end">
-                        <a href="{{ route('admin.supporters.show', $person) }}" class="btn btn-sm btn-outline-primary">View</a>
+                        <a href="{{ route('admin.supporters.show', $parent) }}" class="btn btn-sm btn-outline-primary">View</a>
                     </td>
                 </tr>
             @endforeach
@@ -58,5 +58,5 @@
         </table>
     </div>
 
-    {{ $people->links() }}
+    {{ $parents->links() }}
 @endsection

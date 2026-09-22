@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdminAuditLog;
 use App\Models\Supporter;
-use App\Models\User;
+use App\Models\Parents;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $query = User::with(['person', 'school']);
+        $query = Parents::with('school');
 
         if ($search = $request->string('search')->trim()->toString()) {
             $query->where(function ($q) use ($search) {
@@ -29,7 +29,7 @@ class UserController extends Controller
             // mid-registration. The unfiltered "All roles" view still shows
             // everyone, since that's meant to be a complete account list.
             if ($type === 'parent') {
-                $query->whereHas('person.supporter');
+                $query->whereHas('supporter');
             }
         }
 
@@ -38,11 +38,11 @@ class UserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
-    public function show(User $user)
+    public function show(Parents $user)
     {
-        $user->load(['person.children', 'school']);
+        $user->load(['children', 'school']);
 
-        $auditLog = AdminAuditLog::where('target_type', User::class)
+        $auditLog = AdminAuditLog::where('target_type', Parents::class)
             ->where('target_id', $user->id)
             ->orderByDesc('created_at')
             ->get();
@@ -50,7 +50,7 @@ class UserController extends Controller
         return view('admin.users.show', compact('user', 'auditLog'));
     }
 
-    public function suspend(Request $request, User $user)
+    public function suspend(Request $request, Parents $user)
     {
         if ($user->id === auth()->id()) {
             return back()->with('error', 'You cannot suspend your own account.');
@@ -67,7 +67,7 @@ class UserController extends Controller
         return back()->with('success', 'User suspended.');
     }
 
-    public function reactivate(Request $request, User $user)
+    public function reactivate(Request $request, Parents $user)
     {
         $user->forceFill(['suspended_at' => null])->save();
 
@@ -76,7 +76,7 @@ class UserController extends Controller
         return back()->with('success', 'User reactivated.');
     }
 
-    public function destroy(Request $request, User $user)
+    public function destroy(Request $request, Parents $user)
     {
         if ($user->id === auth()->id()) {
             return back()->with('error', 'You cannot delete your own account.');
@@ -96,20 +96,10 @@ class UserController extends Controller
             'user_type' => $user->user_type,
         ]);
 
-        $personId = $user->person_id;
-
+        // Identity and login are one row now, so deleting a parent takes
+        // their details, their children and their supporter record with it
+        // via the foreign keys — no orphan cleanup left to do by hand.
         $user->delete();
-
-        // Deleting a user must never leave an active Supporter record behind
-        // with no account able to log in and manage it — that's exactly the
-        // kind of orphan that silently inflates the public "parents
-        // registered" count. Only deactivate if no other user still owns
-        // this person record.
-        if ($personId && ! User::where('person_id', $personId)->exists()) {
-            Supporter::where('person_id', $personId)
-                ->where('is_active', true)
-                ->update(['is_active' => false]);
-        }
 
         return redirect()
             ->route('admin.users.index')

@@ -20,9 +20,9 @@ class ParentOnly
             abort(403);
         }
 
-        if (! $user->person_id) {
-            abort(403);
-        }
+        // The old "is this login linked to a person record?" check is gone:
+        // identity and login are the same row now, so a parent account
+        // cannot exist without its own details.
 
         return $next($request);
     }

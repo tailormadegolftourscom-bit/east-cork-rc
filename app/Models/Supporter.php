@@ -21,8 +21,8 @@ class Supporter extends Model
         'no_children_reminder_sent_at' => 'datetime',
     ];
 
-    public function person()
+    public function parent()
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(Parents::class);
     }
 }

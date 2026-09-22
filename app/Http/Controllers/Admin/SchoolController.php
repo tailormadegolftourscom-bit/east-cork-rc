@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use App\Mail\SchoolInviteMail;
-use App\Models\User;
+use App\Models\Parents;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
@@ -101,7 +101,7 @@ class SchoolController extends Controller
                 'parent_committee_id' => $parentCommittee?->id,
                 'school_id' => $school->id,
                 'town' => $school->town,
-                'primary_contact_person_id' => null,
+                'primary_contact_id' => null,
                 'status' => 'active',
             ]);
         });
@@ -180,21 +180,20 @@ class SchoolController extends Controller
             return back()->with('error', 'Enter a principal email address before sending the school invite.');
         }
 
-        $user = User::where('email', $school->principal_email)->first();
+        $user = Parents::where('email', $school->principal_email)->first();
 
         if ($user && ((int) $user->is_admin === 1 || $user->user_type === 'admin')) {
             return back()->with('error', 'That email belongs to an admin account. Use a different principal email address, or change that account\'s role first if this was intentional.');
         }
 
         if (! $user) {
-            $user = User::create([
+            $user = Parents::create([
                 'name' => $school->name . ' School User',
                 'email' => $school->principal_email,
                 'password' => Hash::make(Str::random(32)),
                 'is_admin' => 0,
                 'user_type' => 'school',
                 'school_id' => $school->id,
-                'person_id' => null,
             ]);
         } else {
             $user->update([

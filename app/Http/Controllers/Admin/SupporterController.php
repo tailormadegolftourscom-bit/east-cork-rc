@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AdminAuditLog;
 use App\Models\Child;
-use App\Models\Person;
+use App\Models\Parents;
 use Illuminate\Http\Request;
 
 class SupporterController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Person::with(['supporter', 'children'])
+        $query = Parents::with(['supporter', 'children'])
             ->whereHas('supporter');
 
         if ($search = $request->string('search')->trim()->toString()) {
@@ -27,20 +27,20 @@ class SupporterController extends Controller
             $query->whereDoesntHave('children');
         }
 
-        $people = $query->orderBy('last_name')->orderBy('first_name')->paginate(25)->withQueryString();
+        $parents = $query->orderBy('last_name')->orderBy('first_name')->paginate(25)->withQueryString();
 
-        return view('admin.supporters.index', compact('people'));
+        return view('admin.supporters.index', compact('parents'));
     }
 
-    public function show(Person $person)
+    public function show(Parents $parent)
     {
-        $person->load([
+        $parent->load([
             'supporter',
             'children.schoolLink.currentSchool',
             'children.schoolLink.currentSchoolClass',
         ]);
 
-        return view('admin.supporters.show', compact('person'));
+        return view('admin.supporters.show', compact('parent'));
     }
 
     public function updateChildAuditStatus(Request $request, Child $child)
@@ -61,11 +61,11 @@ class SupporterController extends Controller
         ]);
 
         $name = $child->first_name;
-        $personId = $child->parent_person_id;
+        $parentId = $child->parent_id;
 
         AdminAuditLog::record('child.delete', $child, $validated['reason'], [
             'first_name' => $child->first_name,
-            'parent_person_id' => $personId,
+            'parent_id' => $parentId,
         ]);
 
         $child->delete();

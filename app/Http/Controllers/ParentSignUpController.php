@@ -12,15 +12,15 @@ class ParentSignUpController extends Controller
 {
     public function edit()
     {
-        $person = auth()->user()->person;
-        $supporter = Supporter::where('person_id', $person->id)->first();
+        $parent = auth()->user();
+        $supporter = Supporter::where('person_id', $parent->id)->first();
 
-        return view('parent.start', compact('person', 'supporter'));
+        return view('parent.start', compact('parent', 'supporter'));
     }
 
     public function update(Request $request)
     {
-        $person = auth()->user()->person;
+        $parent = auth()->user();
 
         $validated = $request->validate([
             'preferred_contact_method' => ['required', 'in:email,sms,whatsapp'],
@@ -39,17 +39,17 @@ class ParentSignUpController extends Controller
                 ->withInput();
         }
 
-        $person->update([
+        $parent->update([
             'preferred_contact_method' => $validated['preferred_contact_method'],
             'phone' => $validated['phone'] ?? null,
             'public_name_mode' => $validated['public_name_mode'],
             'phone_verified_at' => $validated['preferred_contact_method'] === 'email'
                 ? null
-                : $person->phone_verified_at,
+                : $parent->phone_verified_at,
         ]);
 
         $supporter = Supporter::updateOrCreate(
-            ['person_id' => $person->id],
+            ['person_id' => $parent->id],
             [
                 'support_status' => 'supporting',
                 'is_active' => 1,
@@ -57,7 +57,7 @@ class ParentSignUpController extends Controller
         );
 
         if ($supporter->wasRecentlyCreated) {
-            Mail::to(config('mail.oversight_bcc'))->send(new NewSupporterMail($person));
+            Mail::to(config('mail.oversight_bcc'))->send(new NewSupporterMail($parent));
         }
 
         return redirect()
@@ -67,40 +67,40 @@ class ParentSignUpController extends Controller
 
     public function welcome()
     {
-        $person = auth()->user()->person;
-        $supporter = $person->supporter;
+        $parent = auth()->user();
+        $supporter = $parent->supporter;
 
-        return view('parent.welcome', compact('person', 'supporter'));
+        return view('parent.welcome', compact('parent', 'supporter'));
     }
 
     public function dashboard()
     {
-        $person = auth()->user()->person;
-        $supporter = $person->supporter;
-        $children = Child::where('parent_person_id', $person->id)
-            ->orWhereHas('guardians', fn ($q) => $q->where('people.id', $person->id))
+        $parent = auth()->user();
+        $supporter = $parent->supporter;
+        $children = Child::where('parent_id', $parent->id)
+            ->orWhereHas('guardians', fn ($q) => $q->where('parents.id', $parent->id))
             ->with([
                 'schoolLink.currentSchool' => fn ($q) => $q->withCount('childLinks as registered_children_count'),
                 'schoolLink.currentSchoolClass' => fn ($q) => $q->withCount('childLinks as registered_children_count'),
-                'parentPerson',
+                'owner',
             ])
             ->latest()
             ->get();
 
-        return view('parent.dashboard', compact('person', 'supporter', 'children'));
+        return view('parent.dashboard', compact('parent', 'supporter', 'children'));
     }
 
     public function editProfile()
     {
-        $person = auth()->user()->person;
-        $supporter = $person->supporter;
+        $parent = auth()->user();
+        $supporter = $parent->supporter;
 
-        return view('parent.profile', compact('person', 'supporter'));
+        return view('parent.profile', compact('parent', 'supporter'));
     }
 
     public function updateProfile(Request $request)
     {
-        $person = auth()->user()->person;
+        $parent = auth()->user();
 
         $validated = $request->validate([
             'preferred_contact_method' => ['required', 'in:email,sms,whatsapp'],
@@ -119,13 +119,13 @@ class ParentSignUpController extends Controller
                 ->withInput();
         }
 
-        $person->update([
+        $parent->update([
             'preferred_contact_method' => $validated['preferred_contact_method'],
             'phone' => $validated['phone'] ?? null,
             'public_name_mode' => $validated['public_name_mode'],
             'phone_verified_at' => $validated['preferred_contact_method'] === 'email'
                 ? null
-                : $person->phone_verified_at,
+                : $parent->phone_verified_at,
         ]);
 
         return redirect()

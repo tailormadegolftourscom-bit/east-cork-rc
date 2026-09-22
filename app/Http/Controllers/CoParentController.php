@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\CoParentInviteMail;
 use App\Models\Child;
-use App\Models\Person;
-use App\Models\User;
+use App\Models\Parents;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +21,7 @@ class CoParentController extends Controller
 
     public function store(Request $request)
     {
-        $inviter = auth()->user()->person;
+        $inviter = auth()->user();
 
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:100'],
@@ -38,9 +37,9 @@ class CoParentController extends Controller
                 ->withInput();
         }
 
-        $existingUser = User::whereRaw('LOWER(email) = ?', [Str::lower($email)])->first();
+        $existingUser = Parents::whereRaw('LOWER(email) = ?', [Str::lower($email)])->first();
 
-        if ($existingUser && ($existingUser->user_type !== 'parent' || ! $existingUser->person_id)) {
+        if ($existingUser && $existingUser->user_type !== 'parent') {
             return back()
                 ->withErrors(['email' => 'That email is already registered as a different type of account.'])
                 ->withInput();
@@ -48,40 +47,38 @@ class CoParentController extends Controller
 
         $isNewAccount = ! $existingUser;
 
-        $targetPerson = DB::transaction(function () use ($existingUser, $validated, $email, $inviter) {
-            if ($existingUser) {
-                $targetPerson = $existingUser->person;
-            } else {
-                $targetPerson = Person::create([
-                    'first_name' => trim($validated['first_name']),
-                    'last_name' => trim($validated['last_name']),
-                    'email' => $email,
-                    'phone' => null,
-                    'public_name_mode' => 'real_name',
-                ]);
+        $target = DB::transaction(function () use ($existingUser, $validated, $email, $inviter) {
+            $first = trim($validated['first_name']);
+            $last = trim($validated['last_name']);
 
-                // Verified immediately: the invite + password-reset link the
-                // recipient must click to ever access the account already
-                // proves ownership of the inbox, same as a school invite.
-                User::create([
-                    'person_id' => $targetPerson->id,
-                    'name' => trim($validated['first_name'].' '.$validated['last_name']),
-                    'email' => $email,
-                    'password' => Hash::make(Str::random(32)),
-                    'is_admin' => 0,
-                    'user_type' => 'parent',
-                    'school_id' => null,
-                    'email_verified_at' => now(),
-                ]);
-            }
+            // Verified immediately: the invite + password-reset link the
+            // recipient must click to ever access the account already
+            // proves ownership of the inbox, same as a school invite.
+            //
+            // registration_completed_at is deliberately left null — an invite
+            // nobody has answered is not a finished registration, and the
+            // 3/6/9 sweep relies on that distinction.
+            $target = $existingUser ?: Parents::create([
+                'first_name' => $first,
+                'last_name' => $last,
+                'name' => $first.' '.$last,
+                'email' => $email,
+                'phone' => null,
+                'public_name_mode' => 'real_name',
+                'password' => Hash::make(Str::random(32)),
+                'is_admin' => 0,
+                'user_type' => 'parent',
+                'school_id' => null,
+                'email_verified_at' => now(),
+            ]);
 
-            $children = Child::where('parent_person_id', $inviter->id)->get();
+            $children = Child::where('parent_id', $inviter->id)->get();
 
             foreach ($children as $child) {
-                $child->guardians()->syncWithoutDetaching([$targetPerson->id]);
+                $child->guardians()->syncWithoutDetaching([$target->id]);
             }
 
-            return $targetPerson;
+            return $target;
         });
 
         Mail::to($email)->send(new CoParentInviteMail($inviter, $isNewAccount));
@@ -92,6 +89,6 @@ class CoParentController extends Controller
 
         return redirect()
             ->route('parent.dashboard')
-            ->with('success', $targetPerson->first_name.' has been added as a co-parent for your children.');
+            ->with('success', $target->first_name.' has been added as a co-parent for your children.');
     }
 }

@@ -3,16 +3,16 @@
 namespace App\Policies;
 
 use App\Models\SchoolClass;
-use App\Models\User;
+use App\Models\Parents;
 
 class SchoolClassPolicy
 {
-    private function isAdmin(User $user): bool
+    private function isAdmin(Parents $user): bool
     {
         return (int) $user->is_admin === 1 || $user->user_type === 'admin';
     }
 
-    public function update(User $user, SchoolClass $schoolClass): bool
+    public function update(Parents $user, SchoolClass $schoolClass): bool
     {
         if ($this->isAdmin($user)) {
             return true;
@@ -21,7 +21,7 @@ class SchoolClassPolicy
         return $user->user_type === 'school' && $user->school_id === $schoolClass->school_id;
     }
 
-    public function delete(User $user, SchoolClass $schoolClass): bool
+    public function delete(Parents $user, SchoolClass $schoolClass): bool
     {
         // School users are never permitted to delete class rows, regardless of ownership.
         return $this->isAdmin($user);

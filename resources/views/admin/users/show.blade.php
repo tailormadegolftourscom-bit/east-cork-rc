@@ -40,30 +40,30 @@
                 </div>
             </div>
 
-            @if ($user->person)
+            @if ($user->user_type === 'parent')
                 <div class="card shadow-sm mb-4">
                     <div class="card-body">
-                        <h2 class="h6">Linked Person (real identity)</h2>
+                        <h2 class="h6">Parent Details</h2>
                         <dl class="row mb-0">
                             <dt class="col-sm-4">Name</dt>
-                            <dd class="col-sm-8">{{ $user->person->first_name }} {{ $user->person->last_name }}</dd>
+                            <dd class="col-sm-8">{{ $user->first_name }} {{ $user->last_name }}</dd>
 
                             <dt class="col-sm-4">Email</dt>
-                            <dd class="col-sm-8">{{ $user->person->email }}</dd>
+                            <dd class="col-sm-8">{{ $user->email }}</dd>
 
                             <dt class="col-sm-4">Phone</dt>
-                            <dd class="col-sm-8">{{ $user->person->phone ?: '—' }}</dd>
+                            <dd class="col-sm-8">{{ $user->phone ?: '—' }}</dd>
 
                             <dt class="col-sm-4">Public Name Mode</dt>
-                            <dd class="col-sm-8">{{ $user->person->public_name_mode === 'anon_code' ? 'Anonymous (' . $user->person->public_display_name . ')' : 'Real name' }}</dd>
+                            <dd class="col-sm-8">{{ $user->public_name_mode === 'anon_code' ? 'Anonymous (' . $user->public_display_name . ')' : 'Real name' }}</dd>
 
                             <dt class="col-sm-4">Children</dt>
                             <dd class="col-sm-8">
-                                @if ($user->person->children->isEmpty())
+                                @if ($user->children->isEmpty())
                                     None registered
                                 @else
-                                    {{ $user->person->children->pluck('first_name')->join(', ') }} —
-                                    <a href="{{ route('admin.supporters.show', $user->person) }}">view details</a>
+                                    {{ $user->children->pluck('first_name')->join(', ') }} —
+                                    <a href="{{ route('admin.supporters.show', $user) }}">view details</a>
                                 @endif
                             </dd>
                         </dl>
@@ -119,7 +119,7 @@
                         <h3 class="h6 text-danger">Delete Account</h3>
                         <p class="small text-muted">
                             This permanently deletes the login account. It does <strong>not</strong> delete
-                            the linked person, supporter, or child records &mdash; review those separately first.
+                            their children and supporter record &mdash; review those first.
                         </p>
                         <form method="POST" action="{{ route('admin.users.destroy', $user) }}">
                             @csrf
