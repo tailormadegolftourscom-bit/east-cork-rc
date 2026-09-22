@@ -193,9 +193,12 @@ return new class extends Migration
                 'suspended_at' => $u->suspended_at,
                 'school_id' => $u->school_id,
                 'remember_token' => $u->remember_token,
-                // Anyone with a login already is treated as complete; the
-                // 3/6/9 sweep only ever applies to accounts created from here on.
-                'registration_completed_at' => $u->created_at,
+                // An unused password-reset token means an invite was sent and
+                // never answered: the account still holds the random password
+                // it was created with, so its owner has never logged in. Those
+                // are exactly the unfinished registrations the 3/6/9 sweep
+                // exists to chase, so they must not be backfilled as complete.
+                'registration_completed_at' => $this->hasUnusedInvite($u->email) ? null : $u->created_at,
             ];
 
             if ($u->person_id && DB::table('parents')->where('id', $u->person_id)->exists()) {
@@ -226,6 +229,19 @@ return new class extends Migration
         }
 
         return $idMap;
+    }
+
+    /**
+     * Laravel deletes a password-reset token the moment it is used, so one
+     * still sitting in the table means the recipient never set a password.
+     */
+    private function hasUnusedInvite(?string $email): bool
+    {
+        if (! $email || ! Schema::hasTable('password_reset_tokens')) {
+            return false;
+        }
+
+        return DB::table('password_reset_tokens')->where('email', $email)->exists();
     }
 
     /** @return array{0:?string,1:?string} */

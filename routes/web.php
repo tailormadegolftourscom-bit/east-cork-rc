@@ -5,7 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SchoolController;
 use App\Http\Controllers\Admin\SchoolClassController;
-use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\ParentController as AdminParentController;
+use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\SupporterController as AdminSupporterController;
 use App\Http\Controllers\Admin\CommitteeController as AdminCommitteeController;
 use App\Http\Controllers\SchoolRegistrationRequestController;
@@ -17,7 +18,7 @@ use App\Http\Controllers\ParentSignUpController;
 use App\Http\Controllers\ChildController;
 use App\Http\Controllers\CoParentController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\SupporterSignUpController;
 
 
 Route::middleware(['auth', 'school'])->prefix('school')->group(function () {
@@ -74,18 +75,33 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::post('/schools/{school}/send-invite', [SchoolController::class, 'sendInvite'])
         ->name('admin.schools.send-invite');
 
-    Route::get('/users', [AdminUserController::class, 'index'])->name('admin.users.index');
-    Route::get('/users/{user}', [AdminUserController::class, 'show'])->name('admin.users.show');
-    Route::post('/users/{user}/suspend', [AdminUserController::class, 'suspend'])->name('admin.users.suspend');
-    Route::post('/users/{user}/reactivate', [AdminUserController::class, 'reactivate'])->name('admin.users.reactivate');
-    Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('admin.users.destroy');
+    Route::get('/parents', [AdminParentController::class, 'index'])->name('admin.parents.index');
+    Route::get('/parents/{parent}', [AdminParentController::class, 'show'])->name('admin.parents.show');
+    Route::post('/parents/{parent}/categories', [AdminParentController::class, 'updateCategories'])
+        ->name('admin.parents.categories');
+    Route::post('/parents/{parent}/resend-invite', [AdminParentController::class, 'resendInvite'])
+        ->name('admin.parents.resend-invite');
+    Route::post('/parents/{parent}/suspend', [AdminParentController::class, 'suspend'])->name('admin.parents.suspend');
+    Route::post('/parents/{parent}/reactivate', [AdminParentController::class, 'reactivate'])->name('admin.parents.reactivate');
+    Route::delete('/parents/{parent}', [AdminParentController::class, 'destroy'])->name('admin.parents.destroy');
+
+    Route::patch('/children/{child}/audit-status', [AdminParentController::class, 'updateChildAuditStatus'])
+        ->name('admin.children.update-audit-status');
+    Route::delete('/children/{child}', [AdminParentController::class, 'destroyChild'])
+        ->name('admin.children.destroy');
 
     Route::get('/supporters', [AdminSupporterController::class, 'index'])->name('admin.supporters.index');
-    Route::get('/supporters/{parent}', [AdminSupporterController::class, 'show'])->name('admin.supporters.show');
-    Route::patch('/children/{child}/audit-status', [AdminSupporterController::class, 'updateChildAuditStatus'])
-        ->name('admin.children.update-audit-status');
-    Route::delete('/children/{child}', [AdminSupporterController::class, 'destroyChild'])
-        ->name('admin.children.destroy');
+    Route::get('/supporters/{supporter}', [AdminSupporterController::class, 'show'])->name('admin.supporters.show');
+    Route::post('/supporters/{supporter}/categories', [AdminSupporterController::class, 'updateCategories'])
+        ->name('admin.supporters.categories');
+    Route::post('/supporters/{supporter}/deactivate', [AdminSupporterController::class, 'deactivate'])
+        ->name('admin.supporters.deactivate');
+    Route::post('/supporters/{supporter}/reactivate', [AdminSupporterController::class, 'reactivate'])
+        ->name('admin.supporters.reactivate');
+    Route::delete('/supporters/{supporter}', [AdminSupporterController::class, 'destroy'])
+        ->name('admin.supporters.destroy');
+
+    Route::get('/accounts', [AdminAccountController::class, 'index'])->name('admin.accounts.index');
 
     Route::get('/committees', [AdminCommitteeController::class, 'index'])->name('admin.committees.index');
 });
@@ -106,8 +122,11 @@ Route::view('/resources', 'public.resources')->name('resources');
 Route::view('/faqs', 'public.faqs')->name('faqs');
 Route::view('/about', 'public.about')->name('about');
 
-Route::get('/updates', [SubscriberController::class, 'create'])->name('updates.create');
-Route::post('/updates', [SubscriberController::class, 'store'])->name('updates.store');
+Route::get('/support', [SupporterSignUpController::class, 'create'])->name('supporters.create');
+Route::post('/support', [SupporterSignUpController::class, 'store'])->name('supporters.store');
+
+// The old email-only mailing list folded into the supporters register.
+Route::permanentRedirect('/updates', '/support');
 
 
 Route::get('/email/verify', function () {

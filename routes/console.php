@@ -9,3 +9,6 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('app:notify-childless-supporters')->daily();
+
+// Reminds unfinished registrations at 3 and 6 days, removes them at 9.
+Schedule::command('app:sweep-pending-registrations')->dailyAt('07:00');

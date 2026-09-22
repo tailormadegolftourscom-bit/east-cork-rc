@@ -3,42 +3,40 @@
 namespace App\Console\Commands;
 
 use App\Mail\ChildlessSupporterReminderMail;
-use App\Models\Supporter;
+use App\Models\Parents;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
 class NotifyChildlessSupporters extends Command
 {
-    protected $signature = 'app:notify-childless-supporters {--days=3 : How many days after joining before flagging}';
+    protected $signature = 'app:notify-childless-supporters {--days=3 : How many days after onboarding before flagging}';
 
-    protected $description = 'Email the admin oversight address about supporters who still have no children after N days';
+    protected $description = 'Email the admin oversight address about parents who still have no children after N days';
 
     public function handle(): int
     {
         $days = (int) $this->option('days');
 
-        $supporters = Supporter::query()
-            ->where('is_active', true)
+        // Works off parents directly now: with the opt-in row gone, having
+        // finished onboarding is what "registered" means.
+        $parents = Parents::query()
+            ->where('user_type', 'parent')
+            ->whereNotNull('onboarded_at')
             ->whereNull('no_children_reminder_sent_at')
-            ->where('created_at', '<=', now()->subDays($days))
-            ->whereDoesntHave('parent.children')
-            ->with('parent')
+            ->where('onboarded_at', '<=', now()->subDays($days))
+            ->whereDoesntHave('children')
             ->get();
 
-        foreach ($supporters as $supporter) {
-            if (! $supporter->parent) {
-                continue;
-            }
-
-            $daysSinceJoined = (int) $supporter->created_at->diffInDays(now());
+        foreach ($parents as $parent) {
+            $daysSinceJoined = (int) $parent->onboarded_at->diffInDays(now());
 
             Mail::to(config('mail.oversight_bcc'))
-                ->send(new ChildlessSupporterReminderMail($supporter->parent, $daysSinceJoined));
+                ->send(new ChildlessSupporterReminderMail($parent, $daysSinceJoined));
 
-            $supporter->update(['no_children_reminder_sent_at' => now()]);
+            $parent->forceFill(['no_children_reminder_sent_at' => now()])->save();
         }
 
-        $this->info("Notified about {$supporters->count()} childless supporter(s).");
+        $this->info("Notified about {$parents->count()} childless parent(s).");
 
         return self::SUCCESS;
     }

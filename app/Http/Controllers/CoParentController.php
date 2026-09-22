@@ -70,6 +70,7 @@ class CoParentController extends Controller
                 'user_type' => 'parent',
                 'school_id' => null,
                 'email_verified_at' => now(),
+                'invited_at' => now(),
             ]);
 
             $children = Child::where('parent_id', $inviter->id)->get();

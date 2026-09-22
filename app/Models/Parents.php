@@ -38,6 +38,8 @@ class Parents extends Authenticatable implements MustVerifyEmail
         'school_id',
         'email_verified_at',
         'registration_completed_at',
+        'onboarded_at',
+        'invited_at',
     ];
 
     protected $hidden = [
@@ -55,6 +57,10 @@ class Parents extends Authenticatable implements MustVerifyEmail
             'suspended_at' => 'datetime',
             'two_factor_confirmed_at' => 'datetime',
             'registration_completed_at' => 'datetime',
+            'onboarded_at' => 'datetime',
+            'no_children_reminder_sent_at' => 'datetime',
+            'pending_reminder_sent_at' => 'datetime',
+            'invited_at' => 'datetime',
             'is_admin' => 'boolean',
             'password' => 'hashed',
         ];
@@ -68,6 +74,16 @@ class Parents extends Authenticatable implements MustVerifyEmail
     public function hasCompletedRegistration(): bool
     {
         return $this->registration_completed_at !== null;
+    }
+
+    /**
+     * Has this parent been through /parent/start and chosen how they want to
+     * be contacted and shown publicly? Separate from having a password —
+     * someone can set one and stop before the form.
+     */
+    public function hasOnboarded(): bool
+    {
+        return $this->onboarded_at !== null;
     }
 
     public function isAdmin(): bool
@@ -109,8 +125,19 @@ class Parents extends Authenticatable implements MustVerifyEmail
             ->withTimestamps();
     }
 
-    public function supporter()
+    /**
+     * Kinds of support this parent also offers — teacher, volunteer and so
+     * on. Every parent supports the initiative by definition; these are the
+     * extras on top, drawn from the same list the supporters register uses.
+     */
+    public function categories()
     {
-        return $this->hasOne(Supporter::class, 'person_id');
+        return $this->morphToMany(
+            SupporterCategory::class,
+            'linkable',
+            'supporter_category_links',
+            'linkable_id',
+            'supporter_category_id'
+        )->withTimestamps();
     }
 }

@@ -12,8 +12,9 @@
                 <a href="/admin/schools/create" class="btn btn-outline-primary">Add School</a>
                 <a href="{{ route('admin.school-requests.index') }}" class="btn btn-outline-primary">School Requests</a>
                 <a href="{{ route('admin.committees.index') }}" class="btn btn-outline-primary">Committees</a>
-                <a href="{{ route('admin.supporters.index') }}" class="btn btn-outline-primary">Supporters &amp; Children</a>
-                <a href="{{ route('admin.users.index') }}" class="btn btn-outline-primary">Users</a>
+                <a href="{{ route('admin.parents.index') }}" class="btn btn-outline-primary">Parents</a>
+                <a href="{{ route('admin.supporters.index') }}" class="btn btn-outline-primary">Supporters</a>
+                <a href="{{ route('admin.accounts.index') }}" class="btn btn-outline-secondary">Accounts</a>
             </div>
         </div>
     </div>

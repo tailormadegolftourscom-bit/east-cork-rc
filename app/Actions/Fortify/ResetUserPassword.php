@@ -27,6 +27,12 @@ class ResetUserPassword implements ResetsUserPasswords
 
         $user->forceFill([
             'password' => Hash::make($input['password']),
+            // Choosing a password of their own is what finishes a
+            // registration. Co-parent invites arrive already email-verified,
+            // so this is the only reliable signal that someone actually
+            // turned up — and it is what keeps the 3/6/9 sweep from
+            // removing them.
+            'registration_completed_at' => $user->registration_completed_at ?? now(),
         ])->save();
     }
 }

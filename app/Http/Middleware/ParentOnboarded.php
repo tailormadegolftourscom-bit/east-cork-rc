@@ -12,7 +12,7 @@ class ParentOnboarded
     {
         $parent = $request->user();
 
-        if (! $parent || ! $parent->supporter) {
+        if (! $parent || ! $parent->hasOnboarded()) {
             return redirect()
                 ->route('parent.start')
                 ->with('error', 'Please finish setting up your account first.');

@@ -53,8 +53,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="border rounded p-3">
-                                    <div class="h3 fw-bold text-primary mb-0">{{ $stats['parents_registered'] }}</div>
-                                    <div class="small text-muted">Parents registered</div>
+                                    <div class="h3 fw-bold text-primary mb-0">{{ $stats['supporters_total'] }}</div>
+                                    <div class="small text-muted">Supporters</div>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -434,7 +434,7 @@
                 <p class="mb-4 text-white-50">
                     Get occasional updates as more schools, classes and local parent groups are added across East Cork.
                 </p>
-                <a href="{{ route('updates.create') }}" class="btn btn-warning btn-lg">Get Updates</a>
+                <a href="{{ route('supporters.create') }}" class="btn btn-warning btn-lg">Support Us</a>
             </div>
         </div>
     </section>

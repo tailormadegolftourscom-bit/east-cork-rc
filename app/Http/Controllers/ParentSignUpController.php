@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Mail\NewSupporterMail;
 use App\Models\Child;
-use App\Models\Supporter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -13,9 +12,7 @@ class ParentSignUpController extends Controller
     public function edit()
     {
         $parent = auth()->user();
-        $supporter = Supporter::where('person_id', $parent->id)->first();
-
-        return view('parent.start', compact('parent', 'supporter'));
+        return view('parent.start', compact('parent'));
     }
 
     public function update(Request $request)
@@ -48,15 +45,13 @@ class ParentSignUpController extends Controller
                 : $parent->phone_verified_at,
         ]);
 
-        $supporter = Supporter::updateOrCreate(
-            ['person_id' => $parent->id],
-            [
-                'support_status' => 'supporting',
-                'is_active' => 1,
-            ]
-        );
+        // Every parent supports the initiative by definition, so there is no
+        // opt-in row to create — finishing this form is the whole of it.
+        $firstTime = ! $parent->hasOnboarded();
 
-        if ($supporter->wasRecentlyCreated) {
+        if ($firstTime) {
+            $parent->forceFill(['onboarded_at' => now()])->save();
+
             Mail::to(config('mail.oversight_bcc'))->send(new NewSupporterMail($parent));
         }
 
@@ -68,15 +63,13 @@ class ParentSignUpController extends Controller
     public function welcome()
     {
         $parent = auth()->user();
-        $supporter = $parent->supporter;
 
-        return view('parent.welcome', compact('parent', 'supporter'));
+        return view('parent.welcome', compact('parent'));
     }
 
     public function dashboard()
     {
         $parent = auth()->user();
-        $supporter = $parent->supporter;
         $children = Child::where('parent_id', $parent->id)
             ->orWhereHas('guardians', fn ($q) => $q->where('parents.id', $parent->id))
             ->with([
@@ -87,15 +80,14 @@ class ParentSignUpController extends Controller
             ->latest()
             ->get();
 
-        return view('parent.dashboard', compact('parent', 'supporter', 'children'));
+        return view('parent.dashboard', compact('parent', 'children'));
     }
 
     public function editProfile()
     {
         $parent = auth()->user();
-        $supporter = $parent->supporter;
 
-        return view('parent.profile', compact('parent', 'supporter'));
+        return view('parent.profile', compact('parent'));
     }
 
     public function updateProfile(Request $request)

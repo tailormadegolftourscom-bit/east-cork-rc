@@ -102,7 +102,7 @@
             <div class="col-md-4">
                 <h2 class="h6 text-uppercase text-white-50">Stay in Touch</h2>
                 <ul class="list-unstyled small">
-                    <li><a href="{{ route('updates.create') }}" class="footer-link">Get Updates</a></li>
+                    <li><a href="{{ route('supporters.create') }}" class="footer-link">Support Us</a></li>
                     <li><a href="mailto:info@eastcorkreclaimchildhood.ie" class="footer-link">info@eastcorkreclaimchildhood.ie</a></li>
                 </ul>
             </div>

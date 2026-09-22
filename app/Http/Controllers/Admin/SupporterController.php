@@ -4,16 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdminAuditLog;
-use App\Models\Child;
-use App\Models\Parents;
+use App\Models\Supporter;
+use App\Models\SupporterCategory;
 use Illuminate\Http\Request;
 
+/**
+ * The supporters register — people backing the initiative who are not parents
+ * here. Parents live on their own screen; they are supporters by definition
+ * and never appear in this table.
+ */
 class SupporterController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Parents::with(['supporter', 'children'])
-            ->whereHas('supporter');
+        $query = Supporter::with('categories');
 
         if ($search = $request->string('search')->trim()->toString()) {
             $query->where(function ($q) use ($search) {
@@ -23,53 +27,87 @@ class SupporterController extends Controller
             });
         }
 
-        if ($request->boolean('no_children')) {
-            $query->whereDoesntHave('children');
+        if ($categoryId = $request->string('category')->toString()) {
+            $query->whereHas('categories', fn ($q) => $q->where('supporter_categories.id', $categoryId));
         }
 
-        $parents = $query->orderBy('last_name')->orderBy('first_name')->paginate(25)->withQueryString();
+        if ($request->boolean('inactive')) {
+            $query->where('is_active', false);
+        } else {
+            $query->where('is_active', true);
+        }
 
-        return view('admin.supporters.index', compact('parents'));
-    }
-
-    public function show(Parents $parent)
-    {
-        $parent->load([
-            'supporter',
-            'children.schoolLink.currentSchool',
-            'children.schoolLink.currentSchoolClass',
+        return view('admin.supporters.index', [
+            'supporters' => $query->orderBy('last_name')->orderBy('first_name')->paginate(25)->withQueryString(),
+            'categories' => SupporterCategory::active()->ordered()->get(),
+            'activeCount' => Supporter::active()->count(),
+            'inactiveCount' => Supporter::where('is_active', false)->count(),
         ]);
-
-        return view('admin.supporters.show', compact('parent'));
     }
 
-    public function updateChildAuditStatus(Request $request, Child $child)
+    public function show(Supporter $supporter)
+    {
+        $supporter->load('categories');
+
+        return view('admin.supporters.show', [
+            'supporter' => $supporter,
+            'categories' => SupporterCategory::active()->ordered()->get(),
+        ]);
+    }
+
+    public function updateCategories(Request $request, Supporter $supporter)
     {
         $validated = $request->validate([
-            'audit_status' => ['required', 'in:pending,reviewed,verified'],
+            'categories' => ['nullable', 'array'],
+            'categories.*' => ['integer', 'exists:supporter_categories,id'],
         ]);
 
-        $child->update($validated);
+        $supporter->categories()->sync($validated['categories'] ?? []);
 
-        return back()->with('success', $child->first_name . '\'s audit status updated.');
+        return back()->with('success', 'Support categories updated.');
     }
 
-    public function destroyChild(Request $request, Child $child)
+    public function deactivate(Request $request, Supporter $supporter)
+    {
+        $validated = $request->validate(['reason' => ['required', 'string', 'max:500']]);
+
+        $supporter->update(['is_active' => false]);
+
+        AdminAuditLog::record('supporter.deactivate', $supporter, $validated['reason']);
+
+        return back()->with('success', $supporter->full_name.' is no longer counted as a supporter.');
+    }
+
+    public function reactivate(Request $request, Supporter $supporter)
+    {
+        $supporter->update(['is_active' => true]);
+
+        AdminAuditLog::record('supporter.reactivate', $supporter);
+
+        return back()->with('success', $supporter->full_name.' is counted again.');
+    }
+
+    public function destroy(Request $request, Supporter $supporter)
     {
         $validated = $request->validate([
             'reason' => ['required', 'string', 'max:500'],
+            'confirm_email' => ['required', 'string'],
         ]);
 
-        $name = $child->first_name;
-        $parentId = $child->parent_id;
+        if (strcasecmp($validated['confirm_email'], $supporter->email) !== 0) {
+            return back()->with('error', 'Confirmation email did not match. Nothing was deleted.');
+        }
 
-        AdminAuditLog::record('child.delete', $child, $validated['reason'], [
-            'first_name' => $child->first_name,
-            'parent_id' => $parentId,
+        AdminAuditLog::record('supporter.delete', $supporter, $validated['reason'], [
+            'email' => $supporter->email,
+            'categories' => $supporter->categories->pluck('slug')->all(),
         ]);
 
-        $child->delete();
+        // Removes the record outright, category tags included.
+        $supporter->delete();
 
-        return back()->with('success', $name . ' has been removed.');
+        return redirect()
+            ->route('admin.supporters.index')
+            ->with('success', 'Supporter deleted.');
     }
 }

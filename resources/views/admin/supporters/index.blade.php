@@ -6,15 +6,33 @@
         <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary btn-sm">Back to Dashboard</a>
     </div>
 
+    @if (session('success'))<div class="alert alert-success">{{ session('success') }}</div>@endif
+    @if (session('error'))<div class="alert alert-danger">{{ session('error') }}</div>@endif
+
+    <p class="text-muted">
+        People backing the initiative who aren't parents here.
+        <a href="{{ route('admin.parents.index') }}">Parents</a> are supporters by definition and listed separately.
+    </p>
+
     <form method="GET" class="row g-2 align-items-center mb-3">
         <div class="col-auto">
             <input type="text" name="search" class="form-control" placeholder="Search name or email"
                    value="{{ request('search') }}">
         </div>
+        <div class="col-auto">
+            <select name="category" class="form-select" onchange="this.form.submit()">
+                <option value="">All categories</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" @selected(request('category') == $category->id)>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
         <div class="col-auto form-check">
-            <input type="checkbox" class="form-check-input" id="no_children" name="no_children" value="1"
-                   @checked(request()->boolean('no_children')) onchange="this.form.submit()">
-            <label class="form-check-label" for="no_children">Registered, no child added yet</label>
+            <input type="checkbox" class="form-check-input" id="inactive" name="inactive" value="1"
+                   @checked(request()->boolean('inactive')) onchange="this.form.submit()">
+            <label class="form-check-label" for="inactive">Show inactive ({{ $inactiveCount }})</label>
         </div>
         <div class="col-auto">
             <button type="submit" class="btn btn-primary">Search</button>
@@ -25,38 +43,37 @@
     <div class="table-responsive">
         <table class="table align-middle">
             <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Support Status</th>
-                <th>Active</th>
-                <th>Children</th>
-                <th>Joined</th>
-                <th></th>
-            </tr>
+            <tr><th>Name</th><th>Email</th><th>Offering</th><th>Contact</th><th>Joined</th><th></th></tr>
             </thead>
             <tbody>
-            @foreach ($parents as $parent)
-                <tr class="{{ $parent->children->isEmpty() ? 'table-warning' : '' }}">
-                    <td>{{ $parent->first_name }} {{ $parent->last_name }}</td>
-                    <td>{{ $parent->email }}</td>
-                    <td>{{ ucfirst($parent->supporter->support_status) }}</td>
-                    <td>{{ $parent->supporter->is_active ? 'Yes' : 'No' }}</td>
+            @forelse ($supporters as $supporter)
+                <tr class="{{ $supporter->is_active ? '' : 'table-secondary' }}">
                     <td>
-                        {{ $parent->children->count() }}
-                        @if ($parent->children->isEmpty())
-                            <span class="badge text-bg-warning">No child yet</span>
-                        @endif
+                        {{ $supporter->full_name }}
+                        @unless ($supporter->is_active)
+                            <span class="badge text-bg-secondary">Inactive</span>
+                        @endunless
                     </td>
-                    <td>{{ optional($parent->supporter->joined_at)->format('Y-m-d') }}</td>
+                    <td>{{ $supporter->email }}</td>
+                    <td>
+                        @forelse ($supporter->categories as $category)
+                            <span class="badge text-bg-light border">{{ $category->name }}</span>
+                        @empty
+                            <span class="text-muted">&mdash;</span>
+                        @endforelse
+                    </td>
+                    <td>{{ ucfirst($supporter->preferred_contact_method) }}</td>
+                    <td>{{ optional($supporter->joined_at)->format('Y-m-d') }}</td>
                     <td class="text-end">
-                        <a href="{{ route('admin.supporters.show', $parent) }}" class="btn btn-sm btn-outline-primary">View</a>
+                        <a href="{{ route('admin.supporters.show', $supporter) }}" class="btn btn-sm btn-outline-primary">View</a>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr><td colspan="6" class="text-muted">No supporters yet.</td></tr>
+            @endforelse
             </tbody>
         </table>
     </div>
 
-    {{ $parents->links() }}
+    {{ $supporters->links() }}
 @endsection

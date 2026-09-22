@@ -39,6 +39,7 @@ class CreateNewUser implements CreatesNewUsers
             'user_type' => 'parent',
             'school_id' => null,
             'registration_completed_at' => now(),
+            'invited_at' => now(),
         ]);
     }
 }
