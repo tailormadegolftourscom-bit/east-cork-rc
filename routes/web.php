@@ -140,6 +140,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('committees.members.remove');
     Route::post('/committees/{committee}/members/{member}/hand-over', [CommitteeMembershipController::class, 'handOver'])
         ->name('committees.hand-over');
+    Route::post('/committees/{committee}/show-my-name', [CommitteeMembershipController::class, 'consentToNaming'])
+        ->name('committees.show-my-name');
     Route::put('/committees/{committee}/objectives', [CommitteeMembershipController::class, 'updateObjectives'])
         ->name('committees.objectives');
 });

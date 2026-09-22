@@ -129,6 +129,23 @@
                                 <p class="small text-muted">
                                     You are the {{ $iAmConvenor ? 'convenor' : 'a member' }}.
                                 </p>
+
+                                @if ($needsConsent && ! $myMembership->name_consent_at)
+                                    <div class="alert alert-warning small">
+                                        You were added by someone else, so you're listed here as
+                                        <code>{{ $viewer->public_display_name }}</code> rather than by name
+                                        &mdash; your anonymous setting still stands.
+                                        <form method="POST" action="{{ route('committees.show-my-name', $committee) }}" class="mt-2">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-warning">
+                                                Show my name on this committee
+                                            </button>
+                                        </form>
+                                        <div class="form-text small mt-1">
+                                            This changes nothing about how you appear anywhere else.
+                                        </div>
+                                    </div>
+                                @endif
                                 <form method="POST" action="{{ route('committees.leave', $committee) }}">
                                     @csrf
                                     <button type="submit" class="btn btn-outline-danger btn-sm w-100">Leave Committee</button>

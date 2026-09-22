@@ -180,6 +180,28 @@ class CommitteeMembershipController extends Controller
         return back()->with('success', $member->display_name.' is now the convenor.');
     }
 
+    /**
+     * Agree, after the fact, to be named here.
+     *
+     * Someone put on a committee by a convenor or an admin never consented to
+     * being named, so they show under their anonymous code. This lets them
+     * fix that themselves for this committee without changing how they appear
+     * everywhere else.
+     */
+    public function consentToNaming(Request $request, Committee $committee)
+    {
+        $parent = $this->actingParent();
+        $membership = $committee->membershipFor($parent);
+
+        if (! $membership) {
+            return back()->with('error', 'You are not on this committee.');
+        }
+
+        $membership->update(['name_consent_at' => now()]);
+
+        return back()->with('success', 'Your name is now shown on this committee.');
+    }
+
     public function updateObjectives(Request $request, Committee $committee)
     {
         $this->guardConvenor($committee);

@@ -144,7 +144,21 @@ class CommitteeController extends Controller
 
         Mail::to($person->email)->send(new MadeConvenorMail($person, $committee));
 
-        return back()->with('success', $person->full_name.' is now convenor of '.$committee->name.', and has been told by email.');
+        $response = back()->with('success', $person->full_name.' is now convenor of '.$committee->name.', and has been told by email.');
+
+        // Assigning does not consent on their behalf, so someone who chose to
+        // appear anonymously will head the committee as a code. Say so plainly
+        // rather than letting it be discovered on the public page.
+        if (($person->public_name_mode ?? null) === 'anon_code') {
+            $response->with('warning',
+                $person->full_name.' appears publicly as '.$person->public_display_name
+                .' because they chose anonymous display, so the committee will show that code as its convenor '
+                .'rather than their name. They can change it themselves from the committee page, or in their '
+                .'profile — the email tells them how.'
+            );
+        }
+
+        return $response;
     }
 
     public function destroy(Request $request, Committee $committee)
