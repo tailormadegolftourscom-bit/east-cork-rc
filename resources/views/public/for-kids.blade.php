@@ -33,9 +33,9 @@
                     <div class="card-body p-4">
                         <h2 class="h5 mb-3">This isn't about taking your phone away</h2>
                         <p class="text-muted mb-0">
-                            Loads of kids in this together still have a phone for calls, texts, and group chats
-                            with friends — just without the social media apps for now. It's about holding off on
-                            one specific thing, not about missing out on everything.
+                            Loads of kids in this together still have a phone for calls and texts with friends
+                            — just without the social media apps for now. It's about holding off on one specific
+                            thing, not about missing out on everything.
                         </p>
                     </div>
                 </div>
