@@ -7,15 +7,19 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @production
+        @unless (request()->is('admin', 'admin/*'))
         {{-- Privacy-friendly analytics by Plausible: no cookies and no personal
              data, so it needs no consent banner. Production only, so local
-             testing does not land in the numbers. --}}
+             testing does not land in the numbers, and never on admin pages —
+             running the site is not traffic, and those paths carry record ids
+             that have no business in a third-party service. --}}
         <script defer src="https://plausible.io/js/pa-5dEdyJ56m7OcEUiJlFroz.js"></script>
         <script>
             window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) };
             plausible.init = plausible.init || function (i) { plausible.o = i || {} };
             plausible.init()
         </script>
+        @endunless
     @endproduction
 </head>
 <body>
