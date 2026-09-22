@@ -20,7 +20,11 @@
                     <dl class="row mb-4">
                         <dt class="col-sm-4">Support Status</dt>
                         <dd class="col-sm-8">
-                            {{ ucfirst(optional($supporter)->support_status ?? 'supporting') }}
+                            Supporting
+                            @forelse ($parent->categories as $category)
+                                <span class="badge text-bg-light border">{{ $category->name }}</span>
+                            @empty
+                            @endforelse
                         </dd>
 
                         <dt class="col-sm-4">Preferred Contact</dt>

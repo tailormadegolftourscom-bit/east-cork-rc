@@ -7,7 +7,13 @@ use App\Models\AdminAuditLog;
 use App\Models\Area;
 use App\Models\Committee;
 use App\Models\School;
+use App\Models\CommitteeMember;
+use App\Models\Parents;
 use App\Models\SchoolClass;
+use App\Models\Supporter;
+use App\Mail\MadeConvenorMail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -83,6 +89,62 @@ class CommitteeController extends Controller
         return redirect()
             ->route('admin.committees.index')
             ->with('success', $committee->name.' created. It will show publicly with a "Become Convenor" button until someone steps forward.');
+    }
+
+    /**
+     * Put someone in the convenor's chair directly.
+     *
+     * Needed because most committees will sit empty waiting for a volunteer,
+     * and sometimes the right person has already agreed offline. Any existing
+     * convenor steps back to ordinary member rather than being removed.
+     */
+    public function assignConvenor(Request $request, Committee $committee)
+    {
+        $validated = $request->validate([
+            'email' => ['required', 'email', 'max:150'],
+        ]);
+
+        $email = Str::lower(trim($validated['email']));
+
+        $person = Parents::whereRaw('LOWER(email) = ?', [$email])->where('user_type', 'parent')->first()
+            ?: Supporter::whereRaw('LOWER(email) = ?', [$email])->first();
+
+        if (! $person) {
+            return back()->with('error', 'No parent or supporter found with that email.');
+        }
+
+        DB::transaction(function () use ($committee, $person) {
+            $committee->members()->where('role', 'convenor')->update(['role' => 'member']);
+
+            $existing = $committee->membershipFor($person);
+
+            if ($existing) {
+                $existing->update(['role' => 'convenor']);
+
+                return;
+            }
+
+            CommitteeMember::create([
+                'committee_id' => $committee->id,
+                'member_type' => $person::class,
+                'member_id' => $person->id,
+                'role' => 'convenor',
+                // Assigned rather than volunteered, so there is no consent to
+                // be named — their own display setting stands until they say
+                // otherwise.
+                'name_consent_at' => null,
+                'joined_at' => now(),
+            ]);
+        });
+
+        AdminAuditLog::record('committee.assign_convenor', $committee, 'Convenor assigned from the admin screen.', [
+            'committee' => $committee->name,
+            'convenor' => $person->email,
+        ]);
+
+        Mail::to($person->email)->send(new MadeConvenorMail($person, $committee));
+
+        return back()->with('success', $person->full_name.' is now convenor of '.$committee->name.', and has been told by email.');
     }
 
     public function destroy(Request $request, Committee $committee)

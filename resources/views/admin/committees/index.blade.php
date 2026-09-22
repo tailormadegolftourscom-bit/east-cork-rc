@@ -53,11 +53,42 @@
                         </td>
                         <td>{{ $committee->members->count() }}</td>
                         <td>{{ ucfirst($committee->status) }}</td>
-                        <td class="text-end">
+                        <td class="text-end text-nowrap">
+                            <button type="button" class="btn btn-sm btn-outline-primary"
+                                    data-bs-toggle="collapse" data-bs-target="#convenor-{{ $committee->id }}">
+                                {{ $convenor ? 'Change Convenor' : 'Set Convenor' }}
+                            </button>
                             <button type="button" class="btn btn-sm btn-outline-danger"
                                     data-bs-toggle="collapse" data-bs-target="#del-cttee-{{ $committee->id }}">
                                 Delete
                             </button>
+                        </td>
+                    </tr>
+                    <tr class="collapse" id="convenor-{{ $committee->id }}">
+                        <td colspan="6" class="bg-light">
+                            <form method="POST" action="{{ route('admin.committees.assign-convenor', $committee) }}"
+                                  class="row g-2 align-items-end">
+                                @csrf
+                                <div class="col">
+                                    <label class="form-label small">
+                                        Email of the parent or supporter to make convenor of {{ $committee->name }}
+                                        @if ($convenor)
+                                            <span class="text-muted">
+                                                — {{ $convenor->display_name }} steps back to ordinary member
+                                            </span>
+                                        @endif
+                                    </label>
+                                    <input type="email" name="email" class="form-control form-control-sm"
+                                           placeholder="their email address" required>
+                                    <div class="form-text small">
+                                        They'll be emailed to say so. Because you assigned them rather than them
+                                        volunteering, an anonymous parent keeps their code until they choose otherwise.
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-sm btn-primary">Assign</button>
+                                </div>
+                            </form>
                         </td>
                     </tr>
                     <tr class="collapse" id="del-cttee-{{ $committee->id }}">

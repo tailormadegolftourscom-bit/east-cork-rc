@@ -111,6 +111,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/committees', [AdminCommitteeController::class, 'index'])->name('admin.committees.index');
     Route::get('/committees/create', [AdminCommitteeController::class, 'create'])->name('admin.committees.create');
     Route::post('/committees', [AdminCommitteeController::class, 'store'])->name('admin.committees.store');
+    Route::post('/committees/{committee}/convenor', [AdminCommitteeController::class, 'assignConvenor'])
+        ->name('admin.committees.assign-convenor');
     Route::delete('/committees/{committee}', [AdminCommitteeController::class, 'destroy'])->name('admin.committees.destroy');
 });
 
