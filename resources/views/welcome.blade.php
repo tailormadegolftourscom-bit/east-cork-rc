@@ -15,7 +15,8 @@
                 </p>
 
                 <div class="d-flex flex-wrap gap-2 mb-3">
-                    <a href="{{ route('schools.index') }}" class="btn btn-primary btn-lg">Find My School &rarr;</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Register My Child &rarr;</a>
+                    <a href="{{ route('schools.index') }}" class="btn btn-outline-primary btn-lg">Find My School</a>
                 </div>
 
                 <div class="d-flex flex-wrap gap-3 small">

@@ -18,6 +18,23 @@
             $secondarySchools = $schools->get('secondary', collect());
         @endphp
 
+        @if ($primarySchools->isEmpty() && $secondarySchools->isEmpty())
+            <div class="alert alert-warning">
+                <h2 class="h5">No schools are listed yet</h2>
+                <p>
+                    We're working through the East Cork schools now and they'll appear here as they're added.
+                    You don't have to wait for yours — you can register your children today and attach them to a
+                    school later.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ route('register') }}" class="btn btn-primary">Register My Children</a>
+                    <a href="{{ route('school-registration.create') }}" class="btn btn-outline-primary">
+                        Tell Us About My School
+                    </a>
+                </div>
+            </div>
+        @endif
+
         <div class="row g-4 mb-5">
             <div class="col-md-6">
                 <div class="card shadow-sm h-100">
