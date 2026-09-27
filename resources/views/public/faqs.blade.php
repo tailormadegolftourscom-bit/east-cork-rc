@@ -163,16 +163,17 @@
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq9">
-                        Is there a national group too?
+                        How does this fit with Smartphone Free Childhood Ireland?
                     </button>
                 </h2>
                 <div id="faq9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        Yes —
+                        East Cork Reclaim Childhood is an extension of the work of
                         <a href="https://smartphonefree.ie/" target="_blank" rel="noopener">Smartphone Free Childhood
-                        Ireland</a> runs a national pledge and WhatsApp groups right across the country. We focus on
-                        what they're lighter on: real local schools, classes, and physical get-togethers here in East
-                        Cork. Worth signing both.
+                        Ireland</a> (SFCI), bringing it to a local level. SFCI leads the national movement, with its
+                        pledge and WhatsApp groups right across the country. ECRC concentrates on the local, practical
+                        side: parents in the same East Cork schools and classes acting together, and activities that
+                        get children out and together. Families are welcome to take part in both.
                     </div>
                 </div>
             </div>
