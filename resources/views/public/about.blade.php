@@ -35,10 +35,10 @@
                 pressures become established.
             </p>
             <p class="text-muted mb-0">
-                But I firmly believe it is parents who must take the lead. Governments can regulate and schools can support,
+                But it is parents who must take the lead. Governments can regulate and schools can support,
                 but neither can make these choices for families. Parents can. And, above all, one of the most striking things
                 about the very successful <em>It Takes a Village</em> initiative was its poster showing people
-                <strong>physically together</strong>. That, for me, gets to the heart of Reclaim Childhood: parents supporting
+                <strong>physically together</strong>. That gets to the heart of Reclaim Childhood: parents supporting
                 parents, children spending time together in the real world, and communities making it easier for families to
                 choose a different path.
             </p>
@@ -144,9 +144,9 @@
                         <h2 class="h5 mb-3">Help shape what it becomes</h2>
                         <p class="text-muted mb-0">
                             The project is still at an early stage. <strong>The ideas on this website are a starting point,
-                            not a finished programme</strong>, and I hope that parents, schools and others across East Cork
-                            will help shape what it becomes. I'm glad to host a meeting with any group of parents
-                            who'd like to talk it over &mdash; just get in touch.
+                            not a finished programme</strong>. Parents, schools and others across East Cork are invited
+                            to help shape what it becomes. Any group of parents who'd like to talk it over can
+                            get in touch to arrange a meeting.
                         </p>
                         @php($meetings = collect(config('notice.workshops', []))->filter(fn ($w) => $w['date'] >= today()->toDateString()))
                         @if ($meetings->isNotEmpty())
