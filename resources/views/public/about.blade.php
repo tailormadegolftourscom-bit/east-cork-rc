@@ -24,12 +24,11 @@
             </p>
             <p class="text-muted">
                 East Cork Reclaim Childhood is an extension of the excellent work already being done nationally by
-                Smartphone Free Childhood Ireland (SFCI) and others, and locally by Laura and the East Cork school reps.
+                Smartphone Free Childhood Ireland (SFCI) and others, and locally by the East Cork Smartphone Free Childhood Group and the school reps.
             </p>
             <p class="text-muted">
-                I was particularly inspired by <strong>Laura's work</strong>, and by her determination not to
-                repeat with her younger children some of the experiences she had already seen with her eldest. The
-                stories and experiences shared by parents through the wider
+                I was particularly inspired by the work of the <strong>East Cork Smartphone Free Childhood
+                Group</strong>. The stories and experiences shared by parents through the wider
                 <a href="https://smartphonefree.ie/" target="_blank" rel="noopener"><strong>Smartphone Free Childhood
                 Ireland</strong></a> community have reinforced for me just how important it is to act before these
                 pressures become established.
