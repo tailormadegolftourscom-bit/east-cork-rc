@@ -10,6 +10,11 @@
             how I think it can work.
         </p>
 
+        <p class="fs-5 mb-5" style="max-width: 46rem;">
+            The aim is simple: help children <strong>delay social media access</strong> for as long as possible
+            into secondary school, knowing that other children in their class are doing the same.
+        </p>
+
         <div class="card border-warning shadow-sm mb-5">
             <div class="card-body p-4 p-lg-5">
                 <h2 class="h4 mb-3">Why now</h2>

@@ -17,37 +17,45 @@
                 </div>
 
                 <div class="modal-body">
+                    <h3 class="h5">Our Kids Are Gen Alpha Rebels</h3>
                     <p>
-                        Parents: social media arrives in a class one family at a time.
-                        <strong>The only thing that stops it is parents deciding together, early</strong>
-                        &mdash; and that means now, not next year.
+                        The aim is simple: help children <strong>delay social media access</strong> for as long as possible into secondary school, knowing that other children in their class are doing the same.
+                    </p>
+                    <p>
+                        <strong>Gen Alpha Rebels</strong> comes from <em><strong>The Amazing Generation</strong></em>, recommended reading for your child.
                     </p>
 
-                    <h3 class="h6 mt-4">Replacing screens with activity &mdash; starting now</h3>
-                    @php($planned = \App\Models\Activity::with('venue')->listed()->where('status', 'planned')->take(4)->get())
-                    @if ($planned->isNotEmpty())
-                        <ul>
-                            @foreach ($planned as $activity)
-                                <li>
-                                    <strong>{{ $activity->title }}</strong>
-                                    @if ($activity->venue) at {{ $activity->venue->label }} @endif
-                                    @if ($activity->whenLabel()) &mdash; {{ $activity->whenLabel() }} @endif
-                                </li>
-                            @endforeach
-                        </ul>
-                    @else
-                        <p>Activities are being arranged now. <a href="{{ route('activities') }}">See what's planned</a>.</p>
-                    @endif
+                    <p>Let&rsquo;s encourage them, back them and keep them motivated.</p>
+
+                    <h3 class="h5">Replacing screens with activity — starting now</h3>
+                    <p>
+                        Reclaim Childhood is also about giving children more opportunities to meet, play and do
+                        things together away from screens.
+                    </p>
+
+                    <p>
+                        Starting with <strong>Monday badminton at Midleton Community Centre</strong> and a
+                        <strong>Greenway Cycle on the Midleton&ndash;Youghal Greenway</strong> on Sunday 18th October at
+                        1:00 p.m., to round off the CyberBreak weekend.
+                    </p>
+
+                    <p>
+                        More activities will follow &mdash; and <strong>we want parents and children to send in their suggestions for activities and/or venues.</strong>
+                    </p>
 
                     <p>
                         <strong>Register your child as a Rebel today &mdash; it takes two minutes &mdash; then tell
                         one other parent in their class.</strong> Not a parent here? Grandparents, family and
-                        neighbours can join as supporters.
+                        neighbours can <a href="{{ route('supporters.create') }}">join as supporters</a>.
                     </p>
 
-                    <p class="mb-0">
-                        More on the Rebels and how this will work: <a href="{{ route('about') }}">About ECRC</a>.
-                    </p>
+                    @if ($tuesday || $thursday)
+                        <p class="mb-0">
+                            Want to talk it through first? We're holding informal meetings at {{ $notice['venue'] }}
+                            on {{ collect([$tuesday['label'] ?? null, $thursday['label'] ?? null])->filter()->implode(' and ') }}.
+                            <a href="{{ route('workshops.rsvp') }}">RSVP here</a>.
+                        </p>
+                    @endif
 
                     <div class="mt-4">
                         <div class="fw-semibold">Peter O'Sullivan</div>
@@ -60,17 +68,12 @@
                     <div class="row g-2">
                         <div class="col-sm-6">
                             <a href="{{ route('register') }}" class="btn btn-success btn-lg w-100">
-                                Register Your Rebel Now
+                                Register Your Rebel
                             </a>
                         </div>
                         <div class="col-sm-6">
                             <a href="{{ route('activities') }}" class="btn btn-primary btn-lg w-100">
                                 See What's On
-                            </a>
-                        </div>
-                        <div class="col-12">
-                            <a href="{{ route('supporters.create') }}" class="btn btn-outline-primary w-100">
-                                Join as a Supporter
                             </a>
                         </div>
                     </div>

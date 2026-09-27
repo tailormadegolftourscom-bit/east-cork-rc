@@ -37,7 +37,7 @@
                         <p class="text-muted mb-0">
                             A 24-hour national switch-off run by
                             <a href="https://www.cybersafekids.ie/cyberbreak/" target="_blank" rel="noopener">CyberSafeKids</a>
-                            for families, schools and workplaces. Our Greenway cycle is on the Saturday.
+                            for families, schools and workplaces. Our Greenway cycle rounds off the weekend on Sunday 18 October at 1pm.
                         </p>
                     </div>
                 </div>
