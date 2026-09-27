@@ -33,6 +33,13 @@
                                value="{{ old('description', $venue->description) }}">
                     </div>
 
+                    <div class="col-12">
+                        <label for="website_url" class="form-label">Website <span class="text-muted small">(optional)</span></label>
+                        <input type="url" class="form-control" id="website_url" name="website_url" maxlength="255"
+                               value="{{ old('website_url', $venue->website_url) }}">
+                        <div class="form-text">Shown with the notes under Local resources on the Resources page.</div>
+                    </div>
+
                     <div class="col-md-8">
                         <label for="map_url" class="form-label">Map link <span class="text-muted small">(optional)</span></label>
                         <input type="url" class="form-control" id="map_url" name="map_url" maxlength="255"

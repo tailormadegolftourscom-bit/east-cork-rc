@@ -9,7 +9,7 @@ class Venue extends Model
 {
     protected $table = 'venues';
 
-    protected $fillable = ['name', 'town', 'description', 'map_url', 'sort_order', 'is_active'];
+    protected $fillable = ['name', 'town', 'description', 'website_url', 'map_url', 'sort_order', 'is_active'];
 
     protected $casts = ['is_active' => 'boolean'];
 

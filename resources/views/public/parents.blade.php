@@ -195,7 +195,7 @@
                         </p>
                     </div>
                     <div class="modal-footer flex-column align-items-stretch gap-2">
-                        <a href="{{ route('register') }}" class="btn btn-success btn-lg">Register Your Rebel</a>
+                        <a href="{{ route('register') }}" class="btn btn-success btn-lg">Register Your Child</a>
                         <button type="button" class="btn btn-link btn-sm text-muted" data-bs-dismiss="modal">Continue</button>
                     </div>
                 </div>

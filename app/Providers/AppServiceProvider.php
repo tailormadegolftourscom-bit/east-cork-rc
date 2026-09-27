@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('listedActivities', Activity::with('venue')->listed()->get());
         });
 
-        View::composer('public.activities', function ($view) {
+        View::composer(['public.activities', 'public.resources'], function ($view) {
             $view->with('venues', Venue::active()->ordered()->get());
         });
     }

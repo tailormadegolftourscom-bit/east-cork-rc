@@ -189,6 +189,7 @@ class ActivityController extends Controller
             'name' => ['required', 'string', 'max:150'],
             'town' => ['nullable', 'string', 'max:100'],
             'description' => ['nullable', 'string', 'max:500'],
+            'website_url' => ['nullable', 'url', 'max:255'],
             'map_url' => ['nullable', 'url', 'max:255'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ]);
