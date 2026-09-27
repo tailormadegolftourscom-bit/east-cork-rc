@@ -89,6 +89,23 @@
 
             <div class="accordion-item">
                 <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqSupporter">
+                        I'm not a parent here. Can I help?
+                    </button>
+                </h2>
+                <div id="faqSupporter" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Yes. Grandparents, aunts and uncles, neighbours, teachers and coaches are all welcome.
+                        <a href="{{ route('supporters.create') }}">Join as a supporter</a> &mdash; no account or
+                        password needed &mdash; to be counted, share ideas, or offer to help. You can also volunteer for
+                        a particular activity, such as marshalling on the Greenway cycle, straight from its page on
+                        <a href="{{ route('activities') }}">What's On</a>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
                         What is a "balance" phone?
                     </button>
