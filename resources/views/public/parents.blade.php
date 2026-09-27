@@ -67,6 +67,10 @@
                             start secondary school already surrounded by friends taking the same approach, rather than
                             starting from scratch.
                         </p>
+                        <p class="text-muted mt-3 mb-0">
+                            <strong>But you can register at any age.</strong> The more parents and children realise
+                            that others are planning the same &ldquo;no&rdquo; to social media, the better.
+                        </p>
                     </div>
                 </div>
             </div>
