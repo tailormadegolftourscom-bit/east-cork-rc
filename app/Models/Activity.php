@@ -78,7 +78,8 @@ class Activity extends Model
     public function whenLabel(): ?string
     {
         $parts = array_filter([
-            $this->starts_on?->format('l j F'),
+            // The year only when it is not this one: "Friday 25 June 2027".
+            $this->starts_on?->format($this->starts_on->year === today()->year ? 'l j F' : 'l j F Y'),
             $this->schedule,
         ]);
 
