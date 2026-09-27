@@ -53,8 +53,7 @@
                 <p class="text-muted mb-3">
                     This is really important. Kids in your class who already have social media aren't the enemy
                     &mdash; they're up against the same Greedy Wizards you are, and some of them would love to join
-                    you. Rebels never tease, leave out or look down on anyone. Every kid is welcome at every
-                    Rebel activity.
+                    you.
                 </p>
                 <p class="text-muted mb-0">
                     And a phone for calls and texts is fine. This is about holding off on social media, not about
