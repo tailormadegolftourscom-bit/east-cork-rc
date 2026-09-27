@@ -168,4 +168,88 @@
             @endauth
         </div>
     </section>
+
+    {{-- "Early days" popup. Parents page only, once per visitor, and never on
+         top of the site notice: if that is showing, this waits until it has
+         been closed. --}}
+    @guest
+        <div class="modal fade" id="earlyDaysNotice" tabindex="-1" aria-labelledby="earlyDaysTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="h4 fw-bold mb-0" id="earlyDaysTitle">Early days &mdash; and that's the point</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            East Cork Reclaim Childhood only launched in September 2026, so the numbers on this site
+                            are still small.
+                        </p>
+                        <p>
+                            That is not a sign nobody cares. It is simply new &mdash; and many parents are waiting to
+                            see if someone else goes first.
+                        </p>
+                        <p class="mb-0">
+                            Registering takes about two minutes, and it lets the next parent in your child's class
+                            know they are not on their own.
+                        </p>
+                    </div>
+                    <div class="modal-footer flex-column align-items-stretch gap-2">
+                        <a href="{{ route('register') }}" class="btn btn-success btn-lg">Register Your Rebel</a>
+                        <button type="button" class="btn btn-link btn-sm text-muted" data-bs-dismiss="modal">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            (function () {
+                var el = document.getElementById('earlyDaysNotice');
+                var key = 'ecrc_early_days_seen';
+
+                try { if (window.localStorage.getItem(key)) return; } catch (e) { /* private mode */ }
+
+                function remember() {
+                    try { window.localStorage.setItem(key, '1'); } catch (e) { /* ignore */ }
+                }
+
+                function show() {
+                    var modal = new window.bootstrap.Modal(el);
+                    el.addEventListener('hidden.bs.modal', remember);
+                    el.querySelectorAll('a[href]').forEach(function (a) { a.addEventListener('click', remember); });
+                    modal.show();
+                }
+
+                // The site notice opens itself on a first visit. If it is
+                // going to, follow it rather than stacking on top of it.
+                function siteNoticeShowing() {
+                    var notice = document.getElementById('ecrcNotice');
+                    if (!notice) return null;
+                    var seen = null;
+                    try { seen = window.localStorage.getItem('ecrc_notice_seen'); } catch (e) { /* ignore */ }
+                    return seen === notice.dataset.noticeVersion ? null : notice;
+                }
+
+                var attempts = 0;
+
+                (function waitForBootstrap() {
+                    if (!(window.bootstrap && window.bootstrap.Modal)) {
+                        if (attempts++ > 100) return;
+                        window.setTimeout(waitForBootstrap, 50);
+                        return;
+                    }
+
+                    var notice = siteNoticeShowing();
+
+                    if (notice) {
+                        notice.addEventListener('hidden.bs.modal', function () {
+                            window.setTimeout(show, 300);
+                        }, { once: true });
+                    } else {
+                        show();
+                    }
+                })();
+            })();
+        </script>
+    @endguest
 @endsection
