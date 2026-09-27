@@ -19,7 +19,7 @@
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="first_name" class="form-label">First Name</label>
+                                <label for="first_name" class="form-label">First name (Parent)</label>
                                 <input
                                     type="text"
                                     class="form-control"
@@ -31,7 +31,7 @@
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label for="last_name" class="form-label">Last Name</label>
+                                <label for="last_name" class="form-label">Last name (Parent)</label>
                                 <input
                                     type="text"
                                     class="form-control"
