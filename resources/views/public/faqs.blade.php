@@ -149,6 +149,32 @@
 
             <div class="accordion-item">
                 <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqGroups">
+                        What are Action Groups?
+                    </button>
+                </h2>
+                <div id="faqGroups" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        <p>
+                            Action Groups are how things get organised. There's an East Cork Action Group for the whole
+                            area, a group for each school, and under each school a group for each year &mdash; for
+                            example, all of 6th Class &mdash; with individual class groups below that where a class
+                            wants its own. There are also groups for particular activities and events, like the Midleton
+                            Badminton Group. Each group has a convenor: the person others can contact, who sets out what
+                            the group is for. Any registered parent can join a group or step forward as convenor &mdash;
+                            see <a href="{{ route('committees.index') }}">Action Groups</a>.
+                        </p>
+                        <p class="mb-0">
+                            <strong>The <a href="{{ route('committees.show', 'east-cork-action-group') }}">East Cork
+                            Action Group</a> especially needs more members.</strong> If you could help get things going
+                            across the area, please join it.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
                         Does my real name appear on the website?
                     </button>
