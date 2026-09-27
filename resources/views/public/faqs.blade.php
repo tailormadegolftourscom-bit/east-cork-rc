@@ -136,9 +136,11 @@
                 </h2>
                 <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                        No. Children's real names are never shown publicly. We ask for a real first name at
-                        registration so the information behind the scenes is genuine, but public participation figures
-                        are always shown as counts, not names.
+                        Not to the public. Anyone who isn't logged in sees only numbers for each school and class.
+                        Other registered parents, once logged in, can see the children in each class by their
+                        <strong>Rebel code name</strong> &mdash; and by first name as well, but only if you choose that
+                        when registering your child. Surnames are never shown. You can change these settings at any
+                        time by editing your child's details.
                     </div>
                 </div>
             </div>
