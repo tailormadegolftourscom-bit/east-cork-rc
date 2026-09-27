@@ -51,9 +51,13 @@
                         <h2 class="h5 mb-3">Got an idea?</h2>
                         <p class="text-muted mb-3">
                             A kickaround, a walk, a board-games afternoon in a local hall &mdash; suggest it and
-                            we'll list it. Ideas from kids are especially welcome.
+                            we'll list it. Know a hall, pitch or centre that could host? Suggest the venue too.
+                            Ideas from kids are especially welcome.
                         </p>
-                        <a href="mailto:info@eastcorkreclaimchildhood.ie?subject=Activity%20idea" class="btn btn-outline-primary">Suggest an Activity</a>
+                        <div class="d-flex flex-wrap gap-2">
+                            <a href="mailto:info@eastcorkreclaimchildhood.ie?subject=Activity%20suggestion" class="btn btn-outline-primary">Suggest an Activity</a>
+                            <a href="mailto:info@eastcorkreclaimchildhood.ie?subject=Venue%20suggestion" class="btn btn-outline-primary">Suggest a Venue</a>
+                        </div>
                     </div>
                 </div>
             </div>
