@@ -85,6 +85,20 @@
                                         </label>
                                     </div>
                                 @endforeach
+
+                                {{-- Names the next activity asking for volunteers, so the line
+                                     never points at one that has already happened. --}}
+                                @php($needsHelp = \App\Models\Activity::listed()->where('volunteers_open', true)->first())
+                                <p class="small text-muted mt-3 mb-0">
+                                    @if ($needsHelp)
+                                        Want to help at something specific, like the
+                                        <a href="{{ route('activities.show', $needsHelp) }}">{{ $needsHelp->title }}</a>@if ($needsHelp->starts_on) on {{ $needsHelp->starts_on->format('j F') }}@endif?
+                                        You can volunteer straight from its page on <a href="{{ route('activities') }}">What's On</a>.
+                                    @else
+                                        Want to help at something specific? Activities that need volunteers say so on
+                                        <a href="{{ route('activities') }}">What's On</a>, and you can offer straight from their page.
+                                    @endif
+                                </p>
                             </fieldset>
 
                             <div class="mt-4">
