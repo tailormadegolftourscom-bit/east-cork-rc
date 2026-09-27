@@ -1,12 +1,14 @@
 <x-mail::message>
 Hello,
 
-I'm writing from East Cork Reclaim Childhood, a new parent-led initiative building on the work of Smartphone
+I am writing from East Cork Reclaim Childhood (ECRC), a parent-led initiative building on the work of Smartphone
 Free Childhood Ireland and bringing that work to a more local level in East Cork.
 
 Our aim is to support families who want to delay children's access to smartphones and, in particular, social
 media for as long as possible, while also putting more emphasis on what replaces screen time: real-world
 friendships, outdoor play, sport, hobbies and local activities for children and families.
+
+This email is primarily for information and there is no action required from the school. ECRC is run by parents, although we would of course greatly appreciate the school's support where it is comfortable offering it. The one practical area where the school could be particularly helpful is by confirming the names of the individual 4th, 5th and 6th Classes, together with the number of pupils in each, as this information is important to how the parent network is organised.
 
 You can read more about the initiative at:
 
@@ -24,15 +26,10 @@ The link lasts 24 hours. If it has expired by the time you get to it, there is a
 a fresh one, so nothing is lost either way.
 @endisset
 
-There is no requirement for the school to take any action, and the initiative remains parent-led. Naturally,
-parents involved in the project would be very pleased to see schools supporting the initiative where they are
-comfortable doing so, but participation by the school is entirely voluntary.
-
 The school account gives you the option to review and update information about the school, including contact
-details and class information. In particular, it would be very helpful to have an accurate breakdown of the
-individual classes from 4th to 6th Class.
+details and class information.
 
-For example:
+Class names might look like:
 
 - 6th Class A / 6th Class B
 - 6th Class – Peter
@@ -46,9 +43,9 @@ another.
 If preferred, this class information can also be added or updated by one of our administrators, so the school
 does not need to manage it directly.
 
-East Cork Reclaim Childhood is still at an early stage. We are proposing to hold a number of workshops in
-mid-October with parents, schools and other interested people to help finalise the objectives, practical
-arrangements and longer-term direction of the initiative.
+East Cork Reclaim Childhood is still at an early stage. I am happy to meet with parents, schools and other
+interested people to help shape the objectives, practical arrangements and longer-term direction of the
+initiative.
 
 I hope the project will become a useful local support for families and schools across East Cork, and I would
 be very happy to hear any comments, concerns or suggestions you may have.
