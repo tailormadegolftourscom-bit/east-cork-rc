@@ -43,6 +43,23 @@
 
             <div class="accordion-item">
                 <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqRebel">
+                        What is a Gen Alpha Rebel?
+                    </button>
+                </h2>
+                <div id="faqRebel" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Any child whose family has joined East Cork Reclaim Childhood. The name comes from
+                        <em>The Amazing Generation</em> by Jonathan Haidt and Catherine Price, where the Rebels take on
+                        the &ldquo;Greedy Wizards&rdquo; who build apps to keep children hooked. Our quarrel is with
+                        the Wizards, never with other children. We treat Rebels as heroes and want to encourage them in
+                        any way we can &mdash; see <a href="{{ route('for-kids') }}">For Kids</a>.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1b">
                         Why 16? That sounds like a long time.
                     </button>
