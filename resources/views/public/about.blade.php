@@ -16,11 +16,15 @@
         </p>
 
         <div class="mb-5" style="max-width: 46rem;">
-            <h2 class="h4 mb-3">Why I started ECRC</h2>
+            <h2 class="h4 mb-3">Why ECRC</h2>
             <p class="text-muted">
                 Like many parents, I have become increasingly concerned about the effect that early access to
                 social media can have on children &mdash; and about how difficult it is for individual families to
                 hold the line when children believe that everyone else already has access.
+            </p>
+            <p class="text-muted">
+                East Cork Reclaim Childhood is an extension of the excellent work already being done nationally by
+                Smartphone Free Childhood Ireland (SFCI) and others, and locally by Laura and the East Cork school reps.
             </p>
             <p class="text-muted">
                 I was particularly inspired by <strong>Laura's work</strong>, and by her determination not to
@@ -31,8 +35,12 @@
                 pressures become established.
             </p>
             <p class="text-muted mb-0">
-                I see East Cork Reclaim Childhood as an extension of the excellent work already being done by SFCI
-                and others.
+                But I firmly believe it is parents who must take the lead. Governments can regulate and schools can support,
+                but neither can make these choices for families. Parents can. And, above all, one of the most striking things
+                about the very successful <em>It Takes a Village</em> initiative was its poster showing people
+                <strong>physically together</strong>. That, for me, gets to the heart of Reclaim Childhood: parents supporting
+                parents, children spending time together in the real world, and communities making it easier for families to
+                choose a different path.
             </p>
         </div>
 
