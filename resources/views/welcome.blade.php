@@ -48,26 +48,20 @@
                         </p>
 
                         <div class="row g-3 text-center">
-                            <div class="col-6">
-                                <div class="border rounded p-3">
+                            <div class="col-4">
+                                <div class="border rounded p-3 h-100">
                                     <div class="h3 fw-bold text-primary mb-0">{{ $stats['schools_listed'] }}</div>
                                     <div class="small text-muted">Schools listed</div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="border rounded p-3">
-                                    <div class="h3 fw-bold text-primary mb-0">{{ $stats['schools_supporting'] }}</div>
-                                    <div class="small text-muted">Schools Supporting</div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="border rounded p-3">
+                            <div class="col-4">
+                                <div class="border rounded p-3 h-100">
                                     <div class="h3 fw-bold text-primary mb-0">{{ $stats['supporters_total'] }}</div>
                                     <div class="small text-muted">Supporters</div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="border rounded p-3">
+                            <div class="col-4">
+                                <div class="border rounded p-3 h-100">
                                     <div class="h3 fw-bold text-primary mb-0">{{ $stats['children_registered'] }}</div>
                                     <div class="small text-muted">Children registered</div>
                                 </div>
