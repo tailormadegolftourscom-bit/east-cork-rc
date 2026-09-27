@@ -23,7 +23,7 @@
                 <p class="text-muted">
                     <span class="badge text-bg-light border">{{ $committee->typeLabel() }}</span>
                     @if ($committee->school)
-                        {{ $committee->school->name }}{{ $committee->schoolClass ? ' — '.$committee->schoolClass->display_name : '' }}
+                        {{ $committee->school->name }}{{ $committee->placeLabel() ? ' — '.$committee->placeLabel() : '' }}
                     @endif
                 </p>
 

@@ -44,7 +44,7 @@
 
                                 @if ($committee->school)
                                     <p class="small text-muted mb-2">
-                                        {{ $committee->school->name }}{{ $committee->schoolClass ? ' — '.$committee->schoolClass->display_name : '' }}
+                                        {{ $committee->school->name }}{{ $committee->placeLabel() ? ' — '.$committee->placeLabel() : '' }}
                                     </p>
                                 @endif
 

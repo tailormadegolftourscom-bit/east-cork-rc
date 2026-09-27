@@ -15,6 +15,10 @@ class Committee extends Model
         'activity' => 'Activity',
         'event' => 'Event',
         'school' => 'School',
+        // A whole year in one school, e.g. all of 6th Class. The default
+        // level for parents of a year; class groups sit below it only
+        // where a single class wants its own.
+        'year' => 'Year',
         'class' => 'Class',
     ];
 
@@ -26,6 +30,7 @@ class Committee extends Model
         'parent_committee_id',
         'school_id',
         'school_class_id',
+        'class_level',
         'town',
         'objectives',
         'primary_contact_id',
@@ -82,6 +87,23 @@ class Committee extends Model
     public function isEmpty(): bool
     {
         return $this->members->isEmpty();
+    }
+
+    /** "6th Class" for a year group's class_level. */
+    public static function levelLabel(?string $level): ?string
+    {
+        if (! $level) {
+            return null;
+        }
+
+        // Capitalise each word's first letter only: "6th Class", not "6Th".
+        return ucwords(str_replace('_', ' ', $level));
+    }
+
+    /** What part of the school this covers: "Rang 6 Ellen", "6th Class", or null. */
+    public function placeLabel(): ?string
+    {
+        return $this->schoolClass?->display_name ?? self::levelLabel($this->class_level);
     }
 
     public function typeLabel(): string

@@ -20,6 +20,9 @@ use Illuminate\Validation\Rule;
 
 class CommitteeController extends Controller
 {
+    /** Years a year group can cover — the ones that matter here. */
+    private const LEVELS = ['4th_class', '5th_class', '6th_class', '1st_year'];
+
     public function index()
     {
         $committees = Committee::with(['school', 'schoolClass', 'area', 'members.member'])
@@ -45,6 +48,7 @@ class CommitteeController extends Controller
                 ->whereNotIn('id', Committee::whereNotNull('school_class_id')->pluck('school_class_id'))
                 ->orderBy('school_id')->orderBy('sort_order')->get(),
             'parents' => Committee::orderBy('name')->get(),
+            'levels' => collect(self::LEVELS)->mapWithKeys(fn ($l) => [$l => Committee::levelLabel($l)]),
         ]);
     }
 
@@ -56,6 +60,7 @@ class CommitteeController extends Controller
             'slug' => ['required', 'string', 'max:160', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', 'unique:committees,slug'],
             'school_id' => ['nullable', 'exists:schools,id'],
             'school_class_id' => ['nullable', 'exists:school_classes,id'],
+            'class_level' => ['nullable', Rule::in(self::LEVELS)],
             'parent_committee_id' => ['nullable', 'exists:committees,id'],
             'town' => ['nullable', 'string', 'max:100'],
             'objectives' => ['nullable', 'string', 'max:5000'],
@@ -65,13 +70,37 @@ class CommitteeController extends Controller
             return back()->withInput()->withErrors(['school_class_id' => 'Choose the class this group is for.']);
         }
 
-        if ($validated['committee_type'] === 'school' && empty($validated['school_id'])) {
+        if (in_array($validated['committee_type'], ['school', 'year'], true) && empty($validated['school_id'])) {
             return back()->withInput()->withErrors(['school_id' => 'Choose the school this group is for.']);
         }
 
-        // A class committee belongs to its school's committee; a school
-        // committee to the regional one. Keeps the tree sensible without
-        // making the admin pick every time.
+        if ($validated['committee_type'] === 'year') {
+            if (empty($validated['class_level'])) {
+                return back()->withInput()->withErrors(['class_level' => 'Choose the year this group is for.']);
+            }
+
+            $exists = Committee::where('committee_type', 'year')
+                ->where('school_id', $validated['school_id'])
+                ->where('class_level', $validated['class_level'])
+                ->exists();
+
+            if ($exists) {
+                return back()->withInput()->withErrors(['class_level' => 'That school already has a group for this year.']);
+            }
+        } else {
+            $validated['class_level'] = null;
+        }
+
+        // A class group belongs to that class's school, so it shows the
+        // school on its card like every other school-level group.
+        if ($validated['committee_type'] === 'class' && ! empty($validated['school_class_id'])) {
+            $validated['school_id'] = SchoolClass::find($validated['school_class_id'])?->school_id;
+        }
+
+        // A class group belongs to its year group (or its school's, if there
+        // is no year group yet), a year group to its school's, and the rest
+        // to East Cork. Keeps the tree sensible without making the admin
+        // pick every time.
         if (empty($validated['parent_committee_id'])) {
             $validated['parent_committee_id'] = $this->inferParent($validated);
         }
@@ -192,11 +221,21 @@ class CommitteeController extends Controller
             $class = SchoolClass::find($data['school_class_id']);
 
             return Committee::where('school_id', $class?->school_id)
+                ->where('committee_type', 'year')
+                ->where('class_level', $class?->class_level)
+                ->value('id')
+                ?? Committee::where('school_id', $class?->school_id)
+                    ->where('committee_type', 'school')
+                    ->value('id');
+        }
+
+        if ($data['committee_type'] === 'year') {
+            return Committee::where('school_id', $data['school_id'] ?? null)
                 ->where('committee_type', 'school')
                 ->value('id');
         }
 
-        if (in_array($data['committee_type'], ['school', 'activity'], true)) {
+        if (in_array($data['committee_type'], ['school', 'activity', 'event'], true)) {
             return Committee::where('committee_type', 'regional')->value('id');
         }
 

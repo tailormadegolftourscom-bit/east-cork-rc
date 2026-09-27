@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="h3 mb-0">Add Group</h1>
-        <a href="{{ route('admin.committees.index') }}" class="btn btn-outline-secondary btn-sm">Back to Committees</a>
+        <a href="{{ route('admin.committees.index') }}" class="btn btn-outline-secondary btn-sm">Back to Groups</a>
     </div>
 
     <div class="row">
@@ -52,6 +52,18 @@
                         </div>
 
                         <div class="mb-3">
+                            <label for="class_level" class="form-label">Year <span class="text-muted small">(year groups)</span></label>
+                            <select name="class_level" id="class_level" class="form-select @error('class_level') is-invalid @enderror">
+                                <option value="">— none —</option>
+                                @foreach ($levels as $value => $label)
+                                    <option value="{{ $value }}" @selected(old('class_level') === $value)>{{ $label }}</option>
+                                @endforeach
+                            </select>
+                            <div class="form-text">A year group covers every class in that year, e.g. all of 6th Class. It's the default; class groups sit under it.</div>
+                            @error('class_level')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+
+                        <div class="mb-3">
                             <label for="school_class_id" class="form-label">Class <span class="text-muted small">(class groups)</span></label>
                             <select name="school_class_id" id="school_class_id" class="form-select @error('school_class_id') is-invalid @enderror">
                                 <option value="">— none —</option>
@@ -85,8 +97,9 @@
                                 @endforeach
                             </select>
                             <div class="form-text">
-                                Left blank, a class group sits under its school's, and school, activity and event
-                                groups under the East Cork one.
+                                Left blank, a class group sits under its year group (or its school's if there
+                                isn't one), a year group under its school's, and school, activity and event groups
+                                under the East Cork one.
                             </div>
                         </div>
 
