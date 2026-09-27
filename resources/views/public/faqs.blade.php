@@ -147,20 +147,6 @@
 
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
-                        Is this only for East Cork?
-                    </button>
-                </h2>
-                <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                    <div class="accordion-body">
-                        East Cork is our pilot area. If it works well here, we'd like to see the same approach used
-                        in other areas across Ireland — see <a href="{{ route('about') }}">About</a>.
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq9">
                         Is there a national group too?
                     </button>
