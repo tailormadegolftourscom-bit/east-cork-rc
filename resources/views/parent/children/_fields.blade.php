@@ -36,7 +36,7 @@
 
 <div class="row">
     <div class="col-md-6 mb-3">
-        <label for="first_name" class="form-label">First Name</label>
+        <label for="first_name" class="form-label">First name (Child)</label>
         <input
             type="text"
             class="form-control @error('first_name') is-invalid @enderror"
@@ -51,7 +51,7 @@
     </div>
 
     <div class="col-md-6 mb-3">
-        <label for="last_name" class="form-label">Last Name <span class="text-muted">(optional)</span></label>
+        <label for="last_name" class="form-label">Last name (Child) <span class="text-muted">(optional)</span></label>
         <input
             type="text"
             class="form-control @error('last_name') is-invalid @enderror"
