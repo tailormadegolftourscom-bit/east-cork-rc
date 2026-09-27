@@ -10,11 +10,9 @@
             about while social media waits.
         </p>
 
-        <div class="mb-5">
-            <h2 class="h4 mb-3">Planned and suggested activities</h2>
-            @include('partials.activity-list')
-            <p class="mt-3 mb-0"><a href="{{ route('activities') }}">Venues, ideas and how to help &rarr;</a></p>
-        </div>
+        <p class="mb-5">
+            Looking for things for the kids to do? See <a href="{{ route('activities') }}">What's On</a>.
+        </p>
 
         <div class="row g-4 mb-5">
             <div class="col-md-6">
