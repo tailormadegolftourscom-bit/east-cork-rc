@@ -17,9 +17,9 @@ return [
 
     'enabled' => env('NOTICE_ENABLED', true),
 
-    'version' => env('NOTICE_VERSION', '2026-09-23'),
+    'version' => env('NOTICE_VERSION', '2026-09-27'),
 
-    'dated' => '23 September 2026',
+    'dated' => '27 September 2026',
 
     /*
     |--------------------------------------------------------------------------

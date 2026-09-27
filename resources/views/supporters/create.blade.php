@@ -1,16 +1,17 @@
 @extends('layouts.app')
 
-@php($pageTitle = 'Support the Initiative — East Cork Reclaim Childhood')
+@php($pageTitle = 'Join as a Supporter — East Cork Reclaim Childhood')
 
 @section('content')
     <section class="py-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <h1 class="h3 mb-3">Support the initiative</h1>
+                <h1 class="h3 mb-3">Join as a supporter</h1>
                 <p class="text-muted mb-4">
-                    You don't need a child in a local school to help. Whether you just want to be counted, have
-                    ideas to share, or can lend a hand when kids get together, it all makes a difference — and
-                    it's much easier together than alone.
+                    You don't need a child in a local school to back the Gen Alpha Rebels. Grandparents, aunts and
+                    uncles, neighbours, teachers, coaches &mdash; whether you just want to be counted, have ideas to
+                    share, or can lend a hand when kids get together, it all makes a difference. No account or
+                    password needed.
                 </p>
 
                 @if (session('success'))

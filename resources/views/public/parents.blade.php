@@ -6,19 +6,22 @@
     <section class="py-5">
         <div class="row align-items-center g-4 mb-5">
             <div class="col-lg-8">
-                <h1 class="display-6 fw-bold mb-3">You're not the only parent thinking this</h1>
+                <h1 class="display-6 fw-bold mb-3">Don't wait until your child is the last one without it</h1>
                 <p class="lead text-muted">
-                    Almost every parent worries about the same thing at some point: when's the right time for social
-                    media, how to hold off a bit longer, and how to do it without your child feeling like the odd one
-                    out. The honest answer is that this is much easier together than alone — and a simple phone for
-                    calls and texts in the meantime is no problem at all.
+                    Social media usually arrives in a class one family at a time, each giving in because they
+                    assume everyone else already has. You can stop that happening in your child's class, but only
+                    if parents act together, and early &mdash; ideally from 4th class. A simple phone
+                    for calls and texts in the meantime is no problem at all.
+                </p>
+                <p class="fw-semibold mb-0">
+                    Register your child as a Gen Alpha Rebel today. Then tell one other parent in the class.
                 </p>
             </div>
             <div class="col-lg-4 text-lg-end">
                 @auth
                     <a href="{{ route('parent.dashboard') }}" class="btn btn-primary btn-lg">Go to My Account</a>
                 @else
-                    <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Join as a Parent</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Register Your Rebel Now</a>
                 @endauth
             </div>
         </div>

@@ -23,7 +23,7 @@
     @endproduction
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark site-navbar">
+<nav class="navbar navbar-expand-xl navbar-dark site-navbar">
     <div class="container">
         <a href="{{ route('home') }}" class="navbar-brand fw-bold">East Cork Reclaim Childhood</a>
 
@@ -32,19 +32,19 @@
         </button>
 
         <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-1">
-                <li class="nav-item"><a href="{{ route('for-kids') }}" class="nav-link">For Kids</a></li>
-                <li class="nav-item"><a href="{{ route('parents') }}" class="nav-link">Parents</a></li>
-                <li class="nav-item"><a href="{{ route('schools.index') }}" class="nav-link">Schools</a></li>
-                <li class="nav-item"><a href="{{ route('committees.index') }}" class="nav-link">Committees</a></li>
-                <li class="nav-item"><a href="{{ route('the-issue') }}" class="nav-link">The Issue</a></li>
-                <li class="nav-item"><a href="{{ route('activities') }}" class="nav-link">Reclaim Free Time</a></li>
-                <li class="nav-item"><a href="{{ route('resources') }}" class="nav-link">Resources</a></li>
-                <li class="nav-item"><a href="{{ route('faqs') }}" class="nav-link">FAQs</a></li>
-                <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">About</a></li>
+            <ul class="navbar-nav me-auto mb-2 mb-xl-0 gap-xl-1 text-nowrap small">
+                <li class="nav-item"><a href="{{ route('for-kids') }}" class="nav-link px-xl-1">For Kids</a></li>
+                <li class="nav-item"><a href="{{ route('parents') }}" class="nav-link px-xl-1">Parents</a></li>
+                <li class="nav-item"><a href="{{ route('schools.index') }}" class="nav-link px-xl-1">Schools</a></li>
+                <li class="nav-item"><a href="{{ route('committees.index') }}" class="nav-link px-xl-1">Committees</a></li>
+                <li class="nav-item"><a href="{{ route('the-issue') }}" class="nav-link px-xl-1">The Issue</a></li>
+                <li class="nav-item"><a href="{{ route('activities') }}" class="nav-link px-xl-1">What's On</a></li>
+                <li class="nav-item"><a href="{{ route('resources') }}" class="nav-link px-xl-1">Resources</a></li>
+                <li class="nav-item"><a href="{{ route('faqs') }}" class="nav-link px-xl-1">FAQs</a></li>
+                <li class="nav-item"><a href="{{ route('about') }}" class="nav-link px-xl-1">About</a></li>
             </ul>
 
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex align-items-center gap-2 text-nowrap">
                 @auth
                     @php($user = auth()->user())
 
@@ -62,6 +62,7 @@
                     </form>
                 @else
                     <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">Login</a>
+                    <a href="{{ route('supporters.create') }}" class="btn btn-outline-light btn-sm">Join as a Supporter</a>
                     <a href="{{ route('register') }}" class="btn btn-brand-accent btn-sm">Join as a Parent</a>
                 @endauth
             </div>
@@ -126,7 +127,7 @@
             <div class="col-md-4">
                 <h2 class="h6 text-uppercase text-white-50">Stay in Touch</h2>
                 <ul class="list-unstyled small">
-                    <li><a href="{{ route('supporters.create') }}" class="footer-link">Support Us</a></li>
+                    <li><a href="{{ route('supporters.create') }}" class="footer-link">Join as a Supporter</a></li>
                     <li><a href="mailto:info@eastcorkreclaimchildhood.ie" class="footer-link">info@eastcorkreclaimchildhood.ie</a></li>
                 </ul>
             </div>

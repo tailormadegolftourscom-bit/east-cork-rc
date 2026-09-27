@@ -5,7 +5,7 @@
         <div class="col-lg-7">
             <div class="card shadow-sm">
                 <div class="card-body p-4 p-lg-5">
-                    <h1 class="h4 mb-3">Register a Child</h1>
+                    <h1 class="h4 mb-3">Register Your Rebel</h1>
 
                     @if (session('duplicate_child'))
                         @php($dupe = session('duplicate_child'))

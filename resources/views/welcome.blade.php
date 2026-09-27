@@ -6,22 +6,30 @@
     <section class="py-5 py-lg-6 px-3 px-lg-5 mb-2 hero-bg">
         <div class="row align-items-center g-4">
             <div class="col-lg-7">
-                <span class="badge text-bg-warning mb-3">Parent-led · East Cork</span>
-                <h1 class="display-5 fw-bold mb-3">Want to delay your child's social media? You're in the right place.</h1>
-                <p class="lead text-muted mb-4">
-                    Join families across East Cork choosing to delay social media together, for as long as it
-                    takes — some of us aiming as late as 16. A phone for calls and texts is no problem; it's the
-                    addictive apps we're holding off on, together.
+                <span class="badge text-bg-warning mb-3">Parents · East Cork · Act now</span>
+                <h1 class="display-5 fw-bold mb-3">Parents: the pressure for social media starts in 4th class. So must we.</h1>
+                <p class="lead text-muted mb-3">
+                    Once a class starts getting social media, it's very hard for any one family to hold out alone.
+                    Families that decide together, early, make it easy for every child. That takes parents
+                    signing up <strong>now</strong>, not next year.
+                </p>
+                <p class="mb-4">
+                    So far, {{ $stats['children_registered'] }}
+                    {{ $stats['children_registered'] === 1 ? 'child has' : 'children have' }} been registered as <a href="{{ route('for-kids') }}">Gen Alpha Rebels</a>.
+                    <strong>Yours could be the one that gets your child's class started.</strong>
+                    It takes two minutes. A phone for calls and texts is fine &mdash; it's social media we're
+                    holding off, as late as 16 where we can.
                 </p>
 
                 <div class="d-flex flex-wrap gap-2 mb-3">
-                    <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Register My Child &rarr;</a>
-                    <a href="{{ route('schools.index') }}" class="btn btn-outline-primary btn-lg">Find My School</a>
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Register Your Rebel Now &rarr;</a>
+                    <a href="{{ route('supporters.create') }}" class="btn btn-outline-primary btn-lg">Join as a Supporter</a>
                 </div>
 
                 <div class="d-flex flex-wrap gap-3 small">
-                    <a href="{{ route('parents') }}" class="text-decoration-none">For Parents</a>
+                    <a href="{{ route('schools.index') }}" class="text-decoration-none">Find My School</a>
                     <a href="{{ route('for-kids') }}" class="text-decoration-none">For Kids</a>
+                    <a href="{{ route('activities') }}" class="text-decoration-none">What's On</a>
                     <a href="{{ route('school-registration.create') }}" class="text-decoration-none">Add My School</a>
                 </div>
             </div>
@@ -69,6 +77,17 @@
                 </div>
             </div>
         </div>
+    </section>
+
+    <section class="py-5">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-4">
+            <div>
+                <span class="badge text-bg-success mb-2">Replace screens with activity</span>
+                <h2 class="h2 mb-0">What's on for Rebels</h2>
+            </div>
+            <a href="{{ route('activities') }}" class="btn btn-outline-success">Everything that's on</a>
+        </div>
+        @include('partials.activity-list', ['limit' => 3])
     </section>
 
     <section class="py-4">
@@ -173,9 +192,9 @@
                     <div class="card-body p-4">
                         <h3 class="h6">Read it together</h3>
                         <p class="small text-muted mb-0">
-                            Jonathan Haidt's <em>The Anxious Generation</em> is doing the rounds — a school or class
-                            group reading it together, then getting together to talk it over, does more than any
-                            leaflet could.
+                            Jonathan Haidt's <em>The Anxious Generation</em> for parents, and
+                            <em>The Amazing Generation</em> for kids &mdash; a class reading them together, then
+                            talking it over, does more than any leaflet could.
                         </p>
                     </div>
                 </div>
@@ -185,8 +204,8 @@
                     <div class="card-body p-4">
                         <h3 class="h6">Celebrate finishing primary</h3>
                         <p class="small text-muted mb-0">
-                            A proper end-of-year BBQ, disco or party for every family in a school who stuck with it
-                            through 6th class — a real thank-you, not just a pledge on a page.
+                            A proper end-of-year party for the Rebels in 4th, 5th and 6th class &mdash; a real
+                            thank-you, not just a pledge on a page.
                         </p>
                     </div>
                 </div>
@@ -245,7 +264,7 @@
     <section class="py-5">
         <div class="text-center mb-5">
             <h2 class="h2">How it works</h2>
-            <p class="text-muted mb-0">A simple local process, built around schools, classes and parent support.</p>
+            <p class="text-muted mb-0">From 4th class to 1st Year, together.</p>
         </div>
 
         <div class="row g-4">
@@ -253,10 +272,10 @@
                 <div class="card h-100 shadow-sm">
                     <div class="card-body p-4">
                         <div class="display-6 fw-bold text-primary mb-3">1</div>
-                        <h3 class="h5">Parents join at school level</h3>
+                        <h3 class="h5">Rebels start in 4th class</h3>
                         <p class="text-muted mb-0">
-                            Parents register under their child's school and class so support can be built in a practical,
-                            local way.
+                            Parents register their child under their school and class, and kids and their
+                            classmates join in as Gen Alpha Rebels &mdash; before the pressure really starts.
                         </p>
                     </div>
                 </div>
@@ -266,10 +285,10 @@
                 <div class="card h-100 shadow-sm">
                     <div class="card-body p-4">
                         <div class="display-6 fw-bold text-primary mb-3">2</div>
-                        <h3 class="h5">Support builds from 4th class onward</h3>
+                        <h3 class="h5">Active, together, every year</h3>
                         <p class="text-muted mb-0">
-                            The aim is to help parents start early, strengthen support through 4th, 5th and 6th class,
-                            and carry that same group into 1st year at secondary school.
+                            Regular activities to replace screen time, and an end-of-year party for the Rebels in
+                            4th, 5th and 6th class, for the region or school by school.
                         </p>
                     </div>
                 </div>
@@ -279,10 +298,10 @@
                 <div class="card h-100 shadow-sm">
                     <div class="card-body p-4">
                         <div class="display-6 fw-bold text-primary mb-3">3</div>
-                        <h3 class="h5">Schools may support, but parents lead</h3>
+                        <h3 class="h5">Into secondary as a group</h3>
                         <p class="text-muted mb-0">
-                            Some schools may help by confirming class sizes or contact information. Parent groups can
-                            still move forward where a school does not participate formally.
+                            Transition groups bring together the Rebels going to the same secondary school, so
+                            nobody starts 1st Year on their own.
                         </p>
                     </div>
                 </div>
@@ -431,11 +450,12 @@
     <section class="py-5">
         <div class="card bg-dark text-white shadow-sm">
             <div class="card-body p-4 p-lg-5 text-center">
-                <h2 class="h2 mb-3">Stay informed as the network grows</h2>
+                <h2 class="h2 mb-3">Not a parent here? Back the Rebels anyway.</h2>
                 <p class="mb-4 text-white-50">
-                    Get occasional updates as more schools, classes and local parent groups are added across East Cork.
+                    Grandparents, aunts and uncles, neighbours, teachers and coaches: be counted, share an idea, or
+                    lend a hand at an activity. No account needed.
                 </p>
-                <a href="{{ route('supporters.create') }}" class="btn btn-warning btn-lg">Support Us</a>
+                <a href="{{ route('supporters.create') }}" class="btn btn-warning btn-lg">Join as a Supporter</a>
             </div>
         </div>
     </section>

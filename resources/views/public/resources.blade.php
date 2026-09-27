@@ -10,6 +10,40 @@
             about while social media waits.
         </p>
 
+        <div class="mb-5">
+            <h2 class="h4 mb-3">Planned and suggested activities</h2>
+            @include('partials.activity-list')
+            <p class="mt-3 mb-0"><a href="{{ route('activities') }}">Venues, ideas and how to help &rarr;</a></p>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-warning">
+                    <div class="card-body p-4">
+                        <h2 class="h5 mb-3">A book for your child: <em>The Amazing Generation</em></h2>
+                        <p class="text-muted mb-0">
+                            Jonathan Haidt and Catherine Price's illustrated book for 9 to 13-year-olds, the
+                            follow-on from <em>The Anxious Generation</em>. It's where our Gen Alpha Rebels and
+                            Greedy Wizards come from. It puts kids on the side of taking back their own time,
+                            rather than being told no, and makes a good read-together for a class or family.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h2 class="h5 mb-3">CyberBreak, 16&ndash;17 October</h2>
+                        <p class="text-muted mb-0">
+                            A 24-hour national switch-off run by
+                            <a href="https://www.cybersafekids.ie/cyberbreak/" target="_blank" rel="noopener">CyberSafeKids</a>
+                            for families, schools and workplaces. Our Greenway cycle is on the Saturday.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row g-4 mb-5">
             <div class="col-md-6">
                 <div class="card h-100 shadow-sm">

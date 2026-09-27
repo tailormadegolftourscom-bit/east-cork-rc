@@ -6,57 +6,81 @@
     <section class="py-5">
         <h1 class="display-6 fw-bold mb-3">Reclaim Free Time</h1>
         <p class="lead text-muted mb-5" style="max-width: 46rem;">
-            Holding off on social media is only half the story. The other half — arguably the more important half —
-            is giving kids something better to fill that time with: outdoor play, real friendships, and things to
-            actually look forward to. None of this needs to be a formal club with a coach running drills. Put a
-            group of kids together in an open space and they'll happily amuse themselves for hours — the point is
-            simply making sure they're together, not organising them.
+            Holding off on social media is only half the story. The other half is replacing screen time with
+            something better: getting kids out, active and together. None of this needs to be a formal club with
+            a coach running drills. Put a group of kids together in an open space and they'll happily amuse
+            themselves for hours.
         </p>
 
+        <div class="mb-5">
+            <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+                <h2 class="h4 mb-0">What's on</h2>
+                <span class="small text-muted">
+                    <span class="badge text-bg-success">Planned</span> happening &middot;
+                    <span class="badge text-bg-secondary">Suggested</span> looking for someone to run it
+                </span>
+            </div>
+            @include('partials.activity-list')
+        </div>
+
+        @if ($venues->isNotEmpty())
+            <div class="card border-0 bg-light mb-5">
+                <div class="card-body p-4 p-lg-5">
+                    <h2 class="h5 mb-3">Venues</h2>
+                    <p class="text-muted mb-3">Places we're using, or hoping to use, for Rebel activities.</p>
+                    <ul class="mb-0">
+                        @foreach ($venues as $venue)
+                            <li>
+                                @if ($venue->map_url)
+                                    <a href="{{ $venue->map_url }}" target="_blank" rel="noopener">{{ $venue->label }}</a>
+                                @else
+                                    {{ $venue->label }}
+                                @endif
+                                @if ($venue->description)<span class="text-muted small"> &mdash; {{ $venue->description }}</span>@endif
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
+
         <div class="row g-4 mb-5">
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-6">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body p-4">
-                        <h2 class="h6">Outdoors &amp; nature</h2>
-                        <p class="small text-muted mb-0">Nature walks, treasure hunts, cycling, and the woods, coast
-                            and countryside East Cork already has plenty of.</p>
+                        <h2 class="h5 mb-3">Got an idea?</h2>
+                        <p class="text-muted mb-3">
+                            A kickaround, a walk, a board-games afternoon in a local hall &mdash; suggest it and
+                            we'll list it. Ideas from kids are especially welcome.
+                        </p>
+                        <a href="mailto:info@eastcorkreclaimchildhood.ie?subject=Activity%20idea" class="btn btn-outline-primary">Suggest an Activity</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-6">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body p-4">
-                        <h2 class="h6">Sport &amp; games</h2>
-                        <p class="small text-muted mb-0">Kickarounds, badminton, playground meetups — just kids
-                            turning up to play together, not a training session with a coach.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body p-4">
-                        <h2 class="h6">Indoors, together</h2>
-                        <p class="small text-muted mb-0">Board games and local hall activities for evenings, weekends
-                            and rainy days — screen-free but still social.</p>
+                        <h2 class="h5 mb-3">Can you lend a hand?</h2>
+                        <p class="text-muted mb-3">
+                            Every activity needs a grown-up or two to turn up and open the door. You don't need to
+                            be a parent here to help.
+                        </p>
+                        <a href="{{ route('supporters.create') }}" class="btn btn-outline-primary">Join as a Supporter</a>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="mb-5">
-            <h2 class="h4 mb-3">Rewards &amp; milestones — how we make it worth it</h2>
-            <p class="text-muted mb-4">
-                Holding off works best when there's something real to look forward to, not just willpower. Here's
-                how we're building that in:
-            </p>
+            <h2 class="h4 mb-3">Something to look forward to</h2>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body p-4">
-                            <h3 class="h6">An end-of-year disco or party</h3>
+                            <h3 class="h6">An end-of-year party</h3>
                             <p class="small text-muted mb-0">
-                                A proper BBQ, disco or party for every 6th class family who held off through primary
-                                school — a real thank-you for a whole school or class, not just a pledge on a page.
+                                For the Rebels in 4th, 5th and 6th class, run for the whole region or school by
+                                school &mdash; a real celebration of sticking together.
                             </p>
                         </div>
                     </div>
@@ -64,10 +88,10 @@
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body p-4">
-                            <h3 class="h6">A pre-1st-year meetup</h3>
+                            <h3 class="h6">Transition groups</h3>
                             <p class="small text-muted mb-0">
-                                A get-together before September for the families carrying it into secondary school —
-                                so the kids arrive already knowing they've got company.
+                                Rebels heading to the same secondary school meet before 1st Year, so they arrive
+                                already knowing they've got company.
                             </p>
                         </div>
                     </div>
@@ -77,9 +101,8 @@
                         <div class="card-body p-4">
                             <h3 class="h6">A badge that grows over time</h3>
                             <p class="small text-muted mb-0">
-                                Every registered child earns a badge next to their own code name — "3 Months In",
-                                "6 Months In", and onward — a fun, private way to see progress build, no real names
-                                needed.
+                                Every Rebel earns a badge next to their code name &mdash; "3 Months In",
+                                "6 Months In" and onward. No real names needed.
                             </p>
                         </div>
                     </div>
@@ -87,27 +110,8 @@
             </div>
         </div>
 
-        <div class="card border-0 bg-light mb-5">
-            <div class="card-body p-4 p-lg-5">
-                <h2 class="h4 mb-3">Where this is heading</h2>
-                <p class="text-muted mb-3">
-                    We want to build proper tools for this: a way to list activities, find volunteers willing to
-                    supervise or lead a session, and match up venues — community halls, sports halls, pitches and
-                    playgrounds — with families looking for something to do. Longer term, we'd love to see this grow
-                    into proper local youth clubs. That's a bigger piece of work, and we're building it after the
-                    core parent, child and school features are solid, so it's worth doing properly rather than rushing.
-                </p>
-                <p class="text-muted mb-0">
-                    In the meantime, the same class and school WhatsApp groups that help parents hold off on social
-                    media together are a good place to start organising something informally — a kickaround after
-                    school, a weekend walk, a board games evening. You don't need to wait for us to build a feature to
-                    start reclaiming free time.
-                </p>
-            </div>
-        </div>
-
         <div class="text-center">
-            <a href="{{ route('parents') }}" class="btn btn-primary btn-lg">Get Started as a Parent</a>
+            <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Register Your Rebel</a>
         </div>
     </section>
 @endsection

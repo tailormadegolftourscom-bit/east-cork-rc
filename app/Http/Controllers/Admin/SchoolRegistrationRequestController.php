@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use App\Mail\SchoolCreatedMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Parents;
+use App\Models\ChildSchoolLink;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
@@ -127,11 +128,24 @@ class SchoolRegistrationRequestController extends Controller
                     'user_type' => 'school',
                     'school_id' => $school->id,
                 ]);
-            } else {
+            } elseif ($user->user_type === 'school') {
                 $user->update([
-                    'user_type' => 'school',
                     'school_id' => $school->id,
                 ]);
+            }
+            // A parent or admin who asked for a school stays exactly what they
+            // are. Converting them would take away their dashboard and cut
+            // them off from their own children — and parents now request
+            // secondary schools routinely, from the 6th class child form.
+
+            // Children whose parent typed this school in as unlisted are
+            // linked to it now that it exists.
+            if ($school->school_type === 'secondary') {
+                ChildSchoolLink::whereRaw('LOWER(TRIM(unlisted_secondary_name)) = ?', [mb_strtolower(trim($school->name))])
+                    ->update([
+                        'likely_secondary_school_id' => $school->id,
+                        'unlisted_secondary_name' => null,
+                    ]);
             }
 
             $defaultClasses = [];

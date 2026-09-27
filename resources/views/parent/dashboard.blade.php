@@ -58,7 +58,7 @@
                         </a>
 
                         <a href="/parent/children/create" class="btn btn-primary">
-                            Register a Child
+                            Register Your Rebel
                         </a>
 
                         <a href="{{ route('parent.co-parent.create') }}" class="btn btn-outline-primary">
@@ -82,7 +82,7 @@
                                 <tr>
                                     <th>First Name</th>
                                     <th>Last Name</th>
-                                    <th>Code Name</th>
+                                    <th>Rebel Code Name</th>
                                     <th>School</th>
                                     <th>Class</th>
                                     <th></th>

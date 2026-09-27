@@ -206,11 +206,32 @@ class ChildController extends Controller
             'transition_choice' => ['nullable', 'in:undecided,share,not_stated'],
             'likely_secondary_school_id' => ['nullable', Rule::exists('schools', 'id')],
             'transition_status' => ['nullable', 'in:considering,likely,confirmed'],
+            'intended_secondary' => ['nullable', 'string'],
+            'intended_status' => ['nullable', 'in:considering,likely,confirmed'],
+            'unlisted_secondary_name' => ['nullable', 'string', 'max:150'],
         ]);
 
         if ($validated['school_id'] ?? null) {
             $request->validate([
                 'school_class_id' => ['required'],
+            ]);
+        }
+
+        // A 6th class child must say where they are heading next: one of the
+        // listed secondary schools, or Undecided. That is what lets Rebels
+        // bound for the same school be put together before 1st Year.
+        $classLevel = SchoolClass::find($validated['school_class_id'] ?? null)?->class_level;
+
+        if ($classLevel === '6th_class') {
+            $secondaryIds = School::where('school_type', 'secondary')->pluck('id')->map(fn ($id) => (string) $id);
+
+            $request->validate([
+                'intended_secondary' => ['required', Rule::in($secondaryIds->push('undecided', 'unlisted')->all())],
+                'unlisted_secondary_name' => ['required_if:intended_secondary,unlisted'],
+            ], [
+                'intended_secondary.required' => 'Please choose the secondary school your child intends to go to, or Undecided.',
+                'intended_secondary.in' => 'Please choose a secondary school from the list, Unlisted, or Undecided.',
+                'unlisted_secondary_name.required_if' => 'Please type the name of the unlisted secondary school.',
             ]);
         }
 
@@ -251,8 +272,21 @@ class ChildController extends Controller
         $classLevel = SchoolClass::find($validated['school_class_id'])?->class_level;
         $eligibleForTransition = in_array($classLevel, ['5th_class', '6th_class'], true);
         $choice = $validated['transition_choice'] ?? 'undecided';
+        $intended = $validated['intended_secondary'] ?? null;
+        $unlistedName = null;
 
-        if (! $eligibleForTransition) {
+        if ($classLevel === '6th_class') {
+            // Required and validated above. Undecided keeps the existing
+            // convention: considering, with no school named. Unlisted keeps
+            // the typed name until that school is added and linked.
+            $likelySecondarySchoolId = ctype_digit((string) $intended) ? (int) $intended : null;
+            $unlistedName = $intended === 'unlisted'
+                ? trim((string) ($validated['unlisted_secondary_name'] ?? '')) ?: null
+                : null;
+            $transitionStatus = ($likelySecondarySchoolId || $unlistedName)
+                ? ($validated['intended_status'] ?? 'likely')
+                : 'considering';
+        } elseif (! $eligibleForTransition) {
             $likelySecondarySchoolId = null;
             $transitionStatus = 'not_applicable';
         } elseif ($choice === 'not_stated') {
@@ -272,6 +306,7 @@ class ChildController extends Controller
                 'current_school_id' => $validated['school_id'],
                 'current_school_class_id' => $validated['school_class_id'],
                 'likely_secondary_school_id' => $likelySecondarySchoolId,
+                'unlisted_secondary_name' => $unlistedName,
                 'transition_status' => $transitionStatus,
             ]
         );

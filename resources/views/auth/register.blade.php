@@ -7,6 +7,13 @@
                 <div class="card-body">
                     <h1 class="h4 mb-3">Parent Registration</h1>
 
+                    <div class="alert alert-info small">
+                        <strong>Not a parent of a child in a local school?</strong> Grandparents, aunts and uncles,
+                        neighbours, teachers and coaches are all welcome &mdash;
+                        <a href="{{ route('supporters.create') }}" class="alert-link">join as a supporter instead</a>.
+                        No password needed.
+                    </div>
+
                     <form method="POST" action="/register">
                         @csrf
 

@@ -39,7 +39,7 @@
 
                     <div class="d-flex flex-wrap gap-2">
                         <a href="/parent/children/create" class="btn btn-primary">
-                            Register a Child
+                            Register Your Rebel
                         </a>
 
                         <a href="/" class="btn btn-outline-secondary">

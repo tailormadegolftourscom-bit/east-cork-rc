@@ -13,6 +13,7 @@ class ChildSchoolLink extends Model
         'current_school_id',
         'current_school_class_id',
         'likely_secondary_school_id',
+        'unlisted_secondary_name',
         'transition_status',
     ];
 

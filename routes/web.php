@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\WorkshopRsvpController as AdminWorkshopRsvpController;
 use App\Http\Controllers\Admin\SupporterController as AdminSupporterController;
 use App\Http\Controllers\Admin\CommitteeController as AdminCommitteeController;
+use App\Http\Controllers\Admin\ActivityController as AdminActivityController;
 use App\Http\Controllers\SchoolRegistrationRequestController;
 use App\Http\Controllers\Admin\SchoolRegistrationRequestController as AdminSchoolRegistrationRequestController;
 use App\Http\Controllers\SchoolPortalController;
@@ -23,6 +24,7 @@ use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\WorkshopRsvpController;
 use App\Http\Controllers\CommitteeMembershipController;
 use App\Http\Controllers\SupporterSignUpController;
+use App\Http\Controllers\SecondarySchoolRequestController;
 
 
 Route::middleware(['auth', 'school'])->prefix('school')->group(function () {
@@ -115,6 +117,19 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/workshops', [AdminWorkshopRsvpController::class, 'index'])->name('admin.workshops.index');
     Route::delete('/workshops/{rsvp}', [AdminWorkshopRsvpController::class, 'destroy'])->name('admin.workshops.destroy');
 
+    Route::get('/activities', [AdminActivityController::class, 'index'])->name('admin.activities.index');
+    Route::get('/activities/create', [AdminActivityController::class, 'create'])->name('admin.activities.create');
+    Route::post('/activities', [AdminActivityController::class, 'store'])->name('admin.activities.store');
+    Route::get('/activities/{activity}/edit', [AdminActivityController::class, 'edit'])->name('admin.activities.edit');
+    Route::put('/activities/{activity}', [AdminActivityController::class, 'update'])->name('admin.activities.update');
+    Route::delete('/activities/{activity}', [AdminActivityController::class, 'destroy'])->name('admin.activities.destroy');
+
+    Route::get('/venues/create', [AdminActivityController::class, 'createVenue'])->name('admin.venues.create');
+    Route::post('/venues', [AdminActivityController::class, 'storeVenue'])->name('admin.venues.store');
+    Route::get('/venues/{venue}/edit', [AdminActivityController::class, 'editVenue'])->name('admin.venues.edit');
+    Route::put('/venues/{venue}', [AdminActivityController::class, 'updateVenue'])->name('admin.venues.update');
+    Route::delete('/venues/{venue}', [AdminActivityController::class, 'destroyVenue'])->name('admin.venues.destroy');
+
     Route::get('/committees', [AdminCommitteeController::class, 'index'])->name('admin.committees.index');
     Route::get('/committees/create', [AdminCommitteeController::class, 'create'])->name('admin.committees.create');
     Route::post('/committees', [AdminCommitteeController::class, 'store'])->name('admin.committees.store');
@@ -205,6 +220,10 @@ Route::middleware(['auth', 'verified', 'parent', 'parent.onboarded'])->group(fun
     Route::get('/parent/children/{child}/edit', [ChildController::class, 'edit'])->name('parent.children.edit');
     Route::put('/parent/children/{child}', [ChildController::class, 'update'])->name('parent.children.update');
     Route::delete('/parent/children/{child}', [ChildController::class, 'destroy'])->name('parent.children.destroy');
+
+    Route::post('/parent/secondary-school-request', [SecondarySchoolRequestController::class, 'store'])
+        ->middleware('throttle:10,1')
+        ->name('parent.secondary-school-request');
 
     Route::get('/parent/co-parent/invite', [CoParentController::class, 'create'])->name('parent.co-parent.create');
     Route::post('/parent/co-parent/invite', [CoParentController::class, 'store'])->name('parent.co-parent.store');

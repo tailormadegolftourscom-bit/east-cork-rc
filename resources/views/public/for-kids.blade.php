@@ -1,28 +1,28 @@
 @extends('layouts.app')
 
-@php($pageTitle = 'For Kids — East Cork Reclaim Childhood')
+@php($pageTitle = 'For Kids: Gen Alpha Rebels — East Cork Reclaim Childhood')
 
 @section('content')
     <section class="py-5">
         <div class="mb-5" style="max-width: 46rem;">
-            <h1 class="display-6 fw-bold mb-3">Hey — this page is for you!</h1>
+            <span class="badge text-bg-warning mb-3">For Kids</span>
+            <h1 class="display-6 fw-bold mb-3">Welcome, Gen Alpha Rebel</h1>
             <p class="lead text-muted">
-                Your mum, dad, or another grown-up probably found this website first. But this bit is written
-                for you, because honestly, you're the most important person here.
+                Your mum, dad or another grown-up probably found this website first. But this page is for you,
+                because you're the most important person here.
             </p>
         </div>
 
         <div class="row g-4 mb-5">
             <div class="col-md-6">
-                <div class="card h-100 shadow-sm">
+                <div class="card h-100 shadow-sm border-warning">
                     <div class="card-body p-4">
-                        <h2 class="h5 mb-3">So what's actually going on?</h2>
+                        <h2 class="h5 mb-3">What's a Gen Alpha Rebel?</h2>
                         <p class="text-muted mb-0">
-                            Loads of parents in East Cork have noticed the same thing: everyone feels like they
-                            have to get social media really young, just because it seems like everyone else has
-                            it. So a group of parents decided to team up and wait a bit longer together — as a
-                            whole class or school, not just one family on their own. That way nobody has to feel
-                            like the odd one out.
+                            The name comes from <em>The Amazing Generation</em>, a book for kids by Jonathan Haidt
+                            and Catherine Price. Rebels are kids who decide to run their own lives: real friends,
+                            real freedom, real fun &mdash; and technology used as a tool, instead of technology
+                            using them. Here in East Cork, a Rebel is any kid whose family has joined in.
                         </p>
                     </div>
                 </div>
@@ -31,11 +31,12 @@
             <div class="col-md-6">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body p-4">
-                        <h2 class="h5 mb-3">This isn't about taking your phone away</h2>
+                        <h2 class="h5 mb-3">Who are Rebels up against?</h2>
                         <p class="text-muted mb-0">
-                            Loads of kids in this together still have a phone for calls and texts with friends
-                            — just without the social media apps for now. It's about holding off on one specific
-                            thing, not about missing out on everything.
+                            The <strong>Greedy Wizards</strong>: the companies that design apps and games to keep
+                            you scrolling for as long as possible, because the longer you stay, the more money they
+                            make. Some of the cleverest people in the world work on making those apps hard to put
+                            down. Rebels outsmart them by doing something better with their time &mdash; together.
                         </p>
                     </div>
                 </div>
@@ -44,67 +45,63 @@
 
         <div class="card border-0 bg-light mb-5">
             <div class="card-body p-4 p-lg-5">
-                <h2 class="h4 mb-3">You get to pick your own code name</h2>
+                <h2 class="h4 mb-3">Rebels don't fight other kids</h2>
                 <p class="text-muted mb-3">
-                    If your family joins in, your real name is never shown anywhere on this website — instead,
-                    you get to choose your own code name, like <strong>Shiny Blue Crocodile</strong> or
-                    <strong>Sweet Red Carnation</strong>. Pick something fun, or ask a grown-up to shuffle through
-                    ideas with you until you find one you like.
-                </p>
-                <p class="text-muted mb-3">
-                    It's the one part of all this that's completely, 100% up to you.
+                    This is really important. Kids in your class who already have social media aren't the enemy
+                    &mdash; they're up against the same Greedy Wizards you are, and some of them would love to join
+                    you. Rebels never tease, leave out or look down on anyone. Every kid is welcome at every
+                    Rebel activity.
                 </p>
                 <p class="text-muted mb-0">
-                    Your code name also earns its own badge the longer you're part of this — starting at
-                    "Just Joined" and working up through "3 Months In", "6 Months In" and beyond. Nobody else sees
-                    it but you and your family, but it's a fun way to watch how far you've come.
+                    And a phone for calls and texts is fine. This is about holding off on social media, not about
+                    taking anything away.
                 </p>
             </div>
         </div>
 
         <div class="mb-5">
-            <h2 class="h4 mb-3">The fun stuff that's part of this too</h2>
+            <h2 class="h4 mb-3">Things Rebels are doing</h2>
             <p class="text-muted mb-4">
-                Waiting on social media is only half of it — the other half is doing things that are actually
-                more fun instead. Here's the secret grown-ups already know: give a group of kids an open space
-                and each other, and you won't hear from them for hours. No app required.
+                Here's the secret grown-ups already know: give a group of kids an open space and each other, and
+                you won't hear from them for hours. No app required.
             </p>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body p-4">
-                            <h3 class="h6">Just being together</h3>
-                            <p class="small text-muted mb-0">Kickarounds, bike spins, badminton, playground
-                                meetups — no plan needed. Put a few of you in a field together and you'll
-                                figure out something to do faster than any app ever could.</p>
-                        </div>
+            @include('partials.activity-list', ['limit' => 3])
+            <p class="mt-3 mb-0"><a href="{{ route('activities') }}">See everything that's on &rarr;</a></p>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">Your own Rebel code name</h3>
+                        <p class="small text-muted mb-0">
+                            Your real name is never shown on this website. You choose a code name instead, like
+                            <strong>Shiny Blue Crocodile</strong>. It's the one part that's 100% up to you. It
+                            earns a badge the longer you're a Rebel: "Just Joined", then "3 Months In",
+                            "6 Months In" and beyond.
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body p-4">
-                            <h3 class="h6">Outdoors &amp; exploring</h3>
-                            <p class="small text-muted mb-0">Nature walks, treasure hunts, and the woods, coast
-                                and countryside that are already right on your doorstep.</p>
-                        </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">A big end-of-year party</h3>
+                        <p class="small text-muted mb-0">
+                            A party for the Rebels in 4th, 5th and 6th class &mdash; a real celebration of
+                            sticking together.
+                        </p>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body p-4">
-                            <h3 class="h6">A big end-of-year party</h3>
-                            <p class="small text-muted mb-0">A proper BBQ or disco for every 6th class who held
-                                off together — a real thank-you, not just words.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body p-4">
-                            <h3 class="h6">Starting secondary school with friends</h3>
-                            <p class="small text-muted mb-0">A meetup before 1st year, so you already know
-                                you're not walking in alone.</p>
-                        </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body p-4">
+                        <h3 class="h6">Starting secondary school with friends</h3>
+                        <p class="small text-muted mb-0">
+                            Rebels going to the same secondary school get together before 1st Year, so you already
+                            know you're not walking in alone.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -112,10 +109,10 @@
 
         <div class="row align-items-center g-4">
             <div class="col-lg-8">
-                <h2 class="h4 mb-2">Want your family to join in?</h2>
+                <h2 class="h4 mb-2">Want to be a Rebel?</h2>
                 <p class="text-muted mb-0">
-                    Show this page to your mum, dad, or whoever looks after you. It only takes them a couple of
-                    minutes to sign up.
+                    Show this page to your mum, dad or whoever looks after you. It takes them a couple of minutes
+                    to sign you up &mdash; and then you pick your code name.
                 </p>
             </div>
             <div class="col-lg-4 text-lg-end">
