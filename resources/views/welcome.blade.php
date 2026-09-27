@@ -43,8 +43,7 @@
                             {{ $stats['schools_secondary'] }} Secondary Schools
                         </h2>
                         <p class="text-muted small mb-4">
-                            Some schools will begin with parent-led support only. Others may later choose to
-                            support the initiative directly. Real numbers, updated as they grow.
+                            Real numbers, updated as they grow.
                         </p>
 
                         <div class="row g-3 text-center">
