@@ -12,7 +12,13 @@
                 <a href="/admin/schools/create" class="btn btn-outline-primary">Add School</a>
                 <a href="{{ route('admin.school-requests.index') }}" class="btn btn-outline-primary">School Requests</a>
                 <a href="{{ route('admin.committees.index') }}" class="btn btn-outline-primary">Committees</a>
-                <a href="{{ route('admin.activities.index') }}" class="btn btn-outline-primary">Activities &amp; Venues</a>
+                @php($pendingSuggestions = \App\Models\ActivitySuggestion::pending()->count())
+                <a href="{{ route('admin.activities.index') }}" class="btn btn-outline-primary">
+                    Activities &amp; Venues
+                    @if ($pendingSuggestions)
+                        <span class="badge text-bg-warning ms-1">{{ $pendingSuggestions }} to approve</span>
+                    @endif
+                </a>
                 <a href="{{ route('admin.parents.index') }}" class="btn btn-outline-primary">Parents</a>
                 <a href="{{ route('admin.supporters.index') }}" class="btn btn-outline-primary">Supporters</a>
                 <a href="{{ route('admin.workshops.index') }}" class="btn btn-outline-primary">Workshop RSVPs</a>

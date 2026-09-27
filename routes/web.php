@@ -25,6 +25,7 @@ use App\Http\Controllers\WorkshopRsvpController;
 use App\Http\Controllers\CommitteeMembershipController;
 use App\Http\Controllers\SupporterSignUpController;
 use App\Http\Controllers\SecondarySchoolRequestController;
+use App\Http\Controllers\ActivitySuggestionController;
 
 
 Route::middleware(['auth', 'school'])->prefix('school')->group(function () {
@@ -130,6 +131,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/venues/{venue}', [AdminActivityController::class, 'updateVenue'])->name('admin.venues.update');
     Route::delete('/venues/{venue}', [AdminActivityController::class, 'destroyVenue'])->name('admin.venues.destroy');
 
+    Route::patch('/activity-suggestions/{suggestion}', [AdminActivityController::class, 'moderateSuggestion'])
+        ->name('admin.activity-suggestions.moderate');
+
     Route::get('/committees', [AdminCommitteeController::class, 'index'])->name('admin.committees.index');
     Route::get('/committees/create', [AdminCommitteeController::class, 'create'])->name('admin.committees.create');
     Route::post('/committees', [AdminCommitteeController::class, 'store'])->name('admin.committees.store');
@@ -177,6 +181,11 @@ Route::view('/for-kids', 'public.for-kids')->name('for-kids');
 Route::get('/parents', [PublicSchoolController::class, 'forParents'])->name('parents');
 Route::view('/the-issue', 'public.the-issue')->name('the-issue');
 Route::view('/activities', 'public.activities')->name('activities');
+Route::get('/activities/{activity}/suggestions', [ActivitySuggestionController::class, 'show'])
+    ->name('activities.suggestions');
+Route::post('/activities/{activity}/suggestions', [ActivitySuggestionController::class, 'store'])
+    ->middleware(['auth', 'verified', 'parent', 'throttle:10,1'])
+    ->name('activities.suggestions.store');
 Route::view('/resources', 'public.resources')->name('resources');
 Route::view('/faqs', 'public.faqs')->name('faqs');
 Route::view('/about', 'public.about')->name('about');

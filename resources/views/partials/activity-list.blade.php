@@ -40,6 +40,12 @@
                             <p class="small mb-2">Convenor: {{ $activity->convenor_name }}</p>
                         @endif
 
+                        @if ($activity->suggestions_open)
+                            <a href="{{ route('activities.suggestions', $activity) }}" class="btn btn-sm btn-warning d-block mb-2">
+                                Suggestions welcome &rarr;
+                            </a>
+                        @endif
+
                         @if ($activity->link_url)
                             <a href="{{ $activity->link_url }}" target="_blank" rel="noopener" class="small">
                                 {{ $activity->link_label ?: 'More information' }}

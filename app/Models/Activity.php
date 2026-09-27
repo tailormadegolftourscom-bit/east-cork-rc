@@ -27,6 +27,7 @@ class Activity extends Model
         'convenor_name',
         'link_url',
         'link_label',
+        'suggestions_open',
         'sort_order',
         'is_active',
     ];
@@ -34,11 +35,17 @@ class Activity extends Model
     protected $casts = [
         'starts_on' => 'date',
         'is_active' => 'boolean',
+        'suggestions_open' => 'boolean',
     ];
 
     public function venue()
     {
         return $this->belongsTo(Venue::class);
+    }
+
+    public function suggestions()
+    {
+        return $this->hasMany(ActivitySuggestion::class);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Activity;
+use App\Models\ActivitySuggestion;
 use App\Models\AdminAuditLog;
 use App\Models\Venue;
 use Illuminate\Http\Request;
@@ -27,7 +28,31 @@ class ActivityController extends Controller
         return view('admin.activities.index', [
             'activities' => $activities,
             'venues' => Venue::withCount('activities')->ordered()->get(),
+            'suggestions' => ActivitySuggestion::with(['activity', 'parent'])
+                ->orderByRaw("CASE status WHEN 'pending' THEN 0 WHEN 'approved' THEN 1 ELSE 2 END")
+                ->latest()
+                ->get(),
         ]);
+    }
+
+    /** Approve, hide, or return a suggestion to pending. */
+    public function moderateSuggestion(Request $request, ActivitySuggestion $suggestion)
+    {
+        $validated = $request->validate([
+            'status' => ['required', Rule::in(['pending', 'approved', 'hidden'])],
+        ]);
+
+        $suggestion->update([
+            'status' => $validated['status'],
+            'approved_at' => $validated['status'] === 'approved' ? ($suggestion->approved_at ?? now()) : null,
+        ]);
+
+        AdminAuditLog::record('activity_suggestion.'.$validated['status'], $suggestion, null, [
+            'activity' => $suggestion->activity?->title,
+            'body' => $suggestion->body,
+        ]);
+
+        return redirect()->route('admin.activities.index')->with('success', 'Suggestion '.$validated['status'].'.');
     }
 
     public function create()
@@ -132,6 +157,7 @@ class ActivityController extends Controller
 
         $validated['sort_order'] = (int) ($validated['sort_order'] ?? 0);
         $validated['is_active'] = $request->boolean('is_active');
+        $validated['suggestions_open'] = $request->boolean('suggestions_open');
 
         return $validated;
     }

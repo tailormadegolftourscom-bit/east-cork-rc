@@ -93,6 +93,12 @@
                                    @checked(old('is_active', $activity->is_active))>
                             <label class="form-check-label" for="is_active">Show on the website</label>
                         </div>
+                        <div class="form-check ms-4">
+                            <input type="hidden" name="suggestions_open" value="0">
+                            <input class="form-check-input" type="checkbox" id="suggestions_open" name="suggestions_open" value="1"
+                                   @checked(old('suggestions_open', $activity->suggestions_open))>
+                            <label class="form-check-label" for="suggestions_open">Suggestions welcome</label>
+                        </div>
                     </div>
                 </div>
 
