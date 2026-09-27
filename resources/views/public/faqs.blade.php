@@ -27,6 +27,22 @@
 
             <div class="accordion-item">
                 <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1a">
+                        Why delay social media at all?
+                    </button>
+                </h2>
+                <div id="faq1a" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        The background is set out on <a href="{{ route('the-issue') }}">The Issue</a>, and
+                        <a href="https://smartphonefree.ie/" target="_blank" rel="noopener">Smartphone Free Childhood
+                        Ireland</a> covers the evidence in depth. This site concentrates on the practical side: parents
+                        acting together locally, and giving children better things to do.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1b">
                         Why 16? That sounds like a long time.
                     </button>

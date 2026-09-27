@@ -23,7 +23,7 @@
     @endproduction
 </head>
 <body>
-<nav class="navbar navbar-expand-xxl navbar-dark site-navbar">
+<nav class="navbar navbar-expand-xl navbar-dark site-navbar">
     <div class="container">
         <a href="{{ route('home') }}" class="navbar-brand fw-bold">East Cork Reclaim Childhood</a>
 
@@ -32,16 +32,15 @@
         </button>
 
         <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav me-auto mb-2 mb-xxl-0 gap-xxl-1 text-nowrap small">
-                <li class="nav-item"><a href="{{ route('for-kids') }}" class="nav-link px-xxl-1">For Kids</a></li>
-                <li class="nav-item"><a href="{{ route('parents') }}" class="nav-link px-xxl-1">Parents</a></li>
-                <li class="nav-item"><a href="{{ route('schools.index') }}" class="nav-link px-xxl-1">Schools</a></li>
-                <li class="nav-item"><a href="{{ route('committees.index') }}" class="nav-link px-xxl-1">Action Groups</a></li>
-                <li class="nav-item"><a href="{{ route('the-issue') }}" class="nav-link px-xxl-1">The Issue</a></li>
-                <li class="nav-item"><a href="{{ route('activities') }}" class="nav-link px-xxl-1">What's On</a></li>
-                <li class="nav-item"><a href="{{ route('resources') }}" class="nav-link px-xxl-1">Resources</a></li>
-                <li class="nav-item"><a href="{{ route('faqs') }}" class="nav-link px-xxl-1">FAQs</a></li>
-                <li class="nav-item"><a href="{{ route('about') }}" class="nav-link px-xxl-1">About</a></li>
+            <ul class="navbar-nav me-auto mb-2 mb-xl-0 text-nowrap small">
+                <li class="nav-item"><a href="{{ route('activities') }}" class="nav-link px-xl-1 fw-bold text-warning">What's On</a></li>
+                <li class="nav-item"><a href="{{ route('for-kids') }}" class="nav-link px-xl-1">For Kids</a></li>
+                <li class="nav-item"><a href="{{ route('parents') }}" class="nav-link px-xl-1">Parents</a></li>
+                <li class="nav-item"><a href="{{ route('schools.index') }}" class="nav-link px-xl-1">Schools</a></li>
+                <li class="nav-item"><a href="{{ route('committees.index') }}" class="nav-link px-xl-1">Action Groups</a></li>
+                <li class="nav-item"><a href="{{ route('resources') }}" class="nav-link px-xl-1">Resources</a></li>
+                <li class="nav-item"><a href="{{ route('faqs') }}" class="nav-link px-xl-1">FAQs</a></li>
+                <li class="nav-item"><a href="{{ route('about') }}" class="nav-link px-xl-1">About</a></li>
             </ul>
 
             <div class="d-flex align-items-center gap-2 text-nowrap">
