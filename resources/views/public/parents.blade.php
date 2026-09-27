@@ -139,8 +139,8 @@
                     </div>
                     <div class="col-md-3 col-6">
                         <div class="fw-semibold mb-1">An end-of-year celebration</div>
-                        <p class="small text-muted mb-0">A BBQ, disco or party for every 6th class family who stuck
-                            with it — a real thank-you.</p>
+                        <p class="small text-muted mb-0">A BBQ, disco or party for every Rebel hero who stuck
+                            with it — a real reward for them and their families.</p>
                     </div>
                     <div class="col-md-3 col-6">
                         <div class="fw-semibold mb-1">A pre-1st-year meetup</div>
@@ -160,8 +160,7 @@
             @auth
                 <a href="{{ route('parent.dashboard') }}" class="btn btn-primary btn-lg">Go to My Account</a>
             @else
-                <a href="{{ route('register') }}" class="btn btn-primary btn-lg me-2">Join as a Parent</a>
-                <a href="{{ route('schools.index') }}" class="btn btn-outline-primary btn-lg">See Schools in East Cork</a>
+                <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Join as a Parent</a>
             @endauth
         </div>
     </section>
