@@ -4,11 +4,23 @@
 
 @section('content')
     <section class="py-5">
-        <h1 class="display-6 fw-bold mb-3">About East Cork Reclaim Childhood</h1>
+        <h1 class="display-6 fw-bold mb-3">About ECRC</h1>
         <p class="lead text-muted mb-5" style="max-width: 46rem;">
             I'm Peter O'Sullivan, interim convenor of East Cork Reclaim Childhood. This is why I started it, and
             how I think it can work.
         </p>
+
+        <div class="card border-warning shadow-sm mb-5">
+            <div class="card-body p-4 p-lg-5">
+                <h2 class="h4 mb-3">Why now</h2>
+                <p class="text-muted mb-0">
+                    Social media arrives in a class one family at a time, each giving in because they think
+                    everyone else already has. The only thing that stops it is parents deciding together, early
+                    &mdash; and that means now, not next year. Register your child as a Rebel today, then tell one
+                    other parent in their class.
+                </p>
+            </div>
+        </div>
 
         <div class="row g-4 mb-5">
             <div class="col-lg-6">
@@ -93,6 +105,14 @@
                             These are ideas, not rules. I'm glad to host a meeting or workshop with any group of
                             parents who'd like to talk them over &mdash; just get in touch.
                         </p>
+                        @php($meetings = collect(config('notice.workshops', []))->filter(fn ($w) => $w['date'] >= today()->toDateString()))
+                        @if ($meetings->isNotEmpty())
+                            <p class="text-muted mt-3 mb-0">
+                                Informal meetings at {{ config('notice.venue') }}:
+                                {{ $meetings->pluck('label')->implode(' and ') }}.
+                                <a href="{{ route('workshops.rsvp') }}">RSVP here</a>.
+                            </p>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -10,28 +10,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div>
-                        <h2 class="h4 mb-1" id="ecrcNoticeTitle">
-                            Parents of East Cork: your child's class needs you now
-                        </h2>
-                        <p class="text-muted small mb-0">{{ $notice['dated'] }}</p>
+                        <h2 class="h3 fw-bold mb-0" id="ecrcNoticeTitle">Generation Alpha Rebels</h2>
+                        <p class="h5 text-muted mb-0">East Cork</p>
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
                     <p>
-                        Social media arrives in a class one family at a time, each giving in because they think
-                        everyone else already has. <strong>The only thing that stops it is parents deciding
-                        together, early</strong> &mdash; and that means now, not next year.
-                    </p>
-
-                    <h3 class="h6 mt-4">Our kids are Gen Alpha Rebels</h3>
-                    <p>
-                        Borrowing from Jonathan Haidt and Catherine Price's <em>The Amazing Generation</em>, kids who
-                        join are <strong>Gen Alpha Rebels</strong>. Rebels take on the <strong>Greedy
-                        Wizards</strong> &mdash; the companies that build apps to keep them hooked &mdash; never their
-                        fellow students. It starts in 4th class, carries through to an end-of-year party for 4th,
-                        5th and 6th, and on into secondary school with the Rebels going to the same school.
+                        Parents: social media arrives in a class one family at a time.
+                        <strong>The only thing that stops it is parents deciding together, early</strong>
+                        &mdash; and that means now, not next year.
                     </p>
 
                     <h3 class="h6 mt-4">Replacing screens with activity &mdash; starting now</h3>
@@ -50,19 +39,21 @@
                         <p>Activities are being arranged now. <a href="{{ route('activities') }}">See what's planned</a>.</p>
                     @endif
 
-                    <p class="mb-0">
+                    <p>
                         <strong>Register your child as a Rebel today &mdash; it takes two minutes &mdash; then tell
                         one other parent in their class.</strong> Not a parent here? Grandparents, family and
                         neighbours can join as supporters.
                     </p>
 
-                    @if ($tuesday || $thursday)
-                        <p class="small text-muted mt-4 mb-0">
-                            Want to talk it through first? We're holding informal meetings at {{ $notice['venue'] }}
-                            on {{ collect([$tuesday['label'] ?? null, $thursday['label'] ?? null])->filter()->implode(' and ') }}.
-                            <a href="{{ route('workshops.rsvp') }}">RSVP here</a>.
-                        </p>
-                    @endif
+                    <p class="mb-0">
+                        More on the Rebels and how this will work: <a href="{{ route('about') }}">About ECRC</a>.
+                    </p>
+
+                    <div class="mt-4">
+                        <div class="fw-semibold">Peter O'Sullivan</div>
+                        <div>Interim Convenor</div>
+                        <div class="text-muted small">{{ $notice['dated'] }}</div>
+                    </div>
                 </div>
 
                 <div class="modal-footer flex-column align-items-stretch gap-2">
