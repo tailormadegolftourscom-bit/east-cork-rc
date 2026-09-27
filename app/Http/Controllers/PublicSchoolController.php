@@ -16,12 +16,10 @@ class PublicSchoolController extends Controller
         return view('public.schools.index', compact('schools', 'ownSchoolIds'));
     }
 
+    /** The school list lives on the Schools page; Parents just links to it. */
     public function forParents()
     {
-        $schools = $this->schoolsWithCounts();
-        $ownSchoolIds = $this->ownSchoolIds();
-
-        return view('public.parents', compact('schools', 'ownSchoolIds'));
+        return view('public.parents');
     }
 
     /**

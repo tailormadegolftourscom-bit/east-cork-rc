@@ -55,7 +55,26 @@
             </div>
         </div>
 
-        <div class="mb-5">
+        @if ($primarySchools->isNotEmpty() || $secondarySchools->isNotEmpty())
+            <div class="mb-5">
+                <label for="school-search" class="form-label h5">Find your school</label>
+                <input type="search" id="school-search" class="form-control form-control-lg"
+                       placeholder="Search by school name or town&hellip;" aria-label="Search for your school">
+                <div class="form-text">
+                    See how many families at each school are already part of this, class by class.
+                    @guest
+                        <a href="{{ route('login') }}">Log in</a> once you've joined to see each class by code
+                        name instead of just a number.
+                    @endguest
+                </div>
+                <p id="school-search-empty" class="text-muted mt-3 mb-0" hidden>
+                    No schools match your search.
+                    <a href="{{ route('school-registration.create') }}">Add your school</a>.
+                </p>
+            </div>
+        @endif
+
+        <div class="mb-5" data-school-section>
             <h2 class="h3 mb-3">Primary Schools</h2>
 
             @if ($primarySchools->isEmpty())
@@ -73,7 +92,7 @@
             @endif
         </div>
 
-        <div>
+        <div data-school-section>
             <h2 class="h3 mb-3">Secondary Schools</h2>
 
             @if ($secondarySchools->isEmpty())
@@ -90,5 +109,36 @@
                 </div>
             @endif
         </div>
+
+        <script>
+            (function () {
+                const input = document.getElementById('school-search');
+                if (!input) return;
+
+                const cards = Array.from(document.querySelectorAll('[data-school-search]'));
+                const sections = Array.from(document.querySelectorAll('[data-school-section]'));
+                const emptyMessage = document.getElementById('school-search-empty');
+
+                input.addEventListener('input', function () {
+                    const term = this.value.trim().toLowerCase();
+                    let visibleCount = 0;
+
+                    cards.forEach(function (card) {
+                        const matches = card.dataset.schoolSearch.includes(term);
+                        card.hidden = !matches;
+                        if (matches) visibleCount++;
+                    });
+
+                    // Hide a Primary or Secondary heading with nothing under it.
+                    sections.forEach(function (section) {
+                        const cardsHere = section.querySelectorAll('[data-school-search]');
+                        section.hidden = cardsHere.length > 0
+                            && Array.from(cardsHere).every(function (card) { return card.hidden; });
+                    });
+
+                    emptyMessage.hidden = visibleCount !== 0;
+                });
+            })();
+        </script>
     </section>
 @endsection
