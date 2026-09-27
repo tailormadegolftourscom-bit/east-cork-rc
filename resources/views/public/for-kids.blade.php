@@ -9,7 +9,7 @@
             <h1 class="display-6 fw-bold mb-3">Welcome, Gen Alpha Rebel</h1>
             <p class="lead text-muted">
                 Your mum, dad or another grown-up probably found this website first. But this page is for you,
-                because you're the most important person here.
+                because <strong>you're the most important person here</strong>.
             </p>
         </div>
 
@@ -22,7 +22,8 @@
                             The name comes from <em>The Amazing Generation</em>, a book for kids by Jonathan Haidt
                             and Catherine Price. Rebels are kids who decide to run their own lives: real friends,
                             real freedom, real fun &mdash; and technology used as a tool, instead of technology
-                            using them. Here in East Cork, a Rebel is any kid whose family has joined in.
+                            using them. Here in East Cork, a Rebel is any kid whose family has joined in. We treat Rebels as heroes and
+                            want to encourage them in any way we can.
                         </p>
                     </div>
                 </div>
