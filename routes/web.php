@@ -183,6 +183,8 @@ Route::view('/the-issue', 'public.the-issue')->name('the-issue');
 Route::view('/activities', 'public.activities')->name('activities');
 Route::get('/activities/{activity}/suggestions', [ActivitySuggestionController::class, 'show'])
     ->name('activities.suggestions');
+Route::get('/activities/{activity}/suggestions/log-in', [ActivitySuggestionController::class, 'logIn'])
+    ->name('activities.suggestions.log-in');
 Route::post('/activities/{activity}/suggestions', [ActivitySuggestionController::class, 'store'])
     ->middleware(['auth', 'verified', 'parent', 'throttle:10,1'])
     ->name('activities.suggestions.store');

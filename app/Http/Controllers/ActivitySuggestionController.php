@@ -33,6 +33,14 @@ class ActivitySuggestionController extends Controller
         ]);
     }
 
+    /** "Log In" from a suggestions page: remember the page, then log in. */
+    public function logIn(Request $request, Activity $activity)
+    {
+        $request->session()->put('url.intended', route('activities.suggestions', $activity));
+
+        return redirect()->route('login');
+    }
+
     public function store(Request $request, Activity $activity)
     {
         abort_unless($activity->is_active && $activity->suggestions_open, 404);

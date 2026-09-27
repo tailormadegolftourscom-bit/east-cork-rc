@@ -75,7 +75,7 @@
                                 @endguest
                             </p>
                             @guest
-                                <a href="{{ route('login') }}" class="btn btn-outline-primary me-2">Log In</a>
+                                <a href="{{ route('activities.suggestions.log-in', $activity) }}" class="btn btn-outline-primary me-2">Log In</a>
                                 <a href="{{ route('register') }}" class="btn btn-primary">Register as a Parent</a>
                             @endguest
                         @endif

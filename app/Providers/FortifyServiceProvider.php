@@ -41,6 +41,16 @@ class FortifyServiceProvider extends ServiceProvider
                 }
 
                 if ($user->user_type === 'parent') {
+                    // Back to an activity's suggestions page if that is where
+                    // they clicked Log In. Only activity pages are honoured,
+                    // so a stale intended URL (an admin page, say) cannot
+                    // send a parent somewhere they are not allowed.
+                    $intended = $request->session()->pull('url.intended');
+
+                    if (is_string($intended) && str_starts_with($intended, url('/activities/'))) {
+                        return redirect($intended);
+                    }
+
                     return redirect('/parent/dashboard');
                 }
 
