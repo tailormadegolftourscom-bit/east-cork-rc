@@ -11,7 +11,7 @@
                 <a href="/admin/schools" class="btn btn-primary">Manage Schools</a>
                 <a href="/admin/schools/create" class="btn btn-outline-primary">Add School</a>
                 <a href="{{ route('admin.school-requests.index') }}" class="btn btn-outline-primary">School Requests</a>
-                <a href="{{ route('admin.committees.index') }}" class="btn btn-outline-primary">Committees</a>
+                <a href="{{ route('admin.committees.index') }}" class="btn btn-outline-primary">Action Groups</a>
                 @php($pendingSuggestions = \App\Models\ActivitySuggestion::pending()->count())
                 <a href="{{ route('admin.activities.index') }}" class="btn btn-outline-primary">
                     Activities &amp; Venues

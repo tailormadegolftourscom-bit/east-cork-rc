@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h3 mb-0">Committees</h1>
+        <h1 class="h3 mb-0">Action Groups</h1>
         <div>
             <a href="{{ route('admin.committees.create') }}" class="btn btn-primary btn-sm">Add Committee</a>
             <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-secondary btn-sm">Back to Dashboard</a>
@@ -15,7 +15,7 @@
     @if ($withoutConvenor->isNotEmpty())
         <div class="alert alert-warning">
             <strong>{{ $withoutConvenor->count() }}</strong>
-            {{ Str::plural('committee', $withoutConvenor->count()) }} with no convenor. These show a
+            {{ Str::plural('group', $withoutConvenor->count()) }} with no convenor. These show a
             <em>Become Convenor</em> button on the <a href="{{ route('committees.index') }}">public page</a>.
         </div>
     @endif

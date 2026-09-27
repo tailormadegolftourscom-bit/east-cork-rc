@@ -48,7 +48,7 @@
                                     required
                                 >
                                 <div class="form-text text-warning">
-                                    Changing this after the school is live affects the school committee slug and any
+                                    Changing this after the school is live affects the school group slug and any
                                     derived identifiers already shared. Only change it if absolutely necessary.
                                 </div>
                             </div>

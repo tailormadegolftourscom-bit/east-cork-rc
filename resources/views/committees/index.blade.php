@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
-@php($pageTitle = 'Committees — East Cork Reclaim Childhood')
+@php($pageTitle = 'Action Groups — East Cork Reclaim Childhood')
 
 @section('content')
     <section class="py-5">
         <div class="row">
             <div class="col-lg-8">
-                <h1 class="h3 mb-3">Committees</h1>
+                <h1 class="h3 mb-3">Action Groups</h1>
                 <p class="text-muted">
-                    Committees are how things actually get organised — at class level, school level, across East
-                    Cork, or around a particular activity. Most are waiting for someone to start them off, and
+                    Groups are how things actually get organised — across East Cork, around an activity or
+                    event, at school level or for a single class. Most are waiting for someone to start them off, and
                     that's much easier together than alone.
                 </p>
 
                 @if ($needingConvenor > 0)
                     <div class="alert alert-warning">
                         <strong>{{ $needingConvenor }}</strong>
-                        {{ Str::plural('committee', $needingConvenor) }}
+                        {{ Str::plural('group', $needingConvenor) }}
                         {{ $needingConvenor === 1 ? 'has' : 'have' }} nobody running
                         {{ $needingConvenor === 1 ? 'it' : 'them' }} yet. If one covers your school or class,
                         you can step forward — it mostly means being the person others can contact.
@@ -29,7 +29,7 @@
             @php($group = $byType[$key] ?? collect())
             @continue($group->isEmpty())
 
-            <h2 class="h5 mt-4 mb-3">{{ $label }}{{ $key === 'regional' ? '' : ' committees' }}</h2>
+            <h2 class="h5 mt-4 mb-3">{{ $label }}{{ $key === 'regional' ? '' : ' groups' }}</h2>
 
             <div class="row g-3">
                 @foreach ($group as $committee)
@@ -65,7 +65,7 @@
 
                                 <a href="{{ route('committees.show', $committee) }}"
                                    class="btn btn-sm {{ $convenor ? 'btn-outline-primary' : 'btn-warning' }}">
-                                    {{ $convenor ? 'View Committee' : 'Become Convenor' }}
+                                    {{ $convenor ? 'View Group' : 'Become Convenor' }}
                                 </a>
                             </div>
                         </div>

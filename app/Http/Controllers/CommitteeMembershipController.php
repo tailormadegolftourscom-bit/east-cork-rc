@@ -28,7 +28,7 @@ class CommitteeMembershipController extends Controller
         $parent = $this->actingParent();
 
         if ($committee->hasConvenor()) {
-            return back()->with('error', 'Someone became convenor of this committee first. You can still join it.');
+            return back()->with('error', 'Someone became convenor of this group first. You can still join it.');
         }
 
         $this->guardNameConsent($request, $parent);
@@ -61,7 +61,7 @@ class CommitteeMembershipController extends Controller
         $parent = $this->actingParent();
 
         if ($committee->membershipFor($parent)) {
-            return back()->with('error', 'You are already on this committee.');
+            return back()->with('error', 'You are already in this group.');
         }
 
         $this->guardNameConsent($request, $parent);
@@ -84,7 +84,7 @@ class CommitteeMembershipController extends Controller
         $membership = $committee->membershipFor($parent);
 
         if (! $membership) {
-            return back()->with('error', 'You are not on this committee.');
+            return back()->with('error', 'You are not in this group.');
         }
 
         // A convenor leaving would strand the members with nobody running it,
@@ -92,7 +92,7 @@ class CommitteeMembershipController extends Controller
         if ($membership->isConvenor() && $committee->members->count() > 1) {
             return back()->with('error',
                 'You are the convenor. Hand over to another member before leaving, '
-                .'so the committee is not left without one.'
+                .'so the group is not left without one.'
             );
         }
 
@@ -126,7 +126,7 @@ class CommitteeMembershipController extends Controller
         }
 
         if ($committee->membershipFor($person)) {
-            return back()->with('error', 'They are already on this committee.');
+            return back()->with('error', 'They are already in this group.');
         }
 
         CommitteeMember::create([
@@ -159,7 +159,7 @@ class CommitteeMembershipController extends Controller
         $name = $member->display_name;
         $member->delete();
 
-        return back()->with('success', $name.' has been removed from the committee.');
+        return back()->with('success', $name.' has been removed from the group.');
     }
 
     /** Pass the role to an existing member and step back to ordinary membership. */
@@ -194,12 +194,12 @@ class CommitteeMembershipController extends Controller
         $membership = $committee->membershipFor($parent);
 
         if (! $membership) {
-            return back()->with('error', 'You are not on this committee.');
+            return back()->with('error', 'You are not in this group.');
         }
 
         $membership->update(['name_consent_at' => now()]);
 
-        return back()->with('success', 'Your name is now shown on this committee.');
+        return back()->with('success', 'Your name is now shown in this group.');
     }
 
     public function updateObjectives(Request $request, Committee $committee)
@@ -245,7 +245,7 @@ class CommitteeMembershipController extends Controller
         $request->validate([
             'name_consent' => ['accepted'],
         ], [
-            'name_consent.accepted' => 'Committee members are listed by name. '
+            'name_consent.accepted' => 'Group members are listed by name. '
                 .'Please confirm you are happy to be named before joining.',
         ]);
     }

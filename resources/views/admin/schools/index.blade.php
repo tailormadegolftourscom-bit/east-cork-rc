@@ -32,7 +32,7 @@
                             <th>School</th>
                             <th>Type</th>
                             <th>Town</th>
-                            <th>Committee</th>
+                            <th>Group</th>
                             <th>Principal</th>
                             <th>Vice Principal</th>
                             <th>Secretary</th>

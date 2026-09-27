@@ -181,12 +181,12 @@ class SchoolRegistrationRequestController extends Controller
                 ]);
             }
 
-            $parentCommittee = Committee::where('slug', 'east-cork-reclaim-childhood')->first();
+            $parentCommittee = Committee::where('committee_type', 'regional')->first();
 
             Committee::create([
                 'area_id' => Area::defaultId(),
-                'name' => $school->name . ' Committee',
-                'slug' => $school->slug . '-committee',
+                'name' => $school->name . ' Group',
+                'slug' => $school->slug . '-group',
                 'committee_type' => 'school',
                 'parent_committee_id' => $parentCommittee?->id,
                 'school_id' => $school->id,

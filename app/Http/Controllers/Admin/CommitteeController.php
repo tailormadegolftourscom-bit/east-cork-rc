@@ -62,11 +62,11 @@ class CommitteeController extends Controller
         ]);
 
         if ($validated['committee_type'] === 'class' && empty($validated['school_class_id'])) {
-            return back()->withInput()->withErrors(['school_class_id' => 'Choose the class this committee is for.']);
+            return back()->withInput()->withErrors(['school_class_id' => 'Choose the class this group is for.']);
         }
 
         if ($validated['committee_type'] === 'school' && empty($validated['school_id'])) {
-            return back()->withInput()->withErrors(['school_id' => 'Choose the school this committee is for.']);
+            return back()->withInput()->withErrors(['school_id' => 'Choose the school this group is for.']);
         }
 
         // A class committee belongs to its school's committee; a school
@@ -152,8 +152,8 @@ class CommitteeController extends Controller
         if (($person->public_name_mode ?? null) === 'anon_code') {
             $response->with('warning',
                 $person->full_name.' appears publicly as '.$person->public_display_name
-                .' because they chose anonymous display, so the committee will show that code as its convenor '
-                .'rather than their name. They can change it themselves from the committee page, or in their '
+                .' because they chose anonymous display, so the group will show that code as its convenor '
+                .'rather than their name. They can change it themselves from the group page, or in their '
                 .'profile — the email tells them how.'
             );
         }
@@ -168,7 +168,7 @@ class CommitteeController extends Controller
         ]);
 
         if ($committee->childCommittees()->exists()) {
-            return back()->with('error', 'This committee has others nested under it. Move or delete those first.');
+            return back()->with('error', 'This group has others nested under it. Move or delete those first.');
         }
 
         $name = $committee->name;

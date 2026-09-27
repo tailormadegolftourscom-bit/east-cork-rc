@@ -55,7 +55,7 @@
                                 >
                                 <div class="form-text">
                                     Use lowercase letters, numbers, and hyphens only. Example: midleton-college.
-                                    This becomes permanent once set &mdash; it's used for the school committee slug and derived identifiers.
+                                    This becomes permanent once set &mdash; it's used for the school group slug and derived identifiers.
                                 </div>
                             </div>
 

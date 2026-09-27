@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <nav class="small mb-2">
-                    <a href="{{ route('committees.index') }}" class="text-muted">Committees</a>
+                    <a href="{{ route('committees.index') }}" class="text-muted">Action Groups</a>
                     @if ($committee->parentCommittee)
                         <span class="text-muted">/</span>
                         <a href="{{ route('committees.show', $committee->parentCommittee) }}" class="text-muted">
@@ -30,7 +30,7 @@
                 @if ($committee->objectives)
                     <div class="card shadow-sm mb-4">
                         <div class="card-body">
-                            <h2 class="h6">What this committee is for</h2>
+                            <h2 class="h6">What this group is for</h2>
                             <p class="mb-0" style="white-space: pre-line">{{ $committee->objectives }}</p>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
 
                         @if ($committee->isEmpty())
                             <p class="text-muted mb-0">
-                                Nobody yet. This committee is waiting for someone to start it off.
+                                Nobody yet. This group is waiting for someone to start it off.
                             </p>
                         @else
                             <dl class="row mb-0">
@@ -88,7 +88,7 @@
                 @if ($committee->childCommittees->isNotEmpty())
                     <div class="card shadow-sm mb-4">
                         <div class="card-body">
-                            <h2 class="h6 mb-3">Committees under this one</h2>
+                            <h2 class="h6 mb-3">Groups under this one</h2>
                             <ul class="mb-0">
                                 @foreach ($committee->childCommittees as $child)
                                     <li>
@@ -110,7 +110,7 @@
                         @guest
                             <h2 class="h6">Want to get involved?</h2>
                             <p class="small text-muted">
-                                Parents can join or convene a committee once they've registered.
+                                Parents can join or convene a group once they've registered.
                             </p>
                             <a href="{{ route('register') }}" class="btn btn-primary w-100 mb-2">Register as a Parent</a>
                             <a href="{{ route('login') }}" class="btn btn-outline-secondary w-100">Log In</a>
@@ -120,12 +120,12 @@
                             @if (! $canAct)
                                 <h2 class="h6">Getting involved</h2>
                                 <p class="small text-muted mb-0">
-                                    Committee places are taken up by parents. If you're a supporter rather than a
+                                    Group places are taken up by parents. If you're a supporter rather than a
                                     parent, the convenor can add you — just ask them, or
                                     <a href="{{ route('supporters.create') }}">tell us how you'd like to help</a>.
                                 </p>
                             @elseif ($myMembership)
-                                <h2 class="h6">You're on this committee</h2>
+                                <h2 class="h6">You're in this group</h2>
                                 <p class="small text-muted">
                                     You are the {{ $iAmConvenor ? 'convenor' : 'a member' }}.
                                 </p>
@@ -138,7 +138,7 @@
                                         <form method="POST" action="{{ route('committees.show-my-name', $committee) }}" class="mt-2">
                                             @csrf
                                             <button type="submit" class="btn btn-sm btn-warning">
-                                                Show my name on this committee
+                                                Show my name in this group
                                             </button>
                                         </form>
                                         <div class="form-text small mt-1">
@@ -148,14 +148,14 @@
                                 @endif
                                 <form method="POST" action="{{ route('committees.leave', $committee) }}">
                                     @csrf
-                                    <button type="submit" class="btn btn-outline-danger btn-sm w-100">Leave Committee</button>
+                                    <button type="submit" class="btn btn-outline-danger btn-sm w-100">Leave Group</button>
                                 </form>
                             @else
                                 @php($vacant = ! $committee->hasConvenor())
-                                <h2 class="h6">{{ $vacant ? 'Nobody is running this yet' : 'Join this committee' }}</h2>
+                                <h2 class="h6">{{ $vacant ? 'Nobody is running this yet' : 'Join this group' }}</h2>
                                 <p class="small text-muted">
                                     {{ $vacant
-                                        ? 'Becoming convenor mostly means being the person others can contact, and setting out what the committee is for.'
+                                        ? 'Becoming convenor mostly means being the person others can contact, and setting out what the group is for.'
                                         : 'Members help out and are listed publicly on this page.' }}
                                 </p>
 
@@ -167,7 +167,7 @@
                                         <div class="alert alert-warning small">
                                             <strong>Your name will be shown publicly.</strong>
                                             You currently appear as <code>{{ $viewer->public_display_name }}</code>,
-                                            but committee members are listed by name on this page.
+                                            but group members are listed by name on this page.
                                             <div class="form-check mt-2">
                                                 <input class="form-check-input @error('name_consent') is-invalid @enderror"
                                                        type="checkbox" name="name_consent" value="1" id="name_consent" required>
@@ -182,7 +182,7 @@
                                     @endif
 
                                     <button type="submit" class="btn {{ $vacant ? 'btn-warning' : 'btn-primary' }} w-100">
-                                        {{ $vacant ? 'Become Convenor' : 'Join Committee' }}
+                                        {{ $vacant ? 'Become Convenor' : 'Join Group' }}
                                     </button>
                                 </form>
                             @endif
@@ -197,7 +197,7 @@
 
                             <form method="POST" action="{{ route('committees.objectives', $committee) }}" class="mb-4">
                                 @csrf @method('PUT')
-                                <label for="objectives" class="form-label small">What is this committee for?</label>
+                                <label for="objectives" class="form-label small">What is this group for?</label>
                                 <textarea name="objectives" id="objectives" rows="4"
                                           class="form-control form-control-sm">{{ old('objectives', $committee->objectives) }}</textarea>
                                 <button type="submit" class="btn btn-sm btn-primary mt-2">Save Objectives</button>

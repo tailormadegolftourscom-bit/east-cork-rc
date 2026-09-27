@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h3 mb-0">Add Committee</h1>
+        <h1 class="h3 mb-0">Add Group</h1>
         <a href="{{ route('admin.committees.index') }}" class="btn btn-outline-secondary btn-sm">Back to Committees</a>
     </div>
 
@@ -21,7 +21,7 @@
                                 @endforeach
                             </select>
                             <div class="form-text">
-                                Activity committees are the free-form ones — a Ladysbridge activity committee, say.
+                                Activity and event groups are the free-form ones — the Midleton Badminton Group, say, or a group running one event.
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="school_id" class="form-label">School <span class="text-muted small">(school committees)</span></label>
+                            <label for="school_id" class="form-label">School <span class="text-muted small">(school groups)</span></label>
                             <select name="school_id" id="school_id" class="form-select @error('school_id') is-invalid @enderror">
                                 <option value="">— none —</option>
                                 @foreach ($schools as $school)
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="school_class_id" class="form-label">Class <span class="text-muted small">(class committees)</span></label>
+                            <label for="school_class_id" class="form-label">Class <span class="text-muted small">(class groups)</span></label>
                             <select name="school_class_id" id="school_class_id" class="form-select @error('school_class_id') is-invalid @enderror">
                                 <option value="">— none —</option>
                                 @foreach ($classes as $class)
@@ -61,7 +61,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <div class="form-text">Only classes without a committee are listed.</div>
+                            <div class="form-text">Only classes without a group are listed.</div>
                             @error('school_class_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
 
@@ -85,12 +85,12 @@
                                 @endforeach
                             </select>
                             <div class="form-text">
-                                Left blank, a class committee sits under its school's, and school and activity
-                                committees under the East Cork one.
+                                Left blank, a class group sits under its school's, and school, activity and event
+                                groups under the East Cork one.
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Create Committee</button>
+                        <button type="submit" class="btn btn-primary">Create Group</button>
                     </form>
                 </div>
             </div>
@@ -101,9 +101,9 @@
                 <div class="card-body">
                     <h2 class="h6">What happens next</h2>
                     <p class="small text-muted mb-0">
-                        The committee appears publicly straight away with a <strong>Become Convenor</strong> button.
+                        The group appears publicly straight away with a <strong>Become Convenor</strong> button.
                         Any registered parent can step forward; once someone has, the button becomes
-                        <strong>Join Committee</strong> for everyone else. The convenor can then set the objectives
+                        <strong>Join Group</strong> for everyone else. The convenor can then set the objectives
                         and add supporters who don't have logins.
                     </p>
                 </div>

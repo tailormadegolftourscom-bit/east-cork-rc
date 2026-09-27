@@ -151,27 +151,38 @@ Route::post('/add-my-school', [SchoolRegistrationRequestController::class, 'stor
 Route::get('/workshops/rsvp/{workshop?}', [WorkshopRsvpController::class, 'create'])->name('workshops.rsvp');
 Route::post('/workshops/rsvp', [WorkshopRsvpController::class, 'store'])->name('workshops.rsvp.store');
 
-Route::get('/committees', [CommitteeController::class, 'index'])->name('committees.index');
-Route::get('/committees/{committee}', [CommitteeController::class, 'show'])->name('committees.show');
+// Committees were renamed groups. Old links, including those already sent
+// in convenor emails, still land on the right page.
+Route::permanentRedirect('/committees', '/groups');
+Route::get('/committees/{slug}', function (string $slug) {
+    $slug = $slug === 'east-cork-reclaim-childhood'
+        ? 'east-cork-action-group'
+        : preg_replace('/-committee$/', '-group', $slug);
+
+    return redirect('/groups/'.$slug, 301);
+})->where('slug', '[a-z0-9-]+');
+
+Route::get('/groups', [CommitteeController::class, 'index'])->name('committees.index');
+Route::get('/groups/{committee}', [CommitteeController::class, 'show'])->name('committees.show');
 
 // Acting on a committee is for parents: the supporters register has no
 // logins, so supporters are added by a convenor instead.
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::post('/committees/{committee}/become-convenor', [CommitteeMembershipController::class, 'becomeConvenor'])
+    Route::post('/groups/{committee}/become-convenor', [CommitteeMembershipController::class, 'becomeConvenor'])
         ->name('committees.become-convenor');
-    Route::post('/committees/{committee}/join', [CommitteeMembershipController::class, 'join'])
+    Route::post('/groups/{committee}/join', [CommitteeMembershipController::class, 'join'])
         ->name('committees.join');
-    Route::post('/committees/{committee}/leave', [CommitteeMembershipController::class, 'leave'])
+    Route::post('/groups/{committee}/leave', [CommitteeMembershipController::class, 'leave'])
         ->name('committees.leave');
-    Route::post('/committees/{committee}/members', [CommitteeMembershipController::class, 'addMember'])
+    Route::post('/groups/{committee}/members', [CommitteeMembershipController::class, 'addMember'])
         ->name('committees.members.add');
-    Route::delete('/committees/{committee}/members/{member}', [CommitteeMembershipController::class, 'removeMember'])
+    Route::delete('/groups/{committee}/members/{member}', [CommitteeMembershipController::class, 'removeMember'])
         ->name('committees.members.remove');
-    Route::post('/committees/{committee}/members/{member}/hand-over', [CommitteeMembershipController::class, 'handOver'])
+    Route::post('/groups/{committee}/members/{member}/hand-over', [CommitteeMembershipController::class, 'handOver'])
         ->name('committees.hand-over');
-    Route::post('/committees/{committee}/show-my-name', [CommitteeMembershipController::class, 'consentToNaming'])
+    Route::post('/groups/{committee}/show-my-name', [CommitteeMembershipController::class, 'consentToNaming'])
         ->name('committees.show-my-name');
-    Route::put('/committees/{committee}/objectives', [CommitteeMembershipController::class, 'updateObjectives'])
+    Route::put('/groups/{committee}/objectives', [CommitteeMembershipController::class, 'updateObjectives'])
         ->name('committees.objectives');
 });
 

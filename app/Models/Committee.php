@@ -12,9 +12,10 @@ class Committee extends Model
     /** The levels a committee can sit at, in order of scope. */
     public const TYPES = [
         'regional' => 'East Cork',
+        'activity' => 'Activity',
+        'event' => 'Event',
         'school' => 'School',
         'class' => 'Class',
-        'activity' => 'Activity',
     ];
 
     protected $fillable = [
