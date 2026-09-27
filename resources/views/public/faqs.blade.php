@@ -147,6 +147,21 @@
 
             <div class="accordion-item">
                 <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
+                        Is this only for East Cork?
+                    </button>
+                </h2>
+                <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        It's organised around East Cork schools, but parents from anywhere are welcome to register
+                        or <a href="{{ route('supporters.create') }}">join as a supporter</a>, and to borrow the idea
+                        for their own area.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq9">
                         Is there a national group too?
                     </button>
