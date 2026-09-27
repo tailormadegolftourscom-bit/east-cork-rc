@@ -49,7 +49,7 @@
 
         <div class="card border-0 bg-light mb-5">
             <div class="card-body p-4 p-lg-5">
-                <h2 class="h4 mb-3">Rebels don't fight other kids</h2>
+                <h2 class="h4 mb-3">Other kids aren't the enemy</h2>
                 <p class="text-muted mb-3">
                     This is really important. Kids in your class who already have social media aren't the enemy
                     &mdash; they're up against the same Greedy Wizards you are, and some of them would love to join
