@@ -9,7 +9,9 @@
             <h1 class="display-6 fw-bold mb-3">Welcome, Gen Alpha Rebel</h1>
             <p class="lead text-muted">
                 Your mum, dad or another grown-up probably found this website first. But this page is for you,
-                because <strong>you're the most important person here</strong>.
+                because
+                <span class="d-inline-block fw-bolder fs-4 px-3 py-2 mt-2 rounded-3 shadow-sm"
+                      style="background: #e8a33d; color: #1c2b22;">&#x1F3F4;&#x200D;&#x2620;&#xFE0F; you're the most important person here! &#x2694;&#xFE0F;&#x1F9B8;</span>
             </p>
         </div>
 
