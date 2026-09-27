@@ -5,9 +5,9 @@
 @section('content')
     <section class="py-5">
         <h1 class="display-6 fw-bold mb-3">About ECRC</h1>
-        <p class="lead text-muted mb-5" style="max-width: 46rem;">
-            I'm Peter O'Sullivan, interim convenor of East Cork Reclaim Childhood. This is why I started it, and
-            how I think it can work.
+        <p class="lead text-muted mb-4" style="max-width: 46rem;">
+            I'm <strong>Peter O'Sullivan</strong>, interim convenor of East Cork Reclaim Childhood and a parent of
+            children in <strong>6th Class and 5th Class at Midleton Gaelscoil</strong>.
         </p>
 
         <p class="fs-5 mb-5" style="max-width: 46rem;">
@@ -15,30 +15,58 @@
             into secondary school, knowing that other children in their class are doing the same.
         </p>
 
+        <div class="mb-5" style="max-width: 46rem;">
+            <h2 class="h4 mb-3">Why I started ECRC</h2>
+            <p class="text-muted">
+                Like many parents, I have become increasingly concerned about the effect that early access to
+                social media can have on children &mdash; and about how difficult it is for individual families to
+                hold the line when children believe that everyone else already has access.
+            </p>
+            <p class="text-muted">
+                I was particularly inspired by <strong>Laura's work</strong>, and by her determination not to
+                repeat with her younger children some of the experiences she had already seen with her eldest. The
+                stories and experiences shared by parents through the wider
+                <a href="https://smartphonefree.ie/" target="_blank" rel="noopener"><strong>Smartphone Free Childhood
+                Ireland</strong></a> community have reinforced for me just how important it is to act before these
+                pressures become established.
+            </p>
+            <p class="text-muted mb-0">
+                I see East Cork Reclaim Childhood as an extension of the excellent work already being done by SFCI
+                and others.
+            </p>
+        </div>
+
         <div class="card border-warning shadow-sm mb-5">
             <div class="card-body p-4 p-lg-5">
-                <h2 class="h4 mb-3">Why now</h2>
+                <h2 class="h4 mb-3">The solution has to happen locally</h2>
+                <p class="fs-5 fw-semibold mb-3">Parents need to mobilise together.</p>
                 <p class="text-muted mb-0">
-                    Social media arrives in a class one family at a time, each giving in because they think
-                    everyone else already has. The only thing that stops it is parents deciding together, early
-                    &mdash; and that means now, not next year. Register your child as a Rebel today, then tell one
-                    other parent in their class.
+                    If enough parents in the same class, school and community make the same decision, delaying
+                    social media becomes much easier for everyone &mdash; particularly for the children themselves.
                 </p>
             </div>
+        </div>
+
+        <div class="mb-4" style="max-width: 46rem;">
+            <h2 class="h4 mb-3">More than delaying social media</h2>
+            <p class="text-muted mb-0">
+                ECRC is about supporting the children who make that choice, helping parents support one another,
+                and creating more opportunities for children to meet, play, take part in activities and enjoy their
+                free time away from screens.
+            </p>
         </div>
 
         <div class="row g-4 mb-5">
             <div class="col-lg-6">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body p-4">
-                        <h2 class="h5 mb-3">Kids need encouragement, not just rules</h2>
+                        <h3 class="h5 mb-3">Kids need encouragement, not just rules</h3>
                         <p class="text-muted mb-0">
                             Telling a child "no social media" and leaving it there doesn't work. What works is
                             encouragement: showing kids they're part of something, that other kids are doing it
                             too, and that they're doing something brave and worthwhile. That's why our kids are
                             <strong>Gen Alpha Rebels</strong> &mdash; the name comes from Jonathan Haidt and
-                            Catherine Price's <em>The Amazing Generation</em>. Rebels take on the Greedy Wizards who
-                            build apps to hook them, never their fellow students.
+                            Catherine Price's <em>The Amazing Generation</em>. Rebels take on the Greedy Wizards who build apps to hook them. Our quarrel is with the Wizards, never with other children.
                         </p>
                     </div>
                 </div>
@@ -46,9 +74,9 @@
             <div class="col-lg-6">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body p-4">
-                        <h2 class="h5 mb-3">Replace screens with activity</h2>
+                        <h3 class="h5 mb-3">Replace screens with activity</h3>
                         <p class="text-muted mb-0">
-                            Taking a screen away leaves a gap, and something has to fill it. I believe the answer
+                            Taking a screen away leaves a gap, and something has to fill it. The answer
                             is simple: get kids out, active and together. Badminton, a cycle on the Greenway, a
                             game in a local hall. Put a group of kids together and they'll do the rest.
                             <a href="{{ route('activities') }}">See what's on</a>.
@@ -60,7 +88,7 @@
 
         <div class="card border-0 bg-light mb-5">
             <div class="card-body p-4 p-lg-5">
-                <h2 class="h4 mb-4">How I see it working</h2>
+                <h2 class="h4 mb-4">How it might work</h2>
                 <div class="row g-4">
                     <div class="col-md-4">
                         <div class="display-6 fw-bold text-primary mb-2">1</div>
@@ -105,10 +133,12 @@
             <div class="col-lg-6">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body p-4">
-                        <h2 class="h5 mb-3">Happy to talk it through</h2>
+                        <h2 class="h5 mb-3">Help shape what it becomes</h2>
                         <p class="text-muted mb-0">
-                            These are ideas, not rules. I'm glad to host a meeting or workshop with any group of
-                            parents who'd like to talk them over &mdash; just get in touch.
+                            The project is still at an early stage. <strong>The ideas on this website are a starting point,
+                            not a finished programme</strong>, and I hope that parents, schools and others across East Cork
+                            will help shape what it becomes. I'm glad to host a meeting with any group of parents
+                            who'd like to talk it over &mdash; just get in touch.
                         </p>
                         @php($meetings = collect(config('notice.workshops', []))->filter(fn ($w) => $w['date'] >= today()->toDateString()))
                         @if ($meetings->isNotEmpty())
@@ -121,6 +151,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="mb-5">
+            <div class="fw-bold">Peter O'Sullivan</div>
+            <div class="fst-italic">Interim Convenor</div>
+            <div class="text-muted">East Cork Reclaim Childhood</div>
         </div>
 
         <div class="text-center">

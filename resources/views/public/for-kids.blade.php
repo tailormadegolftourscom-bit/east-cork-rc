@@ -37,6 +37,7 @@
                             you scrolling for as long as possible, because the longer you stay, the more money they
                             make. Some of the cleverest people in the world work on making those apps hard to put
                             down. Rebels outsmart them by doing something better with their time &mdash; together.
+                            Our quarrel is with the Wizards, never with other children.
                         </p>
                     </div>
                 </div>
