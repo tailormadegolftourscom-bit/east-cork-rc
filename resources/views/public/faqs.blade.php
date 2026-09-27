@@ -175,6 +175,24 @@
 
             <div class="accordion-item">
                 <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqActivities">
+                        How do activities work?
+                    </button>
+                </h2>
+                <div id="faqActivities" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        Everything that's on is listed on <a href="{{ route('activities') }}">What's On</a>. For each
+                        activity you can sign your registered Rebels up, so the convenor knows who to expect &mdash; for
+                        weekly sessions like badminton, one sign-up covers the regular sessions. Once you've signed up,
+                        you'll see the activity's WhatsApp group link, if it has one, for updates on the day. Some
+                        activities, like the Greenway cycle, also need volunteers, and anyone can offer to help on the
+                        activity's page.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
                         Does my real name appear on the website?
                     </button>
