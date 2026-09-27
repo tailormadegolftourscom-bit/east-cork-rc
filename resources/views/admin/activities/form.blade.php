@@ -80,6 +80,44 @@
                                value="{{ old('link_label', $activity->link_label) }}">
                     </div>
 
+                    <div class="col-12"><hr class="my-2"></div>
+
+                    <div class="col-md-6">
+                        <div class="form-check mb-2">
+                            <input type="hidden" name="signups_open" value="0">
+                            <input class="form-check-input" type="checkbox" id="signups_open" name="signups_open" value="1"
+                                   @checked(old('signups_open', $activity->signups_open))>
+                            <label class="form-check-label" for="signups_open">Parents can sign their Rebels up</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="hidden" name="volunteers_open" value="0">
+                            <input class="form-check-input" type="checkbox" id="volunteers_open" name="volunteers_open" value="1"
+                                   @checked(old('volunteers_open', $activity->volunteers_open))>
+                            <label class="form-check-label" for="volunteers_open">Ask for volunteers</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="volunteer_note" class="form-label">What volunteers are needed for</label>
+                        <input type="text" class="form-control" id="volunteer_note" name="volunteer_note" maxlength="255"
+                               placeholder="Volunteers needed to supervise the route."
+                               value="{{ old('volunteer_note', $activity->volunteer_note) }}">
+                    </div>
+
+                    <div class="col-12">
+                        <label for="whatsapp_url" class="form-label">WhatsApp group invite link <span class="text-muted small">(optional)</span></label>
+                        <input type="url" class="form-control @error('whatsapp_url') is-invalid @enderror" id="whatsapp_url" name="whatsapp_url" maxlength="255"
+                               placeholder="https://chat.whatsapp.com/..."
+                               value="{{ old('whatsapp_url', $activity->whatsapp_url) }}">
+                        @error('whatsapp_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        <div class="form-text">
+                            Shown only to parents who have signed a child up or volunteered &mdash; never on the public page.
+                            In WhatsApp: open the group &rarr; group name &rarr; Invite via link &rarr; Copy link.
+                        </div>
+                    </div>
+
+                    <div class="col-12"><hr class="my-2"></div>
+
                     <div class="col-md-4">
                         <label for="sort_order" class="form-label">Sort order</label>
                         <input type="number" class="form-control" id="sort_order" name="sort_order" min="0"

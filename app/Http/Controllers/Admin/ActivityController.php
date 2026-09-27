@@ -18,7 +18,7 @@ class ActivityController extends Controller
 {
     public function index()
     {
-        $activities = Activity::with('venue')
+        $activities = Activity::with('venue')->withCount(['signups', 'volunteers'])
             ->orderByRaw('CASE WHEN starts_on IS NULL THEN 0 ELSE 1 END')
             ->orderByDesc('starts_on')
             ->orderBy('sort_order')
@@ -32,6 +32,19 @@ class ActivityController extends Controller
                 ->orderByRaw("CASE status WHEN 'pending' THEN 0 WHEN 'approved' THEN 1 ELSE 2 END")
                 ->latest()
                 ->get(),
+        ]);
+    }
+
+    /** Who is coming and who is helping, with the contacts to reach them. */
+    public function people(Activity $activity)
+    {
+        return view('admin.activities.people', [
+            'activity' => $activity,
+            'signups' => $activity->signups()
+                ->with(['child.owner', 'child.schoolLink.currentSchool', 'child.schoolLink.currentSchoolClass', 'parent'])
+                ->oldest()
+                ->get(),
+            'volunteers' => $activity->volunteers()->oldest()->get(),
         ]);
     }
 
@@ -152,12 +165,20 @@ class ActivityController extends Controller
             'convenor_name' => ['nullable', 'string', 'max:150'],
             'link_url' => ['nullable', 'url', 'max:255'],
             'link_label' => ['nullable', 'string', 'max:100'],
+            'volunteer_note' => ['nullable', 'string', 'max:255'],
+            // WhatsApp invite links only, so a mistyped or unrelated URL is
+            // not handed to every parent who signs up.
+            'whatsapp_url' => ['nullable', 'url', 'max:255', 'regex:#^https://(chat\.whatsapp\.com|wa\.me)/#'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
+        ], [
+            'whatsapp_url.regex' => 'That should be a WhatsApp invite link, starting https://chat.whatsapp.com/',
         ]);
 
         $validated['sort_order'] = (int) ($validated['sort_order'] ?? 0);
         $validated['is_active'] = $request->boolean('is_active');
         $validated['suggestions_open'] = $request->boolean('suggestions_open');
+        $validated['signups_open'] = $request->boolean('signups_open');
+        $validated['volunteers_open'] = $request->boolean('volunteers_open');
 
         return $validated;
     }

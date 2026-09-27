@@ -26,6 +26,7 @@ use App\Http\Controllers\CommitteeMembershipController;
 use App\Http\Controllers\SupporterSignUpController;
 use App\Http\Controllers\SecondarySchoolRequestController;
 use App\Http\Controllers\ActivitySuggestionController;
+use App\Http\Controllers\ActivityController;
 
 
 Route::middleware(['auth', 'school'])->prefix('school')->group(function () {
@@ -124,6 +125,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/activities/{activity}/edit', [AdminActivityController::class, 'edit'])->name('admin.activities.edit');
     Route::put('/activities/{activity}', [AdminActivityController::class, 'update'])->name('admin.activities.update');
     Route::delete('/activities/{activity}', [AdminActivityController::class, 'destroy'])->name('admin.activities.destroy');
+    Route::get('/activities/{activity}/people', [AdminActivityController::class, 'people'])->name('admin.activities.people');
 
     Route::get('/venues/create', [AdminActivityController::class, 'createVenue'])->name('admin.venues.create');
     Route::post('/venues', [AdminActivityController::class, 'storeVenue'])->name('admin.venues.store');
@@ -192,6 +194,16 @@ Route::view('/for-kids', 'public.for-kids')->name('for-kids');
 Route::get('/parents', [PublicSchoolController::class, 'forParents'])->name('parents');
 Route::view('/the-issue', 'public.the-issue')->name('the-issue');
 Route::view('/activities', 'public.activities')->name('activities');
+Route::get('/activities/{activity}', [ActivityController::class, 'show'])->name('activities.show');
+Route::get('/activities/{activity}/log-in', [ActivityController::class, 'logIn'])->name('activities.log-in');
+Route::post('/activities/{activity}/sign-up', [ActivityController::class, 'signUp'])
+    ->middleware(['auth', 'verified', 'parent', 'throttle:10,1'])
+    ->name('activities.sign-up');
+// Open to supporters, who have no login; a hidden field and the throttle
+// keep bots out.
+Route::post('/activities/{activity}/volunteer', [ActivityController::class, 'volunteer'])
+    ->middleware('throttle:5,1')
+    ->name('activities.volunteer');
 Route::get('/activities/{activity}/suggestions', [ActivitySuggestionController::class, 'show'])
     ->name('activities.suggestions');
 Route::get('/activities/{activity}/suggestions/log-in', [ActivitySuggestionController::class, 'logIn'])

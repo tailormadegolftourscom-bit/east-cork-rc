@@ -28,6 +28,10 @@ class Activity extends Model
         'link_url',
         'link_label',
         'suggestions_open',
+        'signups_open',
+        'volunteers_open',
+        'volunteer_note',
+        'whatsapp_url',
         'sort_order',
         'is_active',
     ];
@@ -36,7 +40,25 @@ class Activity extends Model
         'starts_on' => 'date',
         'is_active' => 'boolean',
         'suggestions_open' => 'boolean',
+        'signups_open' => 'boolean',
+        'volunteers_open' => 'boolean',
     ];
+
+    public function signups()
+    {
+        return $this->hasMany(ActivitySignup::class);
+    }
+
+    public function volunteers()
+    {
+        return $this->hasMany(ActivityVolunteer::class);
+    }
+
+    /** A weekly session has no date; its sign-up means "we'll usually come". */
+    public function isRecurring(): bool
+    {
+        return $this->starts_on === null;
+    }
 
     public function venue()
     {

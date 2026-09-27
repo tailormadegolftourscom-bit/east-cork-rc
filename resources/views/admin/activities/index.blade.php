@@ -25,7 +25,7 @@
                 <div class="table-responsive">
                     <table class="table align-middle mb-0">
                         <thead>
-                        <tr><th>Activity</th><th>Status</th><th>When</th><th>Venue</th><th>Convenor</th><th>Shown</th><th></th></tr>
+                        <tr><th>Activity</th><th>Status</th><th>When</th><th>Venue</th><th>Convenor</th><th>Signed up</th><th>Volunteers</th><th>Shown</th><th></th></tr>
                         </thead>
                         <tbody>
                         @foreach ($activities as $activity)
@@ -35,6 +35,8 @@
                                 <td class="small">{{ $activity->whenLabel() ?: '—' }}</td>
                                 <td class="small">{{ $activity->venue?->label ?? '—' }}</td>
                                 <td class="small">{{ $activity->convenor_name ?: '—' }}</td>
+                                <td class="small">{{ $activity->signups_open || $activity->signups_count ? $activity->signups_count : '—' }}</td>
+                                <td class="small">{{ $activity->volunteers_open || $activity->volunteers_count ? $activity->volunteers_count : '—' }}</td>
                                 <td class="small">
                                     @if (! $activity->is_active) Hidden
                                     @elseif ($activity->isPast()) Past
@@ -42,6 +44,7 @@
                                     @endif
                                 </td>
                                 <td class="text-end text-nowrap">
+                                    <a href="{{ route('admin.activities.people', $activity) }}" class="btn btn-sm btn-outline-success">People</a>
                                     <a href="{{ route('admin.activities.edit', $activity) }}" class="btn btn-sm btn-outline-primary">Edit</a>
                                     <form method="POST" action="{{ route('admin.activities.destroy', $activity) }}" class="d-inline"
                                           onsubmit="return confirm('Delete {{ addslashes($activity->title) }}?');">

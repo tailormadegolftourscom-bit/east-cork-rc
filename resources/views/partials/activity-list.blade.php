@@ -16,7 +16,9 @@
                         <span class="badge {{ $activity->status === 'planned' ? 'text-bg-success' : 'text-bg-secondary' }} mb-2">
                             {{ $activity->statusLabel() }}
                         </span>
-                        <h3 class="h5 mb-2">{{ $activity->title }}</h3>
+                        <h3 class="h5 mb-2">
+                            <a href="{{ route('activities.show', $activity) }}" class="text-decoration-none">{{ $activity->title }}</a>
+                        </h3>
 
                         @if ($activity->whenLabel())
                             <p class="fw-semibold small mb-1">{{ $activity->whenLabel() }}</p>
@@ -38,6 +40,18 @@
 
                         @if ($activity->convenor_name)
                             <p class="small mb-2">Convenor: {{ $activity->convenor_name }}</p>
+                        @endif
+
+                        @if ($activity->signups_open)
+                            <a href="{{ route('activities.show', $activity) }}" class="btn btn-sm btn-success d-block mb-2">
+                                Sign Up Your Rebel &rarr;
+                            </a>
+                        @endif
+
+                        @if ($activity->volunteers_open)
+                            <a href="{{ route('activities.show', $activity) }}#volunteer" class="btn btn-sm btn-outline-warning text-dark d-block mb-2">
+                                Volunteers needed &rarr;
+                            </a>
                         @endif
 
                         @if ($activity->suggestions_open)
