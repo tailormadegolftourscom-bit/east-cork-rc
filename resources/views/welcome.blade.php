@@ -197,8 +197,8 @@
                     <div class="card-body p-4">
                         <h3 class="h6">Celebrate finishing primary</h3>
                         <p class="small text-muted mb-0">
-                            A proper end-of-year party for the Rebels in 4th, 5th and 6th class &mdash; a real
-                            thank-you, not just a pledge on a page.
+                            A proper end-of-year party for every Rebel hero in 4th, 5th and 6th class who stuck
+                            with it &mdash; a real reward for them and their families.
                         </p>
                     </div>
                 </div>

@@ -83,8 +83,8 @@
                         <div class="card-body p-4">
                             <h3 class="h6">An end-of-year party</h3>
                             <p class="small text-muted mb-0">
-                                For the Rebels in 4th, 5th and 6th class, run for the whole region or school by
-                                school &mdash; a real celebration of sticking together.
+                                For every Rebel hero in 4th, 5th and 6th class who stuck with it, run for the whole
+                                region or school by school &mdash; a real reward for them and their families.
                             </p>
                         </div>
                     </div>

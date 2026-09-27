@@ -91,8 +91,8 @@
                     <div class="card-body p-4">
                         <h3 class="h6">A big end-of-year party</h3>
                         <p class="small text-muted mb-0">
-                            A party for the Rebels in 4th, 5th and 6th class &mdash; a real celebration of
-                            sticking together.
+                            A party for every Rebel hero in 4th, 5th and 6th class who sticks with it &mdash; a
+                            real reward for you and your family.
                         </p>
                     </div>
                 </div>
