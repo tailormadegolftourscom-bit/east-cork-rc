@@ -145,6 +145,20 @@ GDPR DPA (docs.vultr.com); no Data Privacy Framework certification found.
   Children's own rights: a short "Your information" section on the For Kids
   page, written for a 10-year-old, alongside the main notice.
 
+- **Lawful basis (28 Sep 2026):** the simple split —
+  - **Consent** for everything people sign up for: parent accounts,
+    registering children (school, class, intended secondary school), showing
+    code names/first names to other parents, activity sign-ups and
+    volunteering, group membership and names shown in groups, supporters,
+    Keep Me Updated, workshop RSVPs. Withdrawing consent means the data is
+    deleted.
+  - **Legitimate interests** only for security (sessions, admin audit log)
+    and school contact details (professional, publicly available). Short
+    written assessments for these two to be kept on file.
+
+All six decisions are now made; the list below is kept as the record of
+what was decided.
+
 ## Decisions needed before the notice is published
 
 1. **Lawful basis for each purpose** (e.g. consent, legitimate interests) —
