@@ -139,6 +139,12 @@ GDPR DPA (docs.vultr.com); no Data Privacy Framework certification found.
   | Unfinished registrations | 9 days (already automatic) |
   | Admin audit log | 2 years |
 
+- **Children (28 Sep 2026):** no separate consent tick box on child
+  registration — registering a child, with the privacy note beside the
+  button, is the parent's agreement (Peter: tick boxes put people off).
+  Children's own rights: a short "Your information" section on the For Kids
+  page, written for a 10-year-old, alongside the main notice.
+
 ## Decisions needed before the notice is published
 
 1. **Lawful basis for each purpose** (e.g. consent, legitimate interests) —
