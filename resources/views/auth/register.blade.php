@@ -77,6 +77,13 @@
                             >
                         </div>
 
+                        <div class="alert alert-light border small">
+                            <strong>Your privacy.</strong> Your email address is used to run your account and is never
+                            shown to anyone else. After registering, you choose whether your real name or an anonymous
+                            code is shown if you join a group, and how you'd like to be contacted. ECRC's administrators
+                            can see your details so the site can be run properly.
+                        </div>
+
                         <button type="submit" class="btn btn-primary">Create Account</button>
                     </form>
                 </div>

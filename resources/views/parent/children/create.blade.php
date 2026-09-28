@@ -47,6 +47,14 @@
                         @csrf
                         @include('parent.children._fields', ['child' => null])
 
+                        <div class="alert alert-light border small">
+                            <strong>Your child's privacy.</strong> Your child's name is never shown publicly. Other
+                            registered parents see your child's Rebel code name &mdash; plus first name only if you
+                            choose. These details are used to record participation, show support within schools and
+                            classes, and help parents form local groups. ECRC's administrators keep your child's real
+                            details so the registration can be managed properly.
+                        </div>
+
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">Save Child</button>
                             <a href="{{ route('parent.dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
