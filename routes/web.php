@@ -214,6 +214,7 @@ Route::post('/activities/{activity}/suggestions', [ActivitySuggestionController:
 Route::view('/resources', 'public.resources')->name('resources');
 Route::view('/faqs', 'public.faqs')->name('faqs');
 Route::view('/about', 'public.about')->name('about');
+Route::view('/privacy', 'public.privacy')->name('privacy');
 
 Route::get('/support', [SupporterSignUpController::class, 'create'])->name('supporters.create');
 Route::post('/support', [SupporterSignUpController::class, 'store'])->name('supporters.store');

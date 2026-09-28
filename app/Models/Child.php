@@ -20,6 +20,14 @@ class Child extends Model
         'class_visibility',
     ];
 
+    protected static function booted(): void
+    {
+        // Starts the owner's 12-month retention clock (see config/retention.php).
+        static::deleted(function (Child $child) {
+            Parents::whereKey($child->parent_id)->update(['last_child_ended_at' => now()]);
+        });
+    }
+
     public function getMilestoneBadgeAttribute(): string
     {
         return ChildMilestones::badgeFor($this->created_at);

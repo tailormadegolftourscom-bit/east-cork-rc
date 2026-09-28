@@ -12,3 +12,6 @@ Schedule::command('app:notify-childless-supporters')->daily();
 
 // Reminds unfinished registrations at 3 and 6 days, removes them at 9.
 Schedule::command('app:sweep-pending-registrations')->dailyAt('07:00');
+
+// Report-only until RETENTION_ENFORCE=true; see config/retention.php.
+Schedule::command('app:apply-retention')->dailyAt('06:30');

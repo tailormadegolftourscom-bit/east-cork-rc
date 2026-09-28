@@ -110,6 +110,29 @@
             </div>
         </div>
 
+        <div class="card border-0 bg-light mb-5" id="your-information">
+            <div class="card-body p-4 p-lg-5">
+                <h2 class="h4 mb-3">Your information</h2>
+                <p class="text-muted mb-2">
+                    When your mum, dad or another grown-up signs you up, this website keeps your first name (and
+                    sometimes your surname), your Rebel code name, your school and class, and which activities you're
+                    signed up for. That's so we can see how many Rebels are in each class and get you together with
+                    other Rebels.
+                </p>
+                <p class="text-muted mb-2">
+                    Other people on the website only see your code name &mdash; not your real name, unless your
+                    grown-up says it's OK for other parents to see your first name. Your surname is never shown to
+                    anyone.
+                </p>
+                <p class="text-muted mb-0">
+                    It's your information. If you want to see it, change it, or have it deleted, you or your grown-up
+                    can email <a href="mailto:info@eastcorkreclaimchildhood.ie">info@eastcorkreclaimchildhood.ie</a>
+                    and it will be sorted. Grown-ups can read the full
+                    <a href="{{ route('privacy') }}">Privacy &amp; Data Protection Notice</a>.
+                </p>
+            </div>
+        </div>
+
         <div class="row align-items-center g-4">
             <div class="col-lg-8">
                 <h2 class="h4 mb-2">Want to be a Rebel?</h2>

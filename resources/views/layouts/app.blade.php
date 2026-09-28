@@ -128,6 +128,7 @@
                 <ul class="list-unstyled small">
                     <li><a href="{{ route('supporters.create') }}" class="footer-link">Join as a Supporter</a></li>
                     <li><a href="mailto:info@eastcorkreclaimchildhood.ie" class="footer-link">info@eastcorkreclaimchildhood.ie</a></li>
+                    <li><a href="{{ route('privacy') }}" class="footer-link">Privacy &amp; Data Protection</a></li>
                 </ul>
             </div>
         </div>

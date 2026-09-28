@@ -68,7 +68,7 @@ the October meetings. Admin only.
 
 ## 8. Technical
 
-- **Sessions** (database): IP address and browser type while logged in, for
+- **Sessions** (database): IP address and browser type for every visit, for
   security; expire after 120 minutes of inactivity.
 - **Analytics:** Plausible — no cookies, no personal data, not on admin
   pages.

@@ -110,6 +110,11 @@
                                 @error('message')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
 
+                            <p class="small text-muted mt-3 mb-0">
+                                Your details are never shown publicly or shared with anyone. See our
+                                <a href="{{ route('privacy') }}" target="_blank">Privacy &amp; Data Protection Notice</a>.
+                            </p>
+
                             <button type="submit" class="btn btn-primary mt-4">Count Me In</button>
                         </form>
                     </div>

@@ -53,6 +53,7 @@
                             choose. These details are used to record participation, show support within schools and
                             classes, and help parents form local groups. ECRC's administrators keep your child's real
                             details so the registration can be managed properly.
+                            <a href="{{ route('privacy') }}" target="_blank">Read our Privacy &amp; Data Protection Notice</a>.
                         </div>
 
                         <div class="d-flex gap-2">
