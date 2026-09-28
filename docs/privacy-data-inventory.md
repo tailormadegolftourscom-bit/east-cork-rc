@@ -120,6 +120,24 @@ GDPR DPA (docs.vultr.com); no Data Privacy Framework certification found.
 - **Sharing (28 Sep 2026):** ECRC never shares personal data with anyone —
   not schools, SFCI or any other organisation — other than the services in
   section 11 that run the site.
+- **Hosting (28 Sep 2026):** keep the server in the USA (Vultr, New
+  Jersey), relying on Vultr's GDPR DPA; Resend covered by its DPA and the
+  EU-US Data Privacy Framework. The site will move to an EU data centre if
+  ECRC becomes established and registers as a not-for-profit. **Action for
+  Peter:** request Vultr's DPA via a support ticket in the Vultr Console,
+  and download Resend's signed DPA from the Resend account.
+- **Retention (28 Sep 2026)** — to be enforced by automatic deletion
+  (not yet built):
+
+  | Data | Kept |
+  |---|---|
+  | Child's registration | Until the parent deletes it, or the end of the child's first year in secondary school |
+  | Parent account | While they have a registered child or until they close it; deleted 12 months after their last child's record ends |
+  | Activity sign-ups and volunteers | Deleted 3 months after the activity (weekly activities: when the parent withdraws) |
+  | Workshop RSVPs | Deleted 3 months after the meetings |
+  | Supporters | Until they ask to be removed, or 2 years with no contact |
+  | Unfinished registrations | 9 days (already automatic) |
+  | Admin audit log | 2 years |
 
 ## Decisions needed before the notice is published
 
