@@ -95,11 +95,31 @@ notification emails goes to info@eastcorkreclaimchildhood.ie for oversight.
 
 ## 11. Where the data is
 
-Website and database on a server rented from **Vultr (The Constant Company,
-LLC)**, managed through **RunCloud**. Email sent through the site's mail
-provider (to be named). Code on GitHub (no personal data).
+| Service | Role | Where | Data |
+|---|---|---|---|
+| Vultr (The Constant Company, LLC) | Server hosting | Piscataway, New Jersey, **USA** (from the server's IP, 28 Sep 2026) | Everything in the database |
+| RunCloud | Server management panel | — | Access to the server |
+| Resend, Inc. | Sends the site's emails (`smtp.resend.com`) | Sending domain set up in Resend's **EU (Ireland)** region, but Resend states it stores message content and logs in the **USA** | Recipients' names and addresses, email content |
+| Zoho | Hosts the info@ inbox | — | Oversight copies of site emails; mail sent to info@ |
+| Plausible | Analytics | — | No personal data |
+
+Code is on GitHub (no personal data).
+
+Transfer safeguards found (28 Sep 2026): Resend has a pre-signed GDPR
+Article 28 DPA with Standard Contractual Clauses and is certified under the
+EU-US Data Privacy Framework (resend.com/security/gdpr). Vultr offers a
+GDPR DPA (docs.vultr.com); no Data Privacy Framework certification found.
 
 ---
+
+## Decisions made
+
+- **Controller (28 Sep 2026):** Peter O'Sullivan, Interim Convenor, East
+  Cork Reclaim Childhood. Contact for data requests:
+  info@eastcorkreclaimchildhood.ie.
+- **Sharing (28 Sep 2026):** ECRC never shares personal data with anyone —
+  not schools, SFCI or any other organisation — other than the services in
+  section 11 that run the site.
 
 ## Decisions needed before the notice is published
 
